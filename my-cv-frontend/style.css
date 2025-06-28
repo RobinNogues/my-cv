@@ -1,0 +1,168 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FDFBF7;
+    color: #374151;
+}
+
+.accent-orange {
+    color: #D97706; /* Original Tailwind amber-600 */
+}
+.nav-link {
+    transition: color 0.3s, border-bottom-color 0.3s;
+    border-bottom: 2px solid transparent;
+}
+.nav-link:hover, .nav-link.active {
+    color: #D97706; /* Original Tailwind amber-600 */
+    border-bottom-color: #D97706; /* Original Tailwind amber-600 */
+}
+.btn-primary {
+    background-color: #D97706; /* Original Tailwind amber-600 */
+    color: #FFFFFF;
+    transition: background-color 0.3s;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+.btn-primary:hover {
+    background-color: #B45309; /* Original Tailwind amber-700 */
+}
+
+.card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    padding: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+}
+.skill-tag {
+    background-color: #F3F4F6;
+    color: #4B5563;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.skill-tag:hover { /* Original Tailwind amber-600 */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+}
+/* Styles for mobile menu overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0; /* Below header */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 40; /* Below header */
+    display: none; /* Hidden by default */
+}
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100%;
+    background-color: #FFFFFF;
+    z-index: 50; /* Above overlay */
+    transition: right 0.3s ease-in-out;
+    padding: 2rem;
+    box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.mobile-menu.open {
+    right: 0;
+}
+.mobile-menu .nav-link {
+    width: 100%;
+    padding: 1rem 0;
+    text-align: left;
+    border-bottom: 1px solid #E5E7EB;
+    border-radius: 0;
+    margin-bottom: 0.5rem;
+}
+.mobile-menu .nav-link:last-of-type {
+    border-bottom: none;
+}
+
+.mobile-menu .btn-primary {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border-bottom: none;
+    width: auto;
+    align-self: center;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #D97706; /* Original Tailwind amber-600 */
+    color: #FFFFFF;
+
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(1rem);
+    transition: background-color 0.3s, transform 0.3s, opacity 0.3s, visibility 0.3s;
+    z-index: 99;
+}
+
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Original Tailwind amber-700 */
+}
+
+#back-to-top:hover {
+    background-color: #B45309; /* Original Tailwind amber-700 */
+    transform: translateY(-2px);
+}
+
+/* Form specific styles */
+.form-input, .form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #4B5563;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: #D97706;
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+}
+/* Honeypot field styling to hide it from legitimate users */
+.hp_address {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+}

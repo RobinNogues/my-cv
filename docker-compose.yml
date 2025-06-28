@@ -1,0 +1,49 @@
+services:
+  frontend:
+    build:
+      context: ./my-cv-frontend
+      dockerfile: Dockerfile
+    container_name: cv_frontend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./my-cv-backend
+      dockerfile: Dockerfile
+    container_name: cv_backend
+    restart: unless-stopped
+    env_file:
+      - ./my-cv-backend/.env
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80" # Monte la configuration Nginx
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d/default.conf.template:/etc/nginx/templates/default.conf.template:ro # Monte le template de conf
+      - certbot_www:/var/www/certbot:ro           # Volume partagé pour le challenge ACME
+      - letsencrypt_data:/etc/letsencrypt:ro      # Volume partagé pour les certificats
+    depends_on:
+      - frontend # Nginx dépend du frontend
+      - backend  # Nginx dépend du backend
+    container_name: cv_nginx
+    restart: unless-stopped
+    environment:
+      - NGINX_HOST=${NGINX_HOST}
+      - SSL_CERTIFICATE_PATH=${SSL_CERTIFICATE_PATH}
+      - SSL_CERTIFICATE_KEY_PATH=${SSL_CERTIFICATE_KEY_PATH}
+    command: /bin/sh -c "envsubst '$$NGINX_HOST $$SSL_CERTIFICATE_PATH $$SSL_CERTIFICATE_KEY_PATH' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+
+  certbot:
+    image: certbot/certbot
+    container_name: cv_certbot
+    volumes:
+      - certbot_www:/var/www/certbot:rw
+      - letsencrypt_data:/etc/letsencrypt:rw
+    command: renew --quiet --deploy-hook "docker kill --signal=SIGHUP cv_nginx"
+
+volumes:
+  certbot_www:
+  letsencrypt_data:

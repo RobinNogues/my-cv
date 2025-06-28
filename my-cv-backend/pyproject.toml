@@ -1,0 +1,15 @@
+[project]
+name = "my_cv_backend"
+version = "1.0.0"
+description = "FastAPI backend for my CV website contact form"
+readme = "README.md"
+authors = [
+    { name = "RobinNogues", email = "robin.nogues@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "aiosmtplib>=4.0.1",
+    "fastapi>=0.115.13",
+    "pydantic[email]>=2.11.7",
+    "uvicorn>=0.34.3",
+]
