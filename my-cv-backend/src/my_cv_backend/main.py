@@ -51,5 +51,4 @@ def sanitize_input(text: str) -> str:
     """
     text = re.sub(r'<[^>]*>', '', text)
     text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]', '', text)
-    text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", '&#x27;')
     return text.strip()

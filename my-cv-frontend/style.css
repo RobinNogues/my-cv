@@ -1,67 +1,109 @@
+:root {
+    /* Couleurs */
+    --color-primary: #D97706; /* Tailwind amber-600 */
+    --color-primary-hover: #B45309; /* Tailwind amber-700 */
+    --color-text-body: #374151;
+    --color-text-secondary: #4B5563;
+    --color-background: #FDFBF7;
+    --color-card-background: #FFFFFF;
+    --color-border: #D1D5DB;
+    --color-gray-600: #4B5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1F2937;
+    --color-green-success: #10B981; /* Exemple, si utilisé */
+    --color-red-error: #EF4444; /* Exemple, si utilisé */
+
+    /* Tailles de police */
+    --font-size-base: 0.95rem;
+    --font-size-sm: 0.875rem; /* Unifié pour listes à puces et 'About Me' */
+    --font-size-md: 1rem; /* Pour hero p par défaut */
+    --font-size-lg: 1.125rem; /* Pour hero p sur md */
+    --font-size-h1: 3rem; /* md:text-5xl */
+    --font-size-h2: 1.5rem; /* text-2xl */
+    --font-size-h3: 1.125rem; /* text-lg */
+
+    /* Espacements et rayons de bordure */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+}
+
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #FDFBF7;
-    color: #374151;
+    background-color: var(--color-background);
+    color: var(--color-text-body);
+    font-size: var(--font-size-base); /* Taille de police de base pour le corps du texte */
 }
 
 .accent-orange {
-    color: #D97706; /* Original Tailwind amber-600 */
+    color: var(--color-primary);
 }
+
 .nav-link {
     transition: color 0.3s, border-bottom-color 0.3s;
     border-bottom: 2px solid transparent;
 }
 .nav-link:hover, .nav-link.active {
-    color: #D97706; /* Original Tailwind amber-600 */
-    border-bottom-color: #D97706; /* Original Tailwind amber-600 */
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
 }
+
 .btn-primary {
-    background-color: #D97706; /* Original Tailwind amber-600 */
+    background-color: var(--color-primary);
     color: #FFFFFF;
     transition: background-color 0.3s;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-md);
     font-weight: 500;
 }
 .btn-primary:hover {
-    background-color: #B45309; /* Original Tailwind amber-700 */
+    background-color: var(--color-primary-hover);
 }
 
 .card {
-    background-color: #FFFFFF;
-    border-radius: 12px;
+    background-color: var(--color-card-background);
+    border-radius: var(--border-radius-lg);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    padding: 2rem;
+    padding: var(--spacing-xl);
     transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%; /* Added to make cards take full width of their container */
 }
 
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
 }
+
 .skill-tag {
-    background-color: #F3F4F6;
-    color: #4B5563;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    background-color: #F3F4F6; /* Peut-être une variable pour le gris clair */
+    color: var(--color-text-secondary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
     font-weight: 500;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    font-size: var(--font-size-sm); /* Unifié avec la taille des bullet points */
 }
-.skill-tag:hover { /* Original Tailwind amber-600 */
+.skill-tag:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
 }
+
 /* Styles for mobile menu overlay */
 .mobile-menu-overlay {
     position: fixed;
-    top: 0; /* Below header */
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 40; /* Below header */
-    display: none; /* Hidden by default */
+    z-index: 40;
+    display: none;
 }
 .mobile-menu {
     position: fixed;
@@ -70,10 +112,10 @@ body {
     width: 70%;
     max-width: 300px;
     height: 100%;
-    background-color: #FFFFFF;
-    z-index: 50; /* Above overlay */
+    background-color: var(--color-card-background);
+    z-index: 50;
     transition: right 0.3s ease-in-out;
-    padding: 2rem;
+    padding: var(--spacing-xl);
     box-shadow: -4px 0 10px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
@@ -84,11 +126,11 @@ body {
 }
 .mobile-menu .nav-link {
     width: 100%;
-    padding: 1rem 0;
+    padding: var(--spacing-md) 0;
     text-align: left;
-    border-bottom: 1px solid #E5E7EB;
+    border-bottom: 1px solid #E5E7EB; /* Peut-être une variable pour les bordures grises */
     border-radius: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
 }
 .mobile-menu .nav-link:last-of-type {
     border-bottom: none;
@@ -96,9 +138,9 @@ body {
 
 .mobile-menu .btn-primary {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: var(--spacing-md);
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-md);
     border-bottom: none;
     width: auto;
     align-self: center;
@@ -106,11 +148,10 @@ body {
 
 #back-to-top {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background-color: #D97706; /* Original Tailwind amber-600 */
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+    background-color: var(--color-primary);
     color: #FFFFFF;
-
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
@@ -120,10 +161,9 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
     opacity: 0;
     visibility: hidden;
-    transform: translateY(1rem);
+    transform: translateY(var(--spacing-md));
     transition: background-color 0.3s, transform 0.3s, opacity 0.3s, visibility 0.3s;
     z-index: 99;
 }
@@ -131,30 +171,31 @@ body {
 #back-to-top.visible {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0); /* Original Tailwind amber-700 */
+    transform: translateY(0);
 }
 
 #back-to-top:hover {
-    background-color: #B45309; /* Original Tailwind amber-700 */
+    background-color: var(--color-primary-hover);
     transform: translateY(-2px);
 }
 
 /* Form specific styles */
 .form-input, .form-textarea {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #D1D5DB;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 0.75rem var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base); /* Taille de police pour les champs de formulaire */
     line-height: 1.5;
-    color: #4B5563;
+    color: var(--color-text-secondary);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .form-input:focus, .form-textarea:focus {
     outline: none;
-    border-color: #D97706;
-    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2); /* Garde la valeur fixe pour l'opacité */
 }
+
 /* Honeypot field styling to hide it from legitimate users */
 .hp_address {
     position: absolute;
@@ -165,4 +206,24 @@ body {
     height: 0;
     width: 0;
     pointer-events: none;
+}
+
+/* Ajustements spécifiques pour le paragraphe de la section héro */
+#hero p {
+    font-size: var(--font-size-md); /* Taille de police pour le texte de la section d'introduction */
+}
+@media (min-width: 768px) { /* Applique à partir de l'écran "medium" */
+    #hero p {
+        font-size: var(--font-size-lg); /* Taille de police plus grande pour les écrans plus larges */
+    }
+}
+
+/* Ajustements spécifiques pour les éléments de liste à puces dans les cartes */
+ul.list-disc li {
+    font-size: var(--font-size-sm); /* Taille de police réduite pour les éléments de liste à puces */
+}
+
+/* Ajustement de la taille des paragraphes dans la section "About Me" */
+#about p {
+    font-size: var(--font-size-sm); /* Même taille que les bullet points */
 }
