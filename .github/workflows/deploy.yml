@@ -59,7 +59,6 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: mkdir -p ${{ secrets.VPS_DIR }}
-          debug: true
 
       - name: Copy deployment files to VPS
         uses: appleboy/scp-action@v1
@@ -69,6 +68,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           source: "docker-compose.yml,nginx"
           target: "${{ secrets.VPS_DIR }}"
+          overwrite: true
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
