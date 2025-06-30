@@ -22,7 +22,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
-      - name: Log in to the Container registry
+      - name: Log in to the Container registry (GitHub Actions Runner)
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -79,6 +79,11 @@ jobs:
             # Navigate to the deployment directory
             cd ${{ secrets.VPS_DIR }}
 
+            # --- DÉBOGAGE TEMPORAIRE : NE PAS LAISSER EN PRODUCTION ---
+            # Cette ligne affichera la longueur du secret. Si c'est 0, le secret est vide.
+            # echo "GHCR_TOKEN length: $(echo '${{ secrets.GHCR_TOKEN }}' | wc -c)"
+            # ---------------------------------------------------------
+
             # Create the .env file for Nginx config
             cat <<EOF > .env
             # Nginx variables
@@ -94,8 +99,9 @@ jobs:
             GOOGLE_PASS=${{ secrets.GOOGLE_PASS }}
             EOF
 
-            # Log in to the container registry
-            echo ${{ secrets.GHCR_TOKEN }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+            # Log in to the container registry on the VPS
+            # Using printf to avoid issues with newlines from echo
+            printf "%s" "${{ secrets.GHCR_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
             # Pull the new images and restart the services
             docker compose pull
