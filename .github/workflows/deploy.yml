@@ -3,7 +3,7 @@ name: Build and Deploy to Production VPS
 on:
   push:
     branches:
-      - main
+      - dev
 
 env:
   REGISTRY: ghcr.io
@@ -79,7 +79,7 @@ jobs:
           script: |
             # Navigate to the deployment directory
             cd ${{ secrets.VPS_DIR }}
-            echo ${{ secrets.VPS_DIR }}
+
             # Create the .env file for Nginx config
             cat <<EOF > .env
             # Nginx variables
