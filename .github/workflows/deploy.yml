@@ -3,7 +3,7 @@ name: Build and Deploy to Production VPS
 on:
   push:
     branches:
-      - dev
+      - main
 
 env:
   REGISTRY: ghcr.io
@@ -59,6 +59,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: mkdir -p ${{ secrets.VPS_DIR }}
+          debug: true
 
       - name: Copy deployment files to VPS
         uses: appleboy/scp-action@v1
@@ -78,12 +79,7 @@ jobs:
           script: |
             # Navigate to the deployment directory
             cd ${{ secrets.VPS_DIR }}
-
-            # --- DÉBOGAGE TEMPORAIRE : NE PAS LAISSER EN PRODUCTION ---
-            # Cette ligne affichera la longueur du secret. Si c'est 0, le secret est vide.
-            # echo "GHCR_TOKEN length: $(echo '${{ secrets.GHCR_TOKEN }}' | wc -c)"
-            # ---------------------------------------------------------
-
+            echo ${{ secrets.VPS_DIR }}
             # Create the .env file for Nginx config
             cat <<EOF > .env
             # Nginx variables
