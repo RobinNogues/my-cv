@@ -14,3 +14,4 @@ prod.env
 
 certs/
 docker-compose.override.yml
+*:Zone.Identifier
