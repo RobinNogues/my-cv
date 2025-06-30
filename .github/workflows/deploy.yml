@@ -49,9 +49,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
-
       - name: Create deployment directory on VPS
         uses: appleboy/ssh-action@v1
         with:
@@ -59,7 +56,8 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: mkdir -p ${{ secrets.VPS_DIR }}
-
+      - name: Check out the repo
+        uses: actions/checkout@v4
       - name: Copy deployment files to VPS
         uses: appleboy/scp-action@v1
         with:
