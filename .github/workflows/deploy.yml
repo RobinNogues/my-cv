@@ -51,8 +51,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-      - name: List files in workspace
-        run: ls -R
       - name: Create deployment directory on VPS
         uses: appleboy/ssh-action@v1
         with:
@@ -86,6 +84,8 @@ jobs:
             NGINX_HOST=${{ secrets.NGINX_HOST }}
             SSL_CERTIFICATE_PATH=${{ secrets.SSL_CERTIFICATE_PATH }}
             SSL_CERTIFICATE_KEY_PATH=${{ secrets.SSL_CERTIFICATE_KEY_PATH }}
+            GOOGLE_EMAIL=${{ secrets.GOOGLE_EMAIL }}
+            GOOGLE_PASS=${{ secrets.GOOGLE_PASS }}
             EOF
 
             # Create the .env file for the backend service
