@@ -9,6 +9,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME_FRONTEND: robinnogues/my-cv-frontend
   IMAGE_NAME_BACKEND: robinnogues/my-cv-backend
+  IMAGE_NAME_REVERSE_PROXY: robinnogues/my-cv-reverse-proxy
 
 jobs:
   build-and-push:
@@ -43,6 +44,13 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
 
+      - name: Build and push reverse-proxy image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./reverse-proxy
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_REVERSE_PROXY }}:latest
+
   deploy:
     name: Deploy to VPS
     needs: build-and-push
@@ -51,20 +59,20 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-      - name: Create deployment directory on VPS
+      - name: Create deployment directories on VPS
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          script: mkdir -p ${{ secrets.VPS_DIR }}
+          script: mkdir -p ${{ secrets.VPS_DIR }}/my-cv-backend ${{ secrets.VPS_DIR }}/reverse-proxy
       - name: Copy deployment files to VPS
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml,nginx"
+          source: "docker-compose.yml"
           target: "${{ secrets.VPS_DIR }}"
           overwrite: true
 
@@ -78,25 +86,21 @@ jobs:
             # Navigate to the deployment directory
             cd ${{ secrets.VPS_DIR }}
 
-            # Create the .env file for Nginx config
-            cat <<EOF > .env
+            # Create the .env file for the reverse-proxy service
+            cat <<EOF > reverse-proxy/.env
             # Nginx variables
             NGINX_HOST=${{ secrets.NGINX_HOST }}
             SSL_CERTIFICATE_PATH=${{ secrets.SSL_CERTIFICATE_PATH }}
             SSL_CERTIFICATE_KEY_PATH=${{ secrets.SSL_CERTIFICATE_KEY_PATH }}
-            GOOGLE_EMAIL=${{ secrets.GOOGLE_EMAIL }}
-            GOOGLE_PASS=${{ secrets.GOOGLE_PASS }}
             EOF
 
             # Create the .env file for the backend service
-            mkdir -p my-cv-backend # Create the directory if it doesn't exist
             cat <<EOF > my-cv-backend/.env
             GOOGLE_EMAIL=${{ secrets.GOOGLE_EMAIL }}
             GOOGLE_PASS=${{ secrets.GOOGLE_PASS }}
             EOF
 
             # Log in to the container registry on the VPS
-            # Using printf to avoid issues with newlines from echo
             printf "%s" "${{ secrets.GHCR_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
             # Pull the new images and restart the services
