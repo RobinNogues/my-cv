@@ -2,10 +2,10 @@ from fastapi import FastAPI, HTTPException, status
 
 import re
 
+from .credentials import GOOGLE_EMAIL
 from .email_sender import EMAIL_SENDER, format_content
 from .logger import logger
 from .models import ContactForm
-from .credentials import GOOGLE_EMAIL
 
 
 app = FastAPI(

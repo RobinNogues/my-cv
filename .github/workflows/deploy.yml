@@ -65,7 +65,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          script: mkdir -p ${{ secrets.VPS_DIR }}/my-cv-backend ${{ secrets.VPS_DIR }}/reverse-proxy
+          script: mkdir -p ${{ secrets.VPS_DIR }}/my-cv-backend
       - name: Copy deployment files to VPS
         uses: appleboy/scp-action@v1
         with:
@@ -83,16 +83,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: |
-            # Navigate to the deployment directory
             cd ${{ secrets.VPS_DIR }}
-
-            # Create the .env file for the reverse-proxy service
-            cat <<EOF > reverse-proxy/.env
-            # Nginx variables
-            NGINX_HOST=${{ secrets.NGINX_HOST }}
-            SSL_CERTIFICATE_PATH=${{ secrets.SSL_CERTIFICATE_PATH }}
-            SSL_CERTIFICATE_KEY_PATH=${{ secrets.SSL_CERTIFICATE_KEY_PATH }}
-            EOF
 
             # Create the .env file for the backend service
             cat <<EOF > my-cv-backend/.env

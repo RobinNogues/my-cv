@@ -1,0 +1,36 @@
+services:
+  frontend:
+    image: ""
+    build:
+      context: ./my-cv-frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./my-cv-frontend:/usr/share/nginx/html
+    ports:
+      - "8081:80"
+
+  backend:
+    image: ""
+    build:
+      context: ./my-cv-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+  reverse-proxy:
+    image: ""
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./reverse-proxy/local_certs:/etc/nginx/certs:ro
+    environment:
+      - NGINX_HOST=localhost
+      - SSL_CERTIFICATE_PATH=/etc/nginx/certs/nginx.crt
+      - SSL_CERTIFICATE_KEY_PATH=/etc/nginx/certs/nginx.key
+
+  certbot:
+    entrypoint: "true"

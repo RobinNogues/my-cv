@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "FastAPI backend for my CV website contact form"
 readme = "README.md"
 authors = [
-    { name = "RobinNogues", email = "robin.nogues@gmail.com" }
+    { name = "RobinNogues"}
 ]
 requires-python = ">=3.13"
 dependencies = [

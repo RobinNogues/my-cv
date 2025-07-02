@@ -4,8 +4,8 @@ from typing import Optional
 
 from aiosmtplib import SMTP
 
-from .logger import logger
 from .credentials import GOOGLE_EMAIL, GOOGLE_PASSWORD
+from .logger import logger
 
 
 class EmailSender:

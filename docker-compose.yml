@@ -24,8 +24,10 @@ services:
       - backend
     container_name: cv_reverse_proxy
     restart: unless-stopped
-    env_file:
-      - ./reverse-proxy/.env
+    environment:
+      - NGINX_HOST=robin-nogues.com
+      - SSL_CERTIFICATE_PATH=/etc/letsencrypt/live/robin-nogues.com/fullchain.pem
+      - SSL_CERTIFICATE_KEY_PATH=/etc/letsencrypt/live/robin-nogues.com/privkey.pem
 
   certbot:
     image: certbot/certbot
