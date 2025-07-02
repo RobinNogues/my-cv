@@ -227,3 +227,8 @@ ul.list-disc li {
 #about p {
     font-size: var(--font-size-sm); /* Même taille que les bullet points */
 }
+
+/* Custom positioning for the profile photo to better center the face */
+.profile-photo-position {
+    object-position: center 30%; /* Adjust the vertical percentage to fine-tune centering */
+}

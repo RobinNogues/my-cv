@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Robin Nogues - Software Engineer</title>
+    <title>Robin Nogues - Software Engineer</title>
     
     <!-- SEO --> 
     <meta name="description" content="Robin Nogues is a passionate Software Engineer with strong Python experience, specializing in data pipelines and data analysis for innovative solutions. View his professional experience, projects, skills, and education.">
     
     <meta name="keywords" content="Robin Nogues, Software Engineer, Python, Data Engineer, Data Pipelines, Data Analysis, Computer Vision, ETL, SQL, TensorFlow, OpenCV, CV, Résumé, Portfolio, Java, Scala">
     
-    <meta property="og:title" content="CV Robin Nogues - Software Engineer">
+    <meta property="og:title" content="Robin Nogues - Software Engineer">
     <meta property="og:description" content="Robin Nogues is a passionate Software Engineer with strong Python experience, specializing in data pipelines and data analysis for innovative solutions.">
+    <meta property="og:image" content="https://robin-nogues.com/images/robin-nogues.jpg">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://robin-nogues.com/">
     <meta property="og:locale" content="en_US">
@@ -19,6 +20,29 @@
     <meta name="robots" content="index, follow"> 
     
     <link rel="canonical" href="https://robin-nogues.com/">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Robin Nogues",
+      "url": "https://robin-nogues.com/",
+      "image": "https://robin-nogues.com/images/robin-nogues.jpg",
+      "sameAs": [
+        "https://www.linkedin.com/in/robin-nogues/",
+        "https://github.com/RobinNogues"
+      ],
+      "jobTitle": "Software Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Sancare"
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "UQAC" },
+        { "@type": "CollegeOrUniversity", "name": "ESME Sudria" }
+      ]
+    }
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +54,7 @@
 <body class="antialiased">
 
     <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-10 py-4 flex justify-between items-center">
             <a href="#" class="text-lg font-bold text-gray-800">
                 Robin<span class="accent-orange">.Nogues</span>
             </a>
@@ -67,20 +91,23 @@
 
     <main class="container mx-auto px-6 py-8 md:py-12">
 
-        <section id="hero" class="text-center mb-10">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">Robin Nogues</h1>
-            <p class="text-base md:text-lg text-gray-600 max-w-3xl mx-auto mb-2">
-                Passionate Software Engineer with a strong Python experience, specialized in data pipelines and data analysis for innovative solutions.
-            </p>
-            <div class="flex justify-center space-x-4 mt-4">
-                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" class="text-gray-600 hover:accent-orange hover:underline transition-colors duration-300 flex items-center space-x-1" aria-label="LinkedIn profile">
-                    <i class="fa-brands fa-linkedin"></i>
-                    <span>robin-nogues</span>
-                </a>
-                <a href="https://github.com/RobinNogues" target="_blank" class="text-gray-600 hover:accent-orange hover:underline transition-colors duration-300 flex items-center space-x-1" aria-label="GitHub profile">
-                    <i class="fa-brands fa-github"></i>
-                    <span>RobinNogues</span>
-                </a>
+        <section id="hero" class="flex flex-col md:flex-row items-center justify-center mb-10 md:space-x-12 text-center md:text-left">
+            <img src="images/robin-nogues.jpg" alt="Photo of Robin Nogues" class="profile-photo-position w-32 h-32 md:w-48 md:h-48 rounded-full mb-6 md:mb-0 shadow-lg border-4 border-white object-cover flex-shrink-0">
+            <div class="flex flex-col items-center md:items-start">
+                <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">Robin Nogues</h1>
+                <p class="text-base md:text-lg text-gray-600 max-w-3xl mb-2">
+                    Passionate Software Engineer with a strong Python experience, specialized in data pipelines and data analysis for innovative solutions.
+                </p>
+                <div class="flex justify-center md:justify-start space-x-4 mt-4">
+                    <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] hover:underline transition-colors duration-300 flex items-center space-x-1" aria-label="LinkedIn profile">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <span>robin-nogues</span>
+                    </a>
+                    <a href="https://github.com/RobinNogues" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] hover:underline transition-colors duration-300 flex items-center space-x-1" aria-label="GitHub profile">
+                        <i class="fa-brands fa-github"></i>
+                        <span>RobinNogues</span>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -92,7 +119,7 @@
                 <div class="card">
                     <h3 class="text-lg font-semibold text-gray-800">Data Engineer</h3>
                     <div class="flex items-center">
-                        <img src="icons/sancare.png" alt="Logo Sancare" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/sancare.png" alt="Logo Sancare" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">Sancare, Paris, FR</p>
                     </div>
                     <p class="text-gray-500 text-sm mb-4">June 2023 - Present</p>
@@ -110,7 +137,7 @@
                 <div class="card">
                     <h3 class="text-lg font-semibold text-gray-800">Data Science Intern - Computer Vision</h3>
                     <div class="flex items-center">
-                        <img src="icons/alten.png" alt="Logo Alten" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/alten.png" alt="Logo Alten" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">Alten, Toulouse, FR</p>
                     </div>
                     <p class="text-gray-500 text-sm mb-4">September 2022 - February 2023</p>
@@ -133,7 +160,7 @@
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-lg font-semibold text-gray-800">Gesture Recognition</h3>
-                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" class="text-gray-600 hover:text-amber-600 transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for Gesture Recognition project">
+                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for Gesture Recognition project">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
@@ -147,7 +174,7 @@
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-lg font-semibold text-gray-800">DeFi Platform Simulator</h3>
-                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" class="text-gray-600 hover:text-amber-600 transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for DeFi Platform Simulator project">
+                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for DeFi Platform Simulator project">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
@@ -162,16 +189,16 @@
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-lg font-semibold text-gray-800">robin-nogues.com</h3>
-                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" class="text-gray-600 hover:text-amber-600 transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for My CV Website project">
+                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for My CV Website project">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
                     <ul class="list-disc list-inside text-gray-600 space-y-2 text-justify">
                         <li>Creation of this website using a <strong>micro-service architecture</strong> with <strong>Docker</strong>, hosted on a VPS, and orchestrated with a <strong>Docker Compose</strong>.</li>
-                        <li>Frontend developed with <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong>, styled with <strong>TailwindCSS</strong>.</li>
+                        <li>Frontend developed with <strong>HTML</strong> and <strong>JavaScript</strong>, styled with <strong>CSS</strong> and <strong>TailwindCSS</strong>.</li>
                         <li>Backend built with <strong>Python</strong> and <strong>FastAPI</strong> to handle the contact form with protections.</li>
                         <li>Reverse proxy with <strong>Nginx</strong> (<strong>API Gateway</strong>) for redirections and spam protections.</li>
-                        <li>Use of the Cerbot container for the SSL certificate, with automated renewal using a <stron>cron task</stron>.</li>
+                        <li>Use of the Cerbot container for the SSL certificate, with automated renewal using a <strong>cron task</strong>.</li>
                         <li>Automated build and deployment pipeline on the VPS using <strong>GitHub Actions</strong>.</li>
                     </ul>
                 </div>
@@ -270,7 +297,7 @@
                 <div class="card flex-1">
                     <h3 class="text-lg font-semibold text-gray-800">M.S. in Computer Science</h3>
                     <div class="flex items-center">
-                        <img src="icons/uqac.png" alt="Logo UQAC" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/uqac.png" alt="Logo UQAC" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">UQAC, Chicoutimi, CA</p>
                     </div>
                     <p class="text-gray-500 text-sm">September 2021 - February 2023</p>
@@ -278,7 +305,7 @@
                 <div class="card flex-1">
                     <h3 class="text-lg font-semibold text-gray-800">M.Eng in Computer Science</h3>
                     <div class="flex items-center">
-                        <img src="icons/esme.png" alt="Logo ESME" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/esme.png" alt="Logo ESME" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">ESME, Bordeaux Paris, FR</p>
                     </div>
                     <p class="text-gray-500 text-sm">September 2017 - February 2023</p>
@@ -294,12 +321,12 @@
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-lg font-semibold text-gray-800">Docker Foundations Professional Certificate</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" class="text-gray-600 hover:text-amber-600 transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
+                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
                     <div class="flex items-center">
-                        <img src="icons/docker.png" alt="Logo Docker" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/docker.png" alt="Logo Docker" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">Docker / LinkedIn Learning</p>
                     </div>
                     <p class="text-gray-500 text-sm">March 2025</p>
@@ -307,12 +334,12 @@
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-lg font-semibold text-gray-800">Develop Your Scala Skills for Data Engineering</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" class="text-gray-600 hover:text-amber-600 transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
+                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
                     <div class="flex items-center">
-                        <img src="icons/linkedin.png" alt="Logo LinkedIn" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/linkedin.png" alt="Logo LinkedIn" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">LinkedIn Learning</p>
                     </div>
                     <p class="text-gray-500 text-sm">March 2025</p>
@@ -320,12 +347,12 @@
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-lg font-semibold text-gray-800">Become a specialist in artificial intelligence and machine learning</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" class="text-gray-600 hover:text-amber-600 transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
+                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
                     <div class="flex items-center">
-                        <img src="icons/linkedin.png" alt="Logo LinkedIn" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/linkedin.png" alt="Logo LinkedIn" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">LinkedIn Learning</p>
                     </div>
                     <p class="text-gray-500 text-sm">May 2022</p>
@@ -335,7 +362,7 @@
                         <h3 class="text-lg font-semibold text-gray-800">TOEIC Exam</h3>
                     </div>
                     <div class="flex items-center">
-                        <img src="icons/ets.png" alt="Logo ETS" class="w-6 h-6 mr-2 object-contain">
+                        <img src="images/icons/ets.png" alt="Logo ETS" class="w-6 h-6 mr-2 object-contain">
                         <p class="accent-orange font-medium">Score: 890</p>
                     </div>
                     <p class="text-gray-500 text-sm">May 2021</p>
@@ -409,10 +436,10 @@
     <footer class="bg-gray-800 text-white mt-8">
         <div class="container mx-auto px-6 py-8 text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" class="text-white hover:text-amber-600 transition-colors duration-300 text-2xl" aria-label="LinkedIn profile">
+                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" class="text-white hover:text-[var(--color-primary)] transition-colors duration-300 text-2xl" aria-label="LinkedIn profile">
                     <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="https://github.com/RobinNogues" target="_blank" class="text-white hover:text-amber-600 transition-colors duration-300 text-2xl" aria-label="GitHub profile">
+                <a href="https://github.com/RobinNogues" target="_blank" class="text-white hover:text-[var(--color-primary)] transition-colors duration-300 text-2xl" aria-label="GitHub profile">
                     <i class="fa-brands fa-github"></i>
                 </a>
             </div>
