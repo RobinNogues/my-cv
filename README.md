@@ -56,6 +56,7 @@ cp .env.template .env
 ```
 
 Now, edit the `.env` file with your email provider's details. For Gmail, you would need to create a Google App Password.
+If you don't use the Google SMTP server, you will need to change default server and port in the `EmailSender` instanciation.
 
 ### 3. Create Local SSL Certificate (for HTTPS)
 
@@ -85,7 +86,9 @@ From the **root directory** of the project (`my-cv/`), run the following command
 docker-compose up --build -d
 ```
 
-### 4. Access the Website
+The docker-compose.override.yml needs to be used for the local installation.
+
+### 5. Access the Website
 
 The website should now be running and accessible at https://localhost. Nginx will serve the frontend and proxy API requests to the backend.
 
@@ -97,6 +100,56 @@ The FastAPI backend provides automatic interactive API documentation. Once the s
 
 -   **Swagger UI:** http://localhost:8000/api/docs
 -   **ReDoc:** http://localhost:8000/api/redoc
+
+## 📦 Production Deployment
+
+These steps are for setting up the application on a production server with a live domain and enabling HTTPS with Let's Encrypt.
+
+**Prerequisites:**
+- Your domain's DNS A/AAAA record (`my-website.com`) must point to your VPS IP address.
+- The project files are on your VPS.
+- You have created the backend `.env` file as described in the "Getting Started" section.
+
+### 1. Initial Certificate Generation
+
+This is a one-time command to obtain your SSL certificates.
+
+1.  Start all services:
+    ```bash
+    docker compose up -d
+    ```
+    Your Nginx service should now be running and serving a basic HTTP site on port 80, which is required for the Certbot challenge.
+
+2.  Run Certbot to generate the certificate. Replace `your-email@example.com` with your actual email.
+    ```bash
+    docker compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot \
+        -d robin-nogues.com \
+        --email your-email@example.com \
+        --agree-tos \
+        --no-eff-email
+    ```
+
+3.  Once the certificate is successfully created, restart the reverse proxy to load the new SSL configuration:
+    ```bash
+    docker compose restart reverse-proxy
+    ```
+    Your site should now be accessible via `https://my-website.com`.
+
+### 2. Automating Certificate Renewal
+
+Let's Encrypt certificates expire every 90 days. The renewal process should be automated. The CI/CD pipeline in this project (`.github/workflows/deploy.yml`) already adds the necessary cron job to your server automatically during deployment.
+
+For manual setup or reference, the command to add to your crontab is below. This job runs daily, attempts renewal, and reloads Nginx if a new certificate was obtained.
+
+1.  Open the crontab editor: `crontab -e`
+2.  Add the following line, replacing `/path/to/your/project` with the absolute path to your project's root directory on the VPS. It will try to renew the certificat every day at 4:17 AM.
+    ```
+    17 4 * * * cd /path/to/your/project && /usr/bin/docker compose run --rm certbot renew --quiet && /usr/bin/docker kill --signal=SIGHUP cv_reverse_proxy >> /path/to/your/project/cron-certbot.log 2>&1
+    ```
+
+## 🤝 Contributions and Security
+
+I am always open to hearing suggestions for improvements or if you identify any potential security vulnerabilities. Please feel free to open an issue, submit a pull request on the GitHub repository or contact me directly. Your feedback is highly valued!
 
 ## 📜 License
 

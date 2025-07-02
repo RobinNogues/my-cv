@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, status
 
 import re
 
-from .credentials import GOOGLE_EMAIL
+from .credentials import EMAIL
 from .email_sender import EMAIL_SENDER, format_content
 from .logger import logger
 from .models import ContactForm
@@ -31,7 +31,7 @@ async def submit_contact_form(form_data: ContactForm):
     content = format_content(message, name, email)
 
     try:
-        await EMAIL_SENDER.send(GOOGLE_EMAIL, subject, content, email)
+        await EMAIL_SENDER.send(EMAIL, subject, content, email)
 
     except Exception as e:
         logger.error(f"Error sending email: {e}")

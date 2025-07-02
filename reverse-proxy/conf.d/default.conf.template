@@ -1,5 +1,3 @@
-# /nginx/conf.d/default.conf.template
-
 # 1m can store about 16,000 IP addresses
 limit_req_zone $binary_remote_addr zone=api_limit:1m rate=10r/m; # Limits to 10 requests per minute per IP
 

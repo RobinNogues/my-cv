@@ -35,8 +35,6 @@ services:
     volumes:
       - certbot_www:/var/www/certbot:rw
       - letsencrypt_data:/etc/letsencrypt:rw
-  # in crontab:
-  # 17 4 * * * cd /home/rnogues/my-cv && /usr/bin/docker compose run --rm certbot renew --quiet && /usr/bin/docker kill --signal=SIGHUP cv_reverse_proxy >> /home/rnogues/my-cv/cron-certbot.log 2>&1
 
 volumes:
   certbot_www:

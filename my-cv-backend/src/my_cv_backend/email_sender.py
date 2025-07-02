@@ -4,7 +4,7 @@ from typing import Optional
 
 from aiosmtplib import SMTP
 
-from .credentials import GOOGLE_EMAIL, GOOGLE_PASSWORD
+from .credentials import EMAIL, EMAIL_PASSWORD
 from .logger import logger
 
 
@@ -63,10 +63,7 @@ class EmailSender:
             port=self.smtp_port,
             use_tls=True,
         ) as client:
-            # Authentification
             await client.login(self.email_address, self.app_password)
-
-            # Envoi de l'e-mail
             await client.send_message(msg)
 
         logger.info("Email sent successfully.")
@@ -102,6 +99,6 @@ def format_content(text: str, form_visitor_name: str, form_visitor_email: str) -
 
 
 EMAIL_SENDER = EmailSender(
-    email_address=GOOGLE_EMAIL,
-    app_password=GOOGLE_PASSWORD,
+    email_address=EMAIL,
+    app_password=EMAIL_PASSWORD,
 )
