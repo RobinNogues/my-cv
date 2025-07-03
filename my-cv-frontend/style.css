@@ -10,19 +10,15 @@
     --color-gray-600: #4B5563;
     --color-gray-700: #374151;
     --color-gray-800: #1F2937;
-    --color-green-success: #10B981; /* Exemple, si utilisé */
-    --color-red-error: #EF4444; /* Exemple, si utilisé */
 
-    /* Tailles de police */
     --font-size-base: 0.95rem;
-    --font-size-sm: 0.875rem; /* Unifié pour listes à puces et 'About Me' */
-    --font-size-md: 1rem; /* Pour hero p par défaut */
-    --font-size-lg: 1.125rem; /* Pour hero p sur md */
-    --font-size-h1: 3rem; /* md:text-5xl */
-    --font-size-h2: 1.5rem; /* text-2xl */
-    --font-size-h3: 1.125rem; /* text-lg */
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-h1: 3rem;
+    --font-size-h2: 1.5rem;
+    --font-size-h3: 1.125rem;
 
-    /* Espacements et rayons de bordure */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -37,7 +33,7 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--color-background);
     color: var(--color-text-body);
-    font-size: var(--font-size-base); /* Taille de police de base pour le corps du texte */
+    font-size: var(--font-size-base);
 }
 
 .accent-orange {
@@ -128,7 +124,7 @@ body {
     width: 100%;
     padding: var(--spacing-md) 0;
     text-align: left;
-    border-bottom: 1px solid #E5E7EB; /* Peut-être une variable pour les bordures grises */
+    border-bottom: 1px solid #E5E7EB;
     border-radius: 0;
     margin-bottom: var(--spacing-sm);
 }
@@ -185,7 +181,7 @@ body {
     padding: 0.75rem var(--spacing-md);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-md);
-    font-size: var(--font-size-base); /* Taille de police pour les champs de formulaire */
+    font-size: var(--font-size-base);
     line-height: 1.5;
     color: var(--color-text-secondary);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -193,10 +189,10 @@ body {
 .form-input:focus, .form-textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2); /* Garde la valeur fixe pour l'opacité */
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
 }
 
-/* Honeypot field styling to hide it from legitimate users */
+/* Honeypot */
 .hp_address {
     position: absolute;
     left: -9999px;
@@ -208,27 +204,33 @@ body {
     pointer-events: none;
 }
 
-/* Ajustements spécifiques pour le paragraphe de la section héro */
 #hero p {
-    font-size: var(--font-size-md); /* Taille de police pour le texte de la section d'introduction */
+    font-size: var(--font-size-md);
 }
-@media (min-width: 768px) { /* Applique à partir de l'écran "medium" */
+@media (min-width: 768px) {
     #hero p {
-        font-size: var(--font-size-lg); /* Taille de police plus grande pour les écrans plus larges */
+        font-size: var(--font-size-lg);
     }
 }
 
-/* Ajustements spécifiques pour les éléments de liste à puces dans les cartes */
 ul.list-disc li {
-    font-size: var(--font-size-sm); /* Taille de police réduite pour les éléments de liste à puces */
+    font-size: var(--font-size-sm);
 }
 
-/* Ajustement de la taille des paragraphes dans la section "About Me" */
+ul.list-disc {
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    ul.list-disc {
+        text-align: justify; /* Justified for medium and larger screens */
+    }
+}
+
 #about p {
-    font-size: var(--font-size-sm); /* Même taille que les bullet points */
+    font-size: var(--font-size-sm);
 }
 
-/* Custom positioning for the profile photo to better center the face */
 .profile-photo-position {
-    object-position: center 30%; /* Adjust the vertical percentage to fine-tune centering */
+    object-position: center 25%;
 }

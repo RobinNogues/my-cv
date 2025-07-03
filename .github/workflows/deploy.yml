@@ -97,12 +97,3 @@ jobs:
             # Pull the new images and restart the services
             docker compose pull
             docker compose up -d --remove-orphans
-
-            # Set up cron job for certbot renewal if it doesn't exist
-            CRON_COMMAND="17 4 * * * cd ${{ secrets.VPS_DIR }} && /usr/bin/docker compose run --rm certbot renew --quiet && /usr/bin/docker kill --signal=SIGHUP cv_reverse_proxy >> ${{ secrets.VPS_DIR }}/cron-certbot.log 2>&1"
-            if ! crontab -l | grep -Fq "$CRON_COMMAND"; then
-              (crontab -l 2>/dev/null; echo "$CRON_COMMAND") | crontab -
-              echo "Cron job for certbot renewal created."
-            else
-              echo "Cron job for certbot renewal already exists."
-            fi
