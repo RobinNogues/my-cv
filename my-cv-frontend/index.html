@@ -55,7 +55,7 @@
 
     <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-10 py-4 flex justify-between items-center">
-            <a href="#" class="text-lg font-bold text-gray-800">
+            <a href="#" class="nav-name font-bold text-gray-800">
                 Robin<span class="accent-orange">.Nogues</span>
             </a>
             <div class="hidden md:flex space-x-8">
@@ -94,8 +94,8 @@
         <section id="hero" class="flex flex-col md:flex-row items-center justify-center mb-10 md:space-x-12 text-center md:text-left">
             <img src="images/robin-nogues.jpg" alt="Photo of Robin Nogues" class="profile-photo-position w-32 h-32 md:w-48 md:h-48 rounded-full mb-6 md:mb-0 shadow-lg border-4 border-white object-cover flex-shrink-0">
             <div class="flex flex-col items-center md:items-start">
-                <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">Robin Nogues</h1>
-                <p class="text-base md:text-lg text-gray-600 max-w-3xl mb-2">
+                <h1 class="font-bold text-gray-800 mb-4 leading-tight">Robin Nogues</h1>
+                <p class="md:text-gray-600 max-w-3xl mb-2">
                     Passionate Software Engineer with a strong Python experience, specialized in data pipelines and data analysis for innovative solutions.
                 </p>
                 <div class="flex justify-center md:justify-start space-x-4 mt-4">
@@ -117,12 +117,12 @@
             </div>
             <div class="space-y-6">
                 <div class="card">
-                    <h3 class="text-lg font-semibold text-gray-800">Data Engineer</h3>
+                    <h3 class="card-title font-semibold text-gray-800">Data Engineer</h3>
                     <div class="flex items-center">
                         <img src="images/icons/sancare.png" alt="Logo Sancare" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">Sancare, Paris, FR</p>
+                        <p class="card-location accent-orange font-medium">Sancare, Paris, FR</p>
                     </div>
-                    <p class="text-gray-500 text-sm mb-4">June 2023 - Present</p>
+                    <p class="card-date text-gray-500 mb-4">June 2023 - Present</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2 text-justify">
                         <li>Design and implement robust <strong>ETL pipelines</strong> for healthcare data with <strong>Python</strong> and <strong>SQL</strong>, ensuring data integrity and system scalability.</li>
                         <li>Data recovery from complex <strong>hospital databases</strong>.</li>
@@ -135,12 +135,12 @@
                     </ul>
                 </div>
                 <div class="card">
-                    <h3 class="text-lg font-semibold text-gray-800">Data Science Intern - Computer Vision</h3>
+                    <h3 class="card-title font-semibold text-gray-800">Data Science Intern - Computer Vision</h3>
                     <div class="flex items-center">
                         <img src="images/icons/alten.png" alt="Logo Alten" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">Alten, Toulouse, FR</p>
+                        <p class="card-location accent-orange font-medium">Alten, Toulouse, FR</p>
                     </div>
-                    <p class="text-gray-500 text-sm mb-4">September 2022 - February 2023</p>
+                    <p class="card-date text-gray-500 mb-4">September 2022 - February 2023</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2 text-justify">
                         <li>Applied <strong>computer vision</strong> to team pursuit races (cycling).</li>
                         <li>Track line detection using <strong>image processing</strong> tools (<strong>OpenCV</strong>).</li>
@@ -159,7 +159,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">Gesture Recognition</h3>
+                        <h3 class="card-title font-semibold text-gray-800">Gesture Recognition</h3>
                         <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for Gesture Recognition project">
                             <i class="fa-brands fa-github"></i>
                         </a>
@@ -173,7 +173,7 @@
                 </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">DeFi Platform Simulator</h3>
+                        <h3 class="card-title font-semibold text-gray-800">DeFi Platform Simulator</h3>
                         <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for DeFi Platform Simulator project">
                             <i class="fa-brands fa-github"></i>
                         </a>
@@ -188,7 +188,7 @@
                 </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">robin-nogues.com</h3>
+                        <h3 class="card-title font-semibold text-gray-800">robin-nogues.com</h3>
                         <a href="https://github.com/RobinNogues/my-cv" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for My CV Website project">
                             <i class="fa-brands fa-github"></i>
                         </a>
@@ -204,8 +204,8 @@
                 </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">Weather Impact in Football</h3>
-                        <span class="text-gray-400 text-sm"> (No public repository)</span>
+                        <h3 class="card-title font-semibold text-gray-800">Weather Impact in Football</h3>
+                        <span class="text-gray-400"> (No public repository)</span>
                     </div>
                     <ul class="list-disc list-inside text-gray-600 space-y-2 text-justify">
                         <li>Retrieve historical data for a team's matches (result, location, date) on flashscore.fr using <strong>Beautifulsoup</strong>.</li>
@@ -222,7 +222,7 @@
             </div>
             <div class="flex flex-col gap-6">
                 <div class="card">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-800">Languages</h3>
+                    <h3 class="font-semibold mb-4 text-gray-800">Languages</h3>
                     <div class="flex flex-wrap gap-4">
                         <span class="skill-tag">French (Native)</span>
                         <span class="skill-tag">English (Proficient)</span>
@@ -231,7 +231,7 @@
                 </div>
 
                 <div class="card">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-800">Technical Skills</h3>
+                    <h3 class="font-semibold mb-4 text-gray-800">Technical Skills</h3>
                     <div class="mb-6">
                         <h5 class="font-medium text-gray-700 mb-2">Programming & Tools</h5>
                         <div class="flex flex-wrap gap-4">
@@ -295,20 +295,20 @@
             </div>
             <div class="flex flex-col md:flex-row md:space-x-8 md:space-y-0 space-y-6 justify-center items-stretch">
                 <div class="card flex-1">
-                    <h3 class="text-lg font-semibold text-gray-800">M.S. in Computer Science</h3>
+                    <h3 class="card-title font-semibold text-gray-800">M.S. in Computer Science</h3>
                     <div class="flex items-center">
                         <img src="images/icons/uqac.png" alt="Logo UQAC" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">UQAC, Chicoutimi, CA</p>
+                        <p class="card-location accent-orange font-medium">UQAC, Chicoutimi, CA</p>
                     </div>
-                    <p class="text-gray-500 text-sm">September 2021 - February 2023</p>
+                    <p class="card-date text-gray-500">September 2021 - February 2023</p>
                 </div>
                 <div class="card flex-1">
-                    <h3 class="text-lg font-semibold text-gray-800">M.Eng in Computer Science</h3>
+                    <h3 class="card-title font-semibold text-gray-800">M.Eng in Computer Science</h3>
                     <div class="flex items-center">
                         <img src="images/icons/esme.png" alt="Logo ESME" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">ESME, Bordeaux Paris, FR</p>
+                        <p class="card-location accent-orange font-medium">ESME, Bordeaux Paris, FR</p>
                     </div>
-                    <p class="text-gray-500 text-sm">September 2017 - February 2023</p>
+                    <p class="card-date text-gray-500">September 2017 - February 2023</p>
                 </div>
             </div>
         </section>
@@ -320,52 +320,52 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:justify-items-start">
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">Docker Foundations Professional Certificate</h3>
+                        <h3 class="card-title font-semibold text-gray-800">Docker Foundations Professional Certificate</h3>
                         <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
                     <div class="flex items-center">
                         <img src="images/icons/docker.png" alt="Logo Docker" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">Docker / LinkedIn Learning</p>
+                        <p class="card-location accent-orange font-medium">Docker / LinkedIn Learning</p>
                     </div>
-                    <p class="text-gray-500 text-sm">March 2025</p>
+                    <p class="card-date text-gray-500">March 2025</p>
                 </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">Develop Your Scala Skills for Data Engineering</h3>
+                        <h3 class="card-title font-semibold text-gray-800">Develop Your Scala Skills for Data Engineering</h3>
                         <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
                     <div class="flex items-center">
                         <img src="images/icons/linkedin.png" alt="Logo LinkedIn" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">LinkedIn Learning</p>
+                        <p class="card-location accent-orange font-medium">LinkedIn Learning</p>
                     </div>
-                    <p class="text-gray-500 text-sm">March 2025</p>
+                    <p class="card-date text-gray-500">March 2025</p>
                 </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">Become a specialist in artificial intelligence and machine learning</h3>
+                        <h3 class="card-title font-semibold text-gray-800">Become a specialist in artificial intelligence and machine learning</h3>
                         <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Certificate">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
                     <div class="flex items-center">
                         <img src="images/icons/linkedin.png" alt="Logo LinkedIn" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">LinkedIn Learning</p>
+                        <p class="card-location accent-orange font-medium">LinkedIn Learning</p>
                     </div>
-                    <p class="text-gray-500 text-sm">May 2022</p>
+                    <p class="card-date text-gray-500">May 2022</p>
                 </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">TOEIC Exam</h3>
+                        <h3 class="card-title font-semibold text-gray-800">TOEIC Exam (890)</h3>
                     </div>
                     <div class="flex items-center">
                         <img src="images/icons/ets.png" alt="Logo ETS" class="w-6 h-6 mr-2 object-contain">
-                        <p class="accent-orange font-medium">Score: 890</p>
+                        <p class="card-location accent-orange font-medium">ETS Global</p>
                     </div>
-                    <p class="text-gray-500 text-sm">May 2021</p>
+                    <p class="card-date text-gray-500">May 2021</p>
                 </div>
             </div>
         </section>
@@ -402,23 +402,23 @@
             <div class="card max-w-2xl mx-auto">
                 <form id="contact-form" class="space-y-6">
                     <div>
-                        <label for="name" class="block text-gray-700 text-sm font-medium mb-2">Your Name <span class="accent-orange">*</span></label>
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Your Name <span class="accent-orange">*</span></label>
                         <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
                     </div>
                     <div>
-                        <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Your Email <span class="accent-orange">*</span></label>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Your Email <span class="accent-orange">*</span></label>
                         <input type="email" id="email" name="email" class="form-input" placeholder="john.doe@example.com" required>
                     </div>
                     <div class="hp_address">
-                        <label for="address" class="block text-gray-700 text-sm font-medium mb-2">Your Address</label>
+                        <label for="address" class="block text-gray-700 font-medium mb-2">Your Address</label>
                         <input type="text" id="address" name="address" class="form-input" autocomplete="off" tabindex="-1">
                     </div>
                     <div>
-                        <label for="subject" class="block text-700 text-sm font-medium mb-2">Subject</label>
+                        <label for="subject" class="block text-700 font-medium mb-2">Subject</label>
                         <input type="text" id="subject" name="subject" class="form-input" placeholder="Inquiry about...">
                     </div>
                     <div>
-                        <label for="message" class="block text-gray-700 text-sm font-medium mb-2">Your Message <span class="accent-orange">*</span></label>
+                        <label for="message" class="block text-gray-700 font-medium mb-2">Your Message <span class="accent-orange">*</span></label>
                         <textarea id="message" name="message" rows="6" class="form-textarea" placeholder="I'm interested in..." required></textarea>
                     </div>
                     <div class="text-center">
@@ -426,7 +426,7 @@
                             Send Message
                         </button>
                     </div>
-                    <div id="form-status-message" class="mt-4 text-center text-sm font-medium hidden"></div>
+                    <div id="form-status-message" class="mt-4 text-center font-medium hidden"></div>
                 </form>
             </div>
         </section>

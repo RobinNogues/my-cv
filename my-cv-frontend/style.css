@@ -1,7 +1,7 @@
 :root {
     /* Couleurs */
-    --color-primary: #D97706; /* Tailwind amber-600 */
-    --color-primary-hover: #B45309; /* Tailwind amber-700 */
+    --color-primary: #D97706;
+    --color-primary-hover: #B45309;
     --color-text-body: #374151;
     --color-text-secondary: #4B5563;
     --color-background: #FDFBF7;
@@ -16,8 +16,12 @@
     --font-size-md: 1rem;
     --font-size-lg: 1.125rem;
     --font-size-h1: 3rem;
-    --font-size-h2: 1.5rem;
-    --font-size-h3: 1.125rem;
+
+    --font-size-mobile-base: 0.90rem;
+    --font-size-mobile-sm: 0.825rem;
+    --font-size-mobile-md: 0.9rem;
+    --font-size-mobile-lg: 1rem;
+    --font-size-mobile-h1: 1.9rem;
 
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
@@ -33,7 +37,7 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--color-background);
     color: var(--color-text-body);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-mobile-base);
 }
 
 .accent-orange {
@@ -65,9 +69,9 @@ body {
     background-color: var(--color-card-background);
     border-radius: var(--border-radius-lg);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
     transition: transform 0.3s, box-shadow 0.3s;
-    width: 100%; /* Added to make cards take full width of their container */
+    width: 100%;
 }
 
 .card:hover {
@@ -76,14 +80,14 @@ body {
 }
 
 .skill-tag {
-    background-color: #F3F4F6; /* Peut-être une variable pour le gris clair */
+    background-color: #F3F4F6;
     color: var(--color-text-secondary);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-sm);
     font-weight: 500;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
-    font-size: var(--font-size-sm); /* Unifié avec la taille des bullet points */
+    font-size: var(--font-size-mobile-sm);
 }
 .skill-tag:hover {
     transform: translateY(-3px);
@@ -181,7 +185,6 @@ body {
     padding: 0.75rem var(--spacing-md);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-md);
-    font-size: var(--font-size-base);
     line-height: 1.5;
     color: var(--color-text-secondary);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -204,33 +207,79 @@ body {
     pointer-events: none;
 }
 
-#hero p {
-    font-size: var(--font-size-md);
-}
-@media (min-width: 768px) {
-    #hero p {
-        font-size: var(--font-size-lg);
-    }
-}
-
-ul.list-disc li {
-    font-size: var(--font-size-sm);
+.profile-photo-position {
+    object-position: center 25%;
 }
 
 ul.list-disc {
     text-align: left;
 }
 
-@media (min-width: 768px) {
-    ul.list-disc {
-        text-align: justify; /* Justified for medium and larger screens */
-    }
+ul.list-disc li {
+    font-size: var(--font-size-mobile-sm);
+}
+
+#hero p{
+    font-size: var(--font-size-mobile-lg);
+}
+
+#hero a{
+    font-size: var(--font-size-mobile-md);
+}
+
+#hero h1 {
+    font-size: var(--font-size-mobile-h1);
 }
 
 #about p {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-mobile-sm);
 }
 
-.profile-photo-position {
-    object-position: center 25%;
+.card-title {
+    font-size: var(--font-size-mobile-lg);
+}
+
+.card-date {
+    font-size: var(--font-size-mobile-sm);
+}
+
+.nav-name {
+    font-size: var(--font-size-lg);
+}
+
+
+@media (min-width: 768px) {
+    body {
+        font-size: var(--font-size-base);
+    }
+    ul.list-disc {
+        text-align: justify;
+    }
+    ul.list-disc li {
+        font-size: var(--font-size-sm);
+    }
+    #hero p {
+        font-size: var(--font-size-lg);
+    }
+    #hero h1 {
+        font-size: var(--font-size-h1);
+    }
+    #hero a{
+        font-size: var(--font-size-md);
+    }
+    #about p {
+        font-size: var(--font-size-sm);
+    }
+    .card h3 {
+        font-size: var(--font-size-lg);
+    }
+    .card-date {
+        font-size: var(--font-size-sm);
+    }
+    .card {
+        padding: var(--spacing-xl);
+    }
+    .skill-tag {
+        font-size: var(--font-size-sm);
+    }
 }

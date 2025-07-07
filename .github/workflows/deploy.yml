@@ -3,7 +3,7 @@ name: Build and Deploy to Production VPS
 on:
   push:
     branches:
-      - dev
+      - prod
 
 env:
   REGISTRY: ghcr.io
