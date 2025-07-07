@@ -85,13 +85,11 @@ jobs:
           script: |
             cd ${{ secrets.VPS_DIR }}
 
-            # Create the .env file for the backend service
             cat <<EOF > my-cv-backend/.env
             EMAIL=${{ secrets.EMAIL }}
             EMAIL_PASS=${{ secrets.EMAIL_PASS }}
             EOF
 
-            # Log in to the container registry on the VPS
             printf "%s" "${{ secrets.GHCR_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
             # Pull the new images and restart the services
