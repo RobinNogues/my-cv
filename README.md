@@ -123,7 +123,7 @@ This is a one-time command to obtain your SSL certificates.
 2.  Run Certbot to generate the certificate. Replace `your-email@example.com` with your actual email.
     ```bash
     docker compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot \
-        -d robin-nogues.com \
+        -d my-website.com \
         --email your-email@example.com \
         --agree-tos \
         --no-eff-email
