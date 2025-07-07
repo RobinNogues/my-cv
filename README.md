@@ -62,13 +62,7 @@ If you don't use the Google SMTP server, you will need to change default server 
 
 To run the project with HTTPS locally, you need a self-signed SSL certificate.
 
-1.  Go to the directory for the certificates:
-
-    ```bash
-    cd reverse-proxy/local_certs
-    ```
-
-2.  Generate the certificate and private key using OpenSSL:
+Generate the certificate and private key using OpenSSL:
 
     ```bash
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
