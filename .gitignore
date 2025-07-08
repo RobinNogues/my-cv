@@ -1,0 +1,16 @@
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.vscode/
+
+.venv
+
+.env
+local.env
+prod.env
+
+reverse-proxy/local_certs/*
+!reverse-proxy/local_certs/.gitkeep
