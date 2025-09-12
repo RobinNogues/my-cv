@@ -1,211 +1,245 @@
-// Function to initialize smooth scrolling for navigation links
-function initializeSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') {
-                // Scroll to top if href is just '#'
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            } else {
-                // Scroll to the target element
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
-            // Close mobile menu if it's open after a link is clicked
-            closeMobileMenu();
-        });
-    });
-}
+class MobileMenu {
+    constructor() {
+        this.menuButton = document.getElementById('mobile-menu-button');
+        this.closeButton = document.getElementById('mobile-menu-close-button');
+        this.drawer = document.getElementById('mobile-menu-drawer');
+        this.overlay = document.getElementById('mobile-menu-overlay');
 
-// Mobile Menu Elements
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
-const mobileMenuDrawer = document.getElementById('mobile-menu-drawer');
-const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-
-// Function to open the mobile menu
-function openMobileMenu() {
-    mobileMenuDrawer.classList.add('open');
-    mobileMenuOverlay.style.display = 'block';
-}
-
-// Function to close the mobile menu
-function closeMobileMenu() {
-    mobileMenuDrawer.classList.remove('open');
-    mobileMenuOverlay.style.display = 'none';
-}
-
-// Function to initialize mobile menu functionality
-function initializeMobileMenu() {
-    mobileMenuButton.addEventListener('click', openMobileMenu);
-    mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
-    mobileMenuOverlay.addEventListener('click', closeMobileMenu); // Close on overlay click
-}
-
-// Back to Top Button Element
-const backToTopButton = document.getElementById('back-to-top');
-
-// Function to initialize back-to-top button functionality
-function initializeBackToTopButton() {
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopButton.classList.add('visible');
-        } else {
-            backToTopButton.classList.remove('visible');
+        if (this.menuButton && this.closeButton && this.drawer && this.overlay) {
+            this.addEventListeners();
         }
-    });
+    }
 
-    // Scroll to top when the button is clicked
-    backToTopButton.addEventListener('click', () => {
+    addEventListeners() {
+        this.menuButton.addEventListener('click', () => this.open());
+        this.closeButton.addEventListener('click', () => this.close());
+        this.overlay.addEventListener('click', () => this.close());
+    }
+
+    open() {
+        this.drawer.classList.add('open');
+        this.overlay.style.display = 'block';
+    }
+
+    close() {
+        this.drawer.classList.remove('open');
+        this.overlay.style.display = 'none';
+    }
+
+    isOpen() {
+        return this.drawer.classList.contains('open');
+    }
+}
+
+class BackToTopButton {
+    constructor(buttonId, visibilityThreshold = 300) {
+        this.button = document.getElementById(buttonId);
+        this.visibilityThreshold = visibilityThreshold;
+
+        if (this.button) {
+            this.addEventListeners();
+        }
+    }
+
+    addEventListeners() {
+        window.addEventListener('scroll', () => this.toggleVisibility());
+        this.button.addEventListener('click', () => this.scrollToTop());
+    }
+
+    toggleVisibility() {
+        if (window.scrollY > this.visibilityThreshold) {
+            this.button.classList.add('visible');
+        } else {
+            this.button.classList.remove('visible');
+        }
+    }
+
+    scrollToTop() {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-    });
+    }
 }
 
-// Navigation links and sections for active highlighting
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-link');
+class NavLinkHighlighter {
+    constructor(navLinkSelector, sectionSelector) {
+        this.navLinks = document.querySelectorAll(navLinkSelector);
+        this.sections = document.querySelectorAll(sectionSelector);
+        this.header = document.querySelector('header');
 
-/**
- * Updates the active navigation link based on which section is currently in the viewport.
- * Adjusts sectionTop to account for the fixed header height for accurate highlighting.
- */
-function updateActiveNavLink() {
-    let currentActive = null;
-    const headerOffset = document.querySelector('header').offsetHeight;
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - headerOffset - 20; // Adjusted for header and some padding
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
-            currentActive = section.id;
+        if (this.navLinks.length > 0 && this.sections.length > 0 && this.header) {
+            this.addEventListeners();
+            this.update(); // Initial update on load
         }
-    });
-
-    // Remove 'active' class from all links and then add it to the current active link
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === currentActive) {
-            link.classList.add('active');
-        }
-    });
-}
-
-// Function to initialize active navigation link highlighting
-function initializeNavLinkHighlighting() {
-    window.addEventListener('scroll', updateActiveNavLink);
-    window.addEventListener('load', updateActiveNavLink);
-}
-
-// Contact Form Elements
-const contactForm = document.getElementById('contact-form');
-const formStatusMessage = document.getElementById('form-status-message');
-
-// Simple client-side rate limiting for form submission
-let lastSubmissionTime = 0;
-const COOLDOWN_PERIOD_MS = 5000; // 5 seconds cooldown
-
-// Function to handle contact form submission
-async function handleContactFormSubmission(e) {
-    e.preventDefault();
-
-    const currentTime = Date.now();
-    // Check for rate limiting
-    if (currentTime - lastSubmissionTime < COOLDOWN_PERIOD_MS) {
-        displayFormStatus('Please wait a moment before sending another message.', 'text-red-600');
-        return;
     }
 
-    // Honeypot check for bots
-    const honeypotField = document.getElementById('address');
-    if (honeypotField && honeypotField.value) {
-        console.warn('Honeypot field filled. Likely a bot submission.');
-        // Deceive the bot with a success message
-        displayFormStatus('Message sent successfully!', 'text-green-600');
-        contactForm.reset();
-        lastSubmissionTime = currentTime; // Update cooldown for bots too
-        return;
+    addEventListeners() {
+        window.addEventListener('scroll', () => this.update());
+        window.addEventListener('resize', () => this.update()); // Also update on resize
     }
 
-    displayFormStatus('Message being sent...', 'text-gray-600');
+    update() {
+        let currentActiveId = null;
+        const headerOffset = this.header.offsetHeight + 20; // 20px buffer
 
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData.entries());
+        this.sections.forEach(section => {
+            const sectionTop = section.offsetTop - headerOffset;
+            const sectionBottom = sectionTop + section.offsetHeight;
 
-    // Remove the honeypot field from the data sent to the backend
-    delete data.address;
-
-    try {
-        const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                currentActiveId = section.id;
+            }
         });
 
-        if (response.ok) {
-            const result = await response.json();
-            displayFormStatus(result.message || 'Message sent successfully!', 'text-green-600');
-            contactForm.reset();
-            lastSubmissionTime = currentTime; // Update last submission time on success
-        } else {
-            // Handle API errors (HTTP status 400-599)
-            const errorData = await response.json();
-            let errorMessage = errorData.detail || 'An error occurred, please try again later.';
-
-            // Improved error message display for FastAPI validation errors (status 422)
-            if (response.status === 422 && Array.isArray(errorData.detail)) {
-                const fieldErrors = errorData.detail.map(err => {
-                    const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'unknown field';
-                    return `${field}: ${err.msg}`;
-                }).join('. ');
-                errorMessage = `Validation error: ${fieldErrors}.`;
+        this.navLinks.forEach(link => {
+            link.classList.remove('active');
+            // Check if the link's href corresponds to the current active section
+            if (link.getAttribute('href') === `#${currentActiveId}`) {
+                link.classList.add('active');
             }
-            displayFormStatus(errorMessage, 'text-red-600');
-            console.error('API Error:', errorData);
-            // Do not update lastSubmissionTime on error to allow retries sooner
-        }
-    } catch (error) {
-        // Handle network errors or other issues during fetch call
-        console.error('Network or API issue:', error);
-        displayFormStatus('An error occurred, please check your network and try again.', 'text-red-600');
+        });
     }
 }
 
-/**
- * Displays a status message for the contact form.
- * @param {string} message - The message to display.
- * @param {string} className - Tailwind CSS classes for styling the message (e.g., 'text-green-600', 'text-red-600').
- */
-function displayFormStatus(message, className) {
-    formStatusMessage.style.display = 'block';
-    formStatusMessage.className = `mt-4 text-center text-sm font-medium ${className}`;
-    formStatusMessage.textContent = message;
+class ContactFormHandler {
+    constructor(formId, statusId, cooldown = 5000) {
+        this.form = document.getElementById(formId);
+        this.statusMessage = document.getElementById(statusId);
+        this.cooldownPeriod = cooldown;
+        this.lastSubmissionTime = 0;
+
+        if (this.form && this.statusMessage) {
+            this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        }
+    }
+
+    displayStatus(message, className) {
+        this.statusMessage.style.display = 'block';
+        this.statusMessage.className = `mt-4 text-center text-sm font-medium ${className}`;
+        this.statusMessage.textContent = message;
+    }
+
+    handleHoneypot() {
+        const honeypotField = this.form.querySelector('#address');
+        if (honeypotField && honeypotField.value) {
+            console.warn('Honeypot field filled. Likely a bot submission.');
+            this.displayStatus('Message sent successfully!', 'text-green-600');
+            this.form.reset();
+            return true;
+        }
+        return false;
+    }
+
+    async handleSubmit(e) {
+        e.preventDefault();
+        const currentTime = Date.now();
+
+        if (currentTime - this.lastSubmissionTime < this.cooldownPeriod) {
+            this.displayStatus('Please wait a moment before sending another message.', 'text-red-600');
+            return;
+        }
+
+        if (this.handleHoneypot()) {
+            this.lastSubmissionTime = currentTime;
+            return;
+        }
+
+        this.displayStatus('Message being sent...', 'text-gray-600');
+
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData.entries());
+        delete data.address; // Remove honeypot field
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                this.displayStatus(result.message || 'Message sent successfully!', 'text-green-600');
+                this.form.reset();
+                this.lastSubmissionTime = currentTime;
+            } else {
+                this.handleApiError(response);
+            }
+        } catch (error) {
+            console.error('Network or API issue:', error);
+            this.displayStatus('An error occurred, please check your network and try again.', 'text-red-600');
+        }
+    }
+
+    async handleApiError(response) {
+        const errorData = await response.json();
+        let errorMessage = errorData.detail || 'An error occurred, please try again later.';
+
+        if (response.status === 422 && Array.isArray(errorData.detail)) {
+            const fieldErrors = errorData.detail.map(err => {
+                const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'field';
+                return `${field}: ${err.msg}`;
+            }).join('. ');
+            errorMessage = `Validation error: ${fieldErrors}.`;
+        }
+
+        this.displayStatus(errorMessage, 'text-red-600');
+        console.error('API Error:', errorData);
+    }
 }
 
-// Function to initialize contact form functionality
-function initializeContactForm() {
-    contactForm.addEventListener('submit', handleContactFormSubmission);
+class App {
+    constructor() {
+        this.mobileMenu = new MobileMenu();
+        new BackToTopButton('back-to-top');
+        new NavLinkHighlighter('.nav-link', 'section[id]');
+        new ContactFormHandler('contact-form', 'form-status-message');
+        this.initializeSmoothScrolling();
+        this.initializeCourseToggle();
+    }
+
+    initializeSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = anchor.getAttribute('href');
+                if (targetId === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+                if (this.mobileMenu.isOpen()) {
+                    this.mobileMenu.close();
+                }
+            });
+        });
+    }
+
+    initializeCourseToggle() {
+        document.querySelectorAll('[data-toggle="scala-courses"]').forEach(toggleLink => {
+            toggleLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.dataset.toggle;
+                const toggleArrow = this.querySelector('.toggle-arrow');
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    const isOpening = !targetElement.classList.contains('open');
+                    targetElement.classList.toggle('open');
+
+                    this.firstChild.textContent = isOpening ? 'Hide courses ' : 'Show courses ';
+                    toggleArrow.style.transform = isOpening ? 'rotate(180deg)' : 'rotate(0deg)';
+                    toggleArrow.className = isOpening
+                        ? 'fas fa-chevron-up toggle-arrow'
+                        : 'fas fa-chevron-down toggle-arrow';
+                }
+            });
+        });
+    }
 }
 
-// Initialize all functionalities when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    initializeSmoothScrolling();
-    initializeMobileMenu();
-    initializeBackToTopButton();
-    initializeNavLinkHighlighting();
-    initializeContactForm();
-});
+document.addEventListener('DOMContentLoaded', () => new App());

@@ -247,7 +247,31 @@ ul.list-disc li {
     font-size: var(--font-size-lg);
 }
 
+.course-details-list {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease-in-out;
+}
+.course-details-list > ul {
+    overflow: hidden;
+}
+.course-details-list.open {
+    grid-template-rows: 1fr;
+}
 
+.course-toggle-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+    transition: color 0.3s;
+}
+.course-toggle-link:hover {
+    color: var(--color-primary-hover);
+}
+
+.toggle-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
 @media (min-width: 768px) {
     body {
         font-size: var(--font-size-base);
