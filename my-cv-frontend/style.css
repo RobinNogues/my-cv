@@ -1,5 +1,4 @@
 :root {
-    /* Couleurs */
     --color-primary: #D97706;
     --color-primary-hover: #B45309;
     --color-text-body: #374151;
@@ -65,7 +64,7 @@ body {
     background-color: var(--color-primary-hover);
 }
 
-.card {
+article.card {
     background-color: var(--color-card-background);
     border-radius: var(--border-radius-lg);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -74,9 +73,31 @@ body {
     width: 100%;
 }
 
-.card:hover {
+article.card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+}
+
+article.card .card-title {
+    font-weight: 600;
+    color: var(--color-gray-800);
+}
+
+article.card .card-location {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+article.card .card-date {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+article.card .card-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    object-fit: contain;
 }
 
 .skill-tag {
@@ -94,7 +115,6 @@ body {
     box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
 }
 
-/* Styles for mobile menu overlay */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
@@ -103,18 +123,21 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 40;
+    opacity: 0;
     display: none;
+    transition: opacity 0.3s ease-in-out;
 }
 .mobile-menu {
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0;
     width: 70%;
     max-width: 300px;
     height: 100%;
     background-color: var(--color-card-background);
     z-index: 50;
-    transition: right 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
     padding: var(--spacing-xl);
     box-shadow: -4px 0 10px rgba(0,0,0,0.2);
     display: flex;
@@ -122,7 +145,7 @@ body {
     align-items: flex-start;
 }
 .mobile-menu.open {
-    right: 0;
+    transform: translateX(0);
 }
 .mobile-menu .nav-link {
     width: 100%;
@@ -179,7 +202,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Form specific styles */
 .form-input, .form-textarea {
     width: 100%;
     padding: 0.75rem var(--spacing-md);
@@ -195,7 +217,6 @@ body {
     box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
 }
 
-/* Honeypot */
 .hp_address {
     position: absolute;
     left: -9999px;
@@ -211,37 +232,11 @@ body {
     object-position: center 25%;
 }
 
-ul.list-disc {
-    text-align: left;
-}
-
-ul.list-disc li {
-    font-size: var(--font-size-mobile-sm);
-}
-
-#hero p{
-    font-size: var(--font-size-mobile-lg);
-}
-
-#hero a{
-    font-size: var(--font-size-mobile-md);
-}
-
-#hero h1 {
-    font-size: var(--font-size-mobile-h1);
-}
-
-#about p {
-    font-size: var(--font-size-mobile-sm);
-}
-
-.card-title {
-    font-size: var(--font-size-mobile-lg);
-}
-
-.card-date {
-    font-size: var(--font-size-mobile-sm);
-}
+ul.list-disc { text-align: left; }
+ul.list-disc li, #about p, .card-date { font-size: var(--font-size-mobile-sm); }
+#hero p, .card-title { font-size: var(--font-size-mobile-lg); }
+#hero a { font-size: var(--font-size-mobile-md); }
+#hero h1 { font-size: var(--font-size-mobile-h1); }
 
 .nav-name {
     font-size: var(--font-size-lg);
@@ -262,6 +257,12 @@ ul.list-disc li {
 .course-toggle-link {
     font-size: var(--font-size-sm);
     color: var(--color-primary);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
     transition: color 0.3s;
 }
 .course-toggle-link:hover {
@@ -276,34 +277,17 @@ ul.list-disc li {
     body {
         font-size: var(--font-size-base);
     }
-    ul.list-disc {
-        text-align: justify;
-    }
-    ul.list-disc li {
-        font-size: var(--font-size-sm);
-    }
-    #hero p {
-        font-size: var(--font-size-lg);
-    }
-    #hero h1 {
-        font-size: var(--font-size-h1);
-    }
-    #hero a{
-        font-size: var(--font-size-md);
-    }
-    #about p {
-        font-size: var(--font-size-sm);
-    }
-    .card h3 {
-        font-size: var(--font-size-lg);
-    }
-    .card-date {
-        font-size: var(--font-size-sm);
-    }
-    .card {
+    
+    ul.list-disc { text-align: justify; }
+    ul.list-disc li, #about p, .card-date, .skill-tag { font-size: var(--font-size-sm); }
+    
+    #hero p { font-size: var(--font-size-lg); }
+    #hero a { font-size: var(--font-size-md); }
+    #hero h1 { font-size: var(--font-size-h1); }
+
+    .card-title { font-size: var(--font-size-lg); }
+
+    article.card {
         padding: var(--spacing-xl);
-    }
-    .skill-tag {
-        font-size: var(--font-size-sm);
     }
 }

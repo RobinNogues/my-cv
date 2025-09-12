@@ -17,13 +17,19 @@ class MobileMenu {
     }
 
     open() {
-        this.drawer.classList.add('open');
         this.overlay.style.display = 'block';
+        requestAnimationFrame(() => {
+            this.drawer.classList.add('open');
+            this.overlay.classList.add('visible');
+        });
     }
 
     close() {
         this.drawer.classList.remove('open');
-        this.overlay.style.display = 'none';
+        this.overlay.classList.remove('visible');
+        this.overlay.addEventListener('transitionend', () => {
+            this.overlay.style.display = 'none';
+        }, { once: true });
     }
 
     isOpen() {
@@ -221,8 +227,7 @@ class App {
 
     initializeCourseToggle() {
         document.querySelectorAll('[data-toggle="scala-courses"]').forEach(toggleLink => {
-            toggleLink.addEventListener('click', function(e) {
-                e.preventDefault();
+            toggleLink.addEventListener('click', function() {
                 const targetId = this.dataset.toggle;
                 const toggleArrow = this.querySelector('.toggle-arrow');
                 const targetElement = document.getElementById(targetId);
@@ -230,6 +235,7 @@ class App {
                 if (targetElement) {
                     const isOpening = !targetElement.classList.contains('open');
                     targetElement.classList.toggle('open');
+                    this.setAttribute('aria-expanded', isOpening);
 
                     this.firstChild.textContent = isOpening ? 'Hide courses ' : 'Show courses ';
                     toggleArrow.style.transform = isOpening ? 'rotate(180deg)' : 'rotate(0deg)';
