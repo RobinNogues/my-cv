@@ -1,13 +1,29 @@
 :root {
+    /* --- Color Palette --- */
+    /* Primary Accent */
     --color-primary: #D97706;
     --color-primary-hover: #B45309;
-    --color-text-body: #374151;
-    --color-text-secondary: #4B5563;
+    --color-primary-focus-ring: rgba(217, 119, 6, 0.2);
+
+    /* Text */
+    --color-text-heading: #1F2937; /* For main titles and headings */
+    --color-text-base: #4B5563;    /* For body copy and general content */
+    --color-text-muted: #6B7280;   /* For secondary info like dates */
+    --color-text-subtle: #9CA3AF;  /* For less important hints */
+    --color-text-inverted: #FFFFFF; /* For text on dark backgrounds */
+
+    /* Backgrounds */
     --color-background: #FDFBF7;
     --color-card-background: #FFFFFF;
-    --color-border: #D1D5DB;
-    --color-gray-800: #1F2937;
+    --color-footer-bg: #1F2937;
+    --color-skill-tag-bg: #F3F4F6;
+    --color-overlay-bg: rgba(0, 0, 0, 0.7);
 
+    /* Borders & Dividers */
+    --color-border: #D1D5DB;
+    --color-divider: #E5E7EB;
+ 
+    /* --- Layout & Sizing --- */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -16,12 +32,16 @@
     --border-radius-sm: 6px;
     --border-radius-md: 8px;
     --border-radius-lg: 12px;
+
+    /* --- Shadows --- */
+    --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
 }
 
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--color-background);
-    color: var(--color-text-body);
+    color: var(--color-text-base);
     font-size: 0.9rem;
 }
 
@@ -40,7 +60,7 @@ body {
 
 .btn-primary {
     background-color: var(--color-primary);
-    color: #FFFFFF;
+    color: var(--color-text-inverted);
     transition: background-color 0.3s;
     padding: 10px 20px;
     border-radius: var(--border-radius-md);
@@ -53,25 +73,25 @@ body {
 article.card {
     background-color: var(--color-card-background);
     border-radius: var(--border-radius-lg);
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    box-shadow: var(--shadow-card);
     padding: var(--spacing-lg);
     transition: transform 0.3s, box-shadow 0.3s;
     width: 100%;
     
     &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        box-shadow: var(--shadow-card-hover);
     }
     .card-title {
         font-weight: 600;
-        color: var(--color-gray-800);
+        color: var(--color-text-heading);
     }
     .card-location {
         color: var(--color-primary);
         font-weight: 500;
     }
     .card-date {
-        color: var(--color-text-secondary);
+        color: var(--color-text-muted);
     }
     .card-icon {
         width: 1.5rem;
@@ -82,8 +102,8 @@ article.card {
 }
 
 .skill-tag {
-    background-color: #F3F4F6;
-    color: var(--color-text-secondary);
+    background-color: var(--color-skill-tag-bg);
+    color: var(--color-text-base);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-sm);
     font-weight: 500;
@@ -103,7 +123,7 @@ article.card {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--color-overlay-bg);
     z-index: 90;
     opacity: 0;
     visibility: hidden;
@@ -127,7 +147,7 @@ article.card {
     z-index: 100;
     transition: transform 0.3s ease-in-out;
     transform: translateX(100%);
-    padding: 4rem var(--spacing-xl) var(--spacing-xl);
+    padding: 4rem var(--spacing-xl) var(--spacing-xl); /* Keep hardcoded shadow for now as it's specific */
     box-shadow: -4px 0 10px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
@@ -138,7 +158,7 @@ article.card {
     top: 1.25rem;
     right: 2.5rem;
     z-index: 110;
-    color: var(--color-gray-800);
+    color: var(--color-text-heading);
     background: none;
     border: none;
     cursor: pointer;
@@ -150,7 +170,7 @@ article.card {
     width: 100%;
     padding: var(--spacing-md) 0;
     text-align: left;
-    border-bottom: 1px solid #E5E7EB;
+    border-bottom: 1px solid var(--color-divider);
     border-radius: 0;
     margin-bottom: var(--spacing-sm);
 }
@@ -173,11 +193,11 @@ article.card {
     bottom: var(--spacing-xl);
     right: var(--spacing-xl);
     background-color: var(--color-primary);
-    color: #FFFFFF;
+    color: var(--color-text-inverted);
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Keep hardcoded shadow for now as it's specific */
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     display: flex;
     justify-content: center;
@@ -207,13 +227,13 @@ article.card {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-md);
     line-height: 1.5;
-    color: var(--color-text-secondary);
+    color: var(--color-text-base);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .form-input:focus, .form-textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+    box-shadow: 0 0 0 3px var(--color-primary-focus-ring);
 }
 
 .hp_address {
@@ -234,7 +254,7 @@ article.card {
 /* --- Mobile Font Sizes --- */
 ul.list-disc { text-align: left; }
 
-ul.list-disc li, #about p, .card-date, .skill-tag { font-size: 0.825rem; }
+ul.list-disc li, p.text-content, .card-date, .skill-tag { font-size: 0.825rem; }
 .card-location, .course-toggle-link { font-size: 0.875rem; }
 #hero a { font-size: 0.9rem; }
 #hero p, .card-title { font-size: 0.95rem; }
@@ -283,7 +303,7 @@ section h2.text-2xl { font-size: 1.25rem; }
     
     /* --- Desktop Font Sizes --- */
     ul.list-disc { text-align: justify; }    
-    #about p, .card-date, .skill-tag, ul.list-disc li { font-size: 0.875rem; }
+    p.text-content, .card-date, .skill-tag, ul.list-disc li { font-size: 0.875rem; }
     #hero a { font-size: 1rem; }
     #hero p, .card-title { font-size: 1.125rem; }
     section h2.text-2xl, #certifications .card a .fa-square-arrow-up-right { font-size: 1.5rem; }
@@ -292,4 +312,27 @@ section h2.text-2xl { font-size: 1.25rem; }
     article.card {
         padding: var(--spacing-xl);
     }
+}
+
+/* Text color utilities */
+.text-heading {
+    color: var(--color-text-heading);
+}
+.text-content {
+    color: var(--color-text-base);
+}
+.text-muted {
+    color: var(--color-text-muted);
+}
+.text-subtle {
+    color: var(--color-text-subtle);
+}
+
+/* Background color utilities */
+.bg-footer {
+    background-color: var(--color-footer-bg);
+}
+
+.text-white {
+    color: var(--color-text-inverted);
 }
