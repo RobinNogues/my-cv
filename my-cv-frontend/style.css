@@ -36,6 +36,7 @@
     /* --- Shadows --- */
     --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+    --shadow-mobile-menu: -4px 0 10px rgba(0,0,0,0.2);
 }
 
 body {
@@ -145,10 +146,10 @@ article.card {
     height: 100%;
     background-color: var(--color-card-background);
     z-index: 100;
-    transition: transform 0.3s ease-in-out;
     transform: translateX(100%);
-    padding: 4rem var(--spacing-xl) var(--spacing-xl); /* Keep hardcoded shadow for now as it's specific */
-    box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+    padding: 4rem var(--spacing-xl) var(--spacing-xl);
+    box-shadow: var(--shadow-mobile-menu);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -197,8 +198,8 @@ article.card {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    font-size: 1.5rem; /* Keep hardcoded shadow for now as it's specific */
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-card);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -335,4 +336,8 @@ section h2.text-2xl { font-size: 1.25rem; }
 
 .text-white {
     color: var(--color-text-inverted);
+}
+
+.hover-text-primary:hover {
+    color: var(--color-primary);
 }
