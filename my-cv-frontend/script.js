@@ -235,12 +235,81 @@ class ContactFormHandler {
     }
 }
 
+class ThemeToggler {
+    constructor(toggleId) {
+        this.toggleButton = document.getElementById(toggleId);
+        this.sunIcon = document.querySelector('.sun-icon');
+        this.moonIcon = document.querySelector('.moon-icon');
+
+        if (!this.toggleButton || !this.sunIcon || !this.moonIcon) {
+            console.error('Theme toggler elements not found.');
+            return;
+        }
+
+        // Animation properties
+        this.animationDuration = 500; // ms, matches the CSS transition
+        this.centerTransform = 'translate(-50%, -50%) rotate(0deg)';
+        this.exitTransform = 'translate(-70px, 70px) rotate(-45deg)';
+        this.enterTransform = 'translate(70px, 70px) rotate(45deg)';
+
+        this.isDark = false; // We just track the state for animation
+        this.addEventListeners();
+        this.applyInitialState();
+    }
+
+    applyInitialState() {
+        // Set initial state without animation
+        this.sunIcon.style.transition = 'none';
+        this.moonIcon.style.transition = 'none';
+
+        if (this.isDark) {
+            this.sunIcon.style.transform = this.exitTransform;
+            this.sunIcon.style.opacity = '0';
+            this.moonIcon.style.transform = this.centerTransform;
+            this.moonIcon.style.opacity = '1';
+        } else {
+            this.sunIcon.style.transform = this.centerTransform;
+            this.sunIcon.style.opacity = '1';
+            this.moonIcon.style.transform = this.enterTransform;
+            this.moonIcon.style.opacity = '0';
+        }
+    }
+
+    addEventListeners() {
+        this.toggleButton.addEventListener('click', () => this.toggleTheme());
+    }
+
+    toggleTheme() {
+        const exitingIcon = this.isDark ? this.moonIcon : this.sunIcon;
+        const enteringIcon = this.isDark ? this.sunIcon : this.moonIcon;
+
+        // Position the entering icon to its start point without transition
+        enteringIcon.style.transition = 'none';
+        enteringIcon.style.transform = this.enterTransform;
+        enteringIcon.style.opacity = '0';
+
+        // Use a timeout to ensure the initial state is rendered before starting the animation
+        setTimeout(() => {
+            exitingIcon.style.transition = ''; // Re-enable CSS transition
+            exitingIcon.style.transform = this.exitTransform;
+
+            enteringIcon.style.transition = ''; // Re-enable CSS transition
+            enteringIcon.style.transform = this.centerTransform;
+            enteringIcon.style.opacity = '1';
+
+        }, 10);
+
+        this.isDark = !this.isDark;
+    }
+}
+
 class App {
     constructor() {
         this.mobileMenu = new MobileMenu(); // Tailwind's md breakpoint is 768px
         new BackToTopButton('back-to-top');
         new NavLinkHighlighter('.nav-link', 'section[id]');
         new ContactFormHandler('contact-form', 'form-status-message');
+        new ThemeToggler('theme-toggle');
         this.addEventListeners();
     }
 

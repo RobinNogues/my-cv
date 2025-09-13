@@ -353,3 +353,11 @@ section h2.text-2xl { font-size: 1.25rem; }
 .status-error {
     color: var(--color-status-error);
 }
+
+/* --- Theme Toggle --- */
+.theme-toggle-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transition: transform 0.5s cubic-bezier(0.5, 0, 0.5, 1);
+}
