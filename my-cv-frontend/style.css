@@ -6,21 +6,7 @@
     --color-background: #FDFBF7;
     --color-card-background: #FFFFFF;
     --color-border: #D1D5DB;
-    --color-gray-600: #4B5563;
-    --color-gray-700: #374151;
     --color-gray-800: #1F2937;
-
-    --font-size-base: 0.95rem;
-    --font-size-sm: 0.875rem;
-    --font-size-md: 1rem;
-    --font-size-lg: 1.125rem;
-    --font-size-h1: 3rem;
-
-    --font-size-mobile-base: 0.90rem;
-    --font-size-mobile-sm: 0.825rem;
-    --font-size-mobile-md: 0.9rem;
-    --font-size-mobile-lg: 1rem;
-    --font-size-mobile-h1: 1.9rem;
 
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
@@ -36,7 +22,7 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--color-background);
     color: var(--color-text-body);
-    font-size: var(--font-size-mobile-base);
+    font-size: 0.9rem;
 }
 
 .accent-orange {
@@ -71,33 +57,28 @@ article.card {
     padding: var(--spacing-lg);
     transition: transform 0.3s, box-shadow 0.3s;
     width: 100%;
-}
-
-article.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
-}
-
-article.card .card-title {
-    font-weight: 600;
-    color: var(--color-gray-800);
-}
-
-article.card .card-location {
-    color: var(--color-primary);
-    font-weight: 500;
-}
-
-article.card .card-date {
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-md);
-}
-
-article.card .card-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 0.5rem;
-    object-fit: contain;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+    }
+    .card-title {
+        font-weight: 600;
+        color: var(--color-gray-800);
+    }
+    .card-location {
+        color: var(--color-primary);
+        font-weight: 500;
+    }
+    .card-date {
+        color: var(--color-text-secondary);
+    }
+    .card-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
+        object-fit: contain;
+    }
 }
 
 .skill-tag {
@@ -108,11 +89,12 @@ article.card .card-icon {
     font-weight: 500;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
-    font-size: var(--font-size-mobile-sm);
-}
-.skill-tag:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+    font-size: 0.825rem;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+    }
 }
 
 .mobile-menu-overlay {
@@ -152,7 +134,7 @@ article.card .card-icon {
     align-items: flex-start;
 }
 .mobile-menu-close-button {
-    position: fixed;
+    position: absolute;
     top: 1.25rem;
     right: 2.5rem;
     z-index: 110;
@@ -160,13 +142,6 @@ article.card .card-icon {
     background: none;
     border: none;
     cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
-}
-.mobile-menu-close-button.visible {
-    opacity: 1;
-    visibility: visible;
 }
 .mobile-menu.open {
     transform: translateX(0);
@@ -256,15 +231,18 @@ article.card .card-icon {
     object-position: center 25%;
 }
 
+/* --- Mobile Font Sizes --- */
 ul.list-disc { text-align: left; }
-ul.list-disc li, #about p, .card-date { font-size: var(--font-size-mobile-sm); }
-#hero p { font-size: var(--font-size-mobile-lg); }
-#hero a { font-size: var(--font-size-mobile-md); }
-#hero h1 { font-size: var(--font-size-mobile-h1); }
 
-.nav-name {
-    font-size: var(--font-size-lg);
-}
+ul.list-disc li, #about p, .card-date, .skill-tag { font-size: 0.825rem; }
+.card-location, .course-toggle-link { font-size: 0.875rem; }
+#hero a { font-size: 0.9rem; }
+#hero p, .card-title { font-size: 0.95rem; }
+.nav-name { font-size: 1.125rem; }
+section h2.text-2xl { font-size: 1.25rem; }
+#certifications .card a .fa-square-arrow-up-right { font-size: 1.25rem; }
+#hero h1 { font-size: 1.9rem; }
+
 
 .course-details-list {
     display: grid;
@@ -279,12 +257,12 @@ ul.list-disc li, #about p, .card-date { font-size: var(--font-size-mobile-sm); }
 }
 
 .course-toggle-link {
-    font-size: var(--font-size-sm);
     color: var(--color-primary);
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
+    margin-top: var(--spacing-md);
     text-align: left;
     font-family: inherit;
     transition: color 0.3s;
@@ -298,36 +276,20 @@ ul.list-disc li, #about p, .card-date { font-size: var(--font-size-mobile-sm); }
     transition: transform 0.3s ease-in-out;
 }
 
-section h2.text-2xl {
-    font-size: 1.25rem;
-}
-
-#certifications .card a .fa-square-arrow-up-right {
-    font-size: 1.25rem;
-}
 @media (min-width: 768px) {
     body {
-        font-size: var(--font-size-base);
+        font-size: 0.95rem; /* Base font size for desktop */
     }
     
-    ul.list-disc { text-align: justify; }
-    ul.list-disc li, #about p, .card-date, .skill-tag { font-size: var(--font-size-sm); }
-    
-    #hero p { font-size: var(--font-size-lg); }
-    #hero a { font-size: var(--font-size-md); }
-    #hero h1 { font-size: var(--font-size-h1); }
-
-    .card-title { font-size: var(--font-size-lg); }
+    /* --- Desktop Font Sizes --- */
+    ul.list-disc { text-align: justify; }    
+    #about p, .card-date, .skill-tag, ul.list-disc li { font-size: 0.875rem; }
+    #hero a { font-size: 1rem; }
+    #hero p, .card-title { font-size: 1.125rem; }
+    section h2.text-2xl, #certifications .card a .fa-square-arrow-up-right { font-size: 1.5rem; }
+    #hero h1 { font-size: 3rem; }
 
     article.card {
         padding: var(--spacing-xl);
-    }
-
-    section h2.text-2xl {
-        font-size: 1.5rem;
-    }
-
-    #certifications .card a .fa-square-arrow-up-right {
-        font-size: 1.5rem;
     }
 }

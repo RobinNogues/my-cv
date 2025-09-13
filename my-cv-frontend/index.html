@@ -46,6 +46,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
@@ -75,17 +76,17 @@
 
     <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-    <button id="mobile-menu-close-button" class="mobile-menu-close-button" aria-label="Close mobile menu">
-        <i class="fas fa-times text-2xl"></i>
-    </button>
     <div id="mobile-menu-drawer" class="mobile-menu">
-        <a href="#experience" class="nav-link" data-scroll>Experience</a>
-        <a href="#projects" class="nav-link" data-scroll>Projects</a>
-        <a href="#skills" class="nav-link" data-scroll>Skills</a>
-        <a href="#education" class="nav-link" data-scroll>Education</a>
-        <a href="#certifications" class="nav-link" data-scroll>Certifications</a>
-        <a href="#about" class="nav-link" data-scroll>About Me</a>
-        <a href="#contact-form-section" class="btn-primary" data-scroll>Contact</a>
+        <button id="mobile-menu-close-button" class="mobile-menu-close-button" aria-label="Close mobile menu">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
+        <a href="#about" class="nav-link">About Me</a>
+        <a href="#contact-form-section" class="btn-primary">Contact</a>
     </div>
 
     <main class="container mx-auto px-6 py-8 md:py-12">
@@ -241,18 +242,32 @@
                         </div>
                     </div>
                     <div class="mb-6">
-                        <h5 class="font-medium text-gray-700 mb-2">Data Science</h5>
+                        <h5 class="font-medium text-gray-700 mb-2">Data Engineering & Databases</h5>
                         <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">Pandas</span>
                             <span class="skill-tag">Spark</span>
-                            <span class="skill-tag">Numpy</span>
                             <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Pandas</span>
                             <span class="skill-tag">GraphQL</span>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="font-medium text-gray-700 mb-2">Data Analysis & Machine Learning</h5>
+                        <div class="flex flex-wrap gap-4">
                             <span class="skill-tag">Scikit-Learn</span>
                             <span class="skill-tag">Tensorflow</span>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="font-medium text-gray-700 mb-2">Data Visualization</h5>
+                        <div class="flex flex-wrap gap-4">
                             <span class="skill-tag">Streamlit</span>
                             <span class="skill-tag">Plotly</span>
                             <span class="skill-tag">Matplotlib</span>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="font-medium text-gray-700 mb-2">Web Scraping</h5>
+                        <div class="flex flex-wrap gap-4">
                             <span class="skill-tag">BeautifulSoup</span>
                             <span class="skill-tag">Selenium</span>
                         </div>
@@ -319,7 +334,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:items-start">
                 <article class="card">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between">
                         <h3 class="card-title">Functional Programming in Scala Specialization</h3>
                         <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Functional Programming in Scala certificate on Coursera">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
@@ -330,9 +345,9 @@
                         <p class="card-location">EPFL</p>
                     </div>
                     <p class="card-date">September 2025</p>
-                    <button class="course-toggle-link" data-toggle="scala-courses" aria-expanded="false" aria-controls="scala-courses">
+                    <button class="course-toggle-link" data-toggle="scala-courses" aria-expanded="false" aria-controls="scala-courses-list">
                         Show courses <i class="fas fa-chevron-down toggle-arrow"></i> </button>
-                    <div id="scala-courses" class="course-details-list">
+                    <div id="scala-courses-list" class="course-details-list">
                         <ul class="list-disc list-inside text-gray-600 space-y-1">
                             <li>Functional Programming Principles in Scala</li>
                             <li>Functional Program Design in Scala</li>
@@ -343,7 +358,7 @@
                     </div>
                 </article>
                 <article class="card">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between">
                         <h3 class="card-title">Docker Foundations Professional Certificate</h3>
                         <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Docker Foundations certificate on LinkedIn Learning">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
@@ -356,7 +371,7 @@
                     <p class="card-date">March 2025</p>
                 </article>
                 <article class="card">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between">
                         <h3 class="card-title">Develop Your Scala Skills for Data Engineering</h3>
                         <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Develop Your Scala Skills certificate on LinkedIn Learning">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
@@ -369,7 +384,7 @@
                     <p class="card-date">March 2025</p>
                 </article>
                 <article class="card">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between">
                         <h3 class="card-title">Become an AI and ML Specialist</h3>
                         <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View AI and ML Specialist certificate on LinkedIn Learning">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
@@ -382,7 +397,7 @@
                     <p class="card-date">May 2022</p>
                 </article>
                 <article class="card">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between">
                         <h3 class="card-title">TOEIC Exam (Score: 890)</h3>
                     </div>
                     <div class="flex items-center">
@@ -433,11 +448,11 @@
                         <label for="email" class="block text-gray-700 font-medium mb-2">Your Email <span class="accent-orange">*</span></label>
                         <input type="email" id="email" name="email" class="form-input" placeholder="john.doe@example.com" required>
                     </div>
-                    <div class="hp_address">
+                    <div class="hp_address" aria-hidden="true">
                         <input type="text" id="address" name="address" class="form-input" autocomplete="off" tabindex="-1">
                     </div>
                     <div>
-                        <label for="subject" class="block text-700 font-medium mb-2">Subject</label>
+                        <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
                         <input type="text" id="subject" name="subject" class="form-input" placeholder="Inquiry about...">
                     </div>
                     <div>
