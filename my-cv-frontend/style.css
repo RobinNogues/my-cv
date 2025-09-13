@@ -14,6 +14,7 @@
 
     /* Backgrounds */
     --color-background: #FDFBF7;
+    --color-header-background: rgba(255, 255, 255, 0.8);
     --color-card-background: #FFFFFF;
     --color-footer-bg: #1F2937;
     --color-skill-tag-bg: #F3F4F6;
@@ -43,11 +44,45 @@
     --shadow-mobile-menu: -4px 0 10px rgba(0,0,0,0.2);
 }
 
+[data-theme="dark"] {
+    /* --- Dark Theme Color Palette --- */
+    /* Primary Accent */
+    --color-primary: #F59E0B; /* A slightly brighter orange for better contrast */
+    --color-primary-hover: #D97706;
+
+    /* Text */
+    --color-text-heading: #F9FAFB;
+    --color-text-base: #D1D5DB;
+    --color-text-muted: #9CA3AF;
+    --color-text-subtle: #6B7280;
+
+    /* Backgrounds */
+    --color-background: #111827;
+    --color-header-background: rgba(17, 24, 39, 0.8);
+    --color-card-background: #1F2937;
+    --color-footer-bg: #111827;
+    --color-skill-tag-bg: #374151;
+
+    /* Borders & Dividers */
+    --color-border: #4B5563;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--color-background);
     color: var(--color-text-base);
     font-size: 0.9rem;
+}
+
+/* Universal transition for theme changes */
+*, *::before, *::after {
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+/* Slower transition for text color for a softer effect */
+h1, h2, h3, h4, h5, h6, p, span, a, li, label, button { transition: color 0.5s ease-in-out; }
+
+.header-background {
+    background-color: var(--color-header-background);
 }
 
 .accent-orange {
@@ -80,7 +115,7 @@ article.card {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-card);
     padding: var(--spacing-lg);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease-in-out;
     width: 100%;
     
     &:hover {
@@ -111,9 +146,9 @@ article.card {
     color: var(--color-text-base);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-sm);
-    font-weight: 500;
+    font-weight: 500;    
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease-in-out;
     font-size: 0.825rem;
 
     &:hover {
@@ -232,8 +267,9 @@ article.card {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-md);
     line-height: 1.5;
-    color: var(--color-text-base);
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: var(--color-card-background);
+    color: var(--color-text-base);    
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.3s ease-in-out;
 }
 .form-input:focus, .form-textarea:focus {
     outline: none;

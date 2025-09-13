@@ -236,13 +236,8 @@ class ContactFormHandler {
 }
 
 class ThemeToggler {
-    /**
-     * @param {string} toggleId - The ID of the button element.
-     * @param {object} options - Configuration options.
-     * @param {string} [options.initialTheme='light'] - The starting theme ('light' or 'dark').
-     * @param {function(string): void} [options.onToggle] - Callback function executed when the button is clicked. It receives the new theme as an argument.
-     */
-    constructor(toggleId, options = {}) {
+    constructor(toggleId, onToggle = () => {}) {
+        this.onToggle = onToggle;
         this.toggleButton = document.getElementById(toggleId);
         this.sunIcon = this.toggleButton?.querySelector('.sun-icon');
         this.moonIcon = this.toggleButton?.querySelector('.moon-icon');
@@ -252,24 +247,16 @@ class ThemeToggler {
             return;
         }
 
-        // Set default options
-        const defaults = {
-            initialTheme: 'light',
-            onToggle: () => {}
-        };
-        this.options = Object.assign({}, defaults, options);
-
-        this.currentTheme = this.options.initialTheme;
         this.isAnimating = false;
-
-        this._init();
+        this.toggleButton.addEventListener('click', () => this.toggle());
     }
 
-    /**
-     * Sets the initial state of the icons without animations.
-     * @private
-     */
-    _init() {
+    setInitialTheme(theme) {
+        this.currentTheme = theme;
+        this._updateIcons(false);
+    }
+
+    _updateIcons(animate = true) {
         // Temporarily disable transitions to set initial state instantly
         this.toggleButton.style.pointerEvents = 'none';
         this.sunIcon.style.transition = 'none';
@@ -283,19 +270,15 @@ class ThemeToggler {
             this.moonIcon.classList.add('is-entering');
         }
 
-        // Use a timeout to re-enable transitions after the browser has rendered the initial state
-        setTimeout(() => {
-            this.sunIcon.style.transition = '';
-            this.moonIcon.style.transition = '';
-            this.toggleButton.style.pointerEvents = 'auto';
-        }, 100);
-
-        this.toggleButton.addEventListener('click', () => this.toggle());
+        if (!animate) {
+            setTimeout(() => {
+                this.sunIcon.style.transition = '';
+                this.moonIcon.style.transition = '';
+                this.toggleButton.style.pointerEvents = 'auto';
+            }, 100);
+        }
     }
 
-    /**
-     * Toggles the theme and triggers the animation.
-     */
     toggle() {
         if (this.isAnimating) return;
         this.isAnimating = true;
@@ -304,25 +287,19 @@ class ThemeToggler {
         const exitingIcon = this.currentTheme === 'light' ? this.sunIcon : this.moonIcon;
         const enteringIcon = newTheme === 'light' ? this.sunIcon : this.moonIcon;
 
-        // --- Animation Logic ---
-        // 1. Move entering icon to its starting position instantly
         enteringIcon.classList.remove('is-visible', 'is-exiting');
         enteringIcon.classList.add('is-entering');
         
-        // 2. Animate the exiting icon out and the entering icon in
         exitingIcon.classList.remove('is-visible');
         exitingIcon.classList.add('is-exiting');
 
         enteringIcon.classList.remove('is-entering');
         enteringIcon.classList.add('is-visible');
         
-        // Update the state
         this.currentTheme = newTheme;
 
-        // Call the callback function with the new theme
-        this.options.onToggle(this.currentTheme);
+        this.onToggle(this.currentTheme);
         
-        // Prevent multiple clicks during the animation
         setTimeout(() => {
             this.isAnimating = false;
         }, 500); // Should match the CSS transition duration
@@ -334,8 +311,33 @@ class App {
         new BackToTopButton('back-to-top');
         new NavLinkHighlighter('.nav-link', 'section[id]');
         new ContactFormHandler('contact-form', 'form-status-message');
-        new ThemeToggler('theme-toggle');
+        
+        this.themeToggler = new ThemeToggler('theme-toggle', (newTheme) => this.setTheme(newTheme));
+        this.initializeTheme();
+
         this.addEventListeners();
+    }
+
+    initializeTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        let initialTheme = 'light';
+        if (savedTheme) {
+            initialTheme = savedTheme;
+        } else if (systemPrefersDark) {
+            initialTheme = 'dark';
+        }
+
+        this.setTheme(initialTheme, false); // Set theme without saving to localStorage again
+        this.themeToggler.setInitialTheme(initialTheme);
+    }
+
+    setTheme(theme, save = true) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (save) {
+            localStorage.setItem('theme', theme);
+        }
     }
 
     addEventListeners() {
