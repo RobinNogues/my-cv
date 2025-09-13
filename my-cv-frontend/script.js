@@ -236,73 +236,98 @@ class ContactFormHandler {
 }
 
 class ThemeToggler {
-    constructor(toggleId) {
+    /**
+     * @param {string} toggleId - The ID of the button element.
+     * @param {object} options - Configuration options.
+     * @param {string} [options.initialTheme='light'] - The starting theme ('light' or 'dark').
+     * @param {function(string): void} [options.onToggle] - Callback function executed when the button is clicked. It receives the new theme as an argument.
+     */
+    constructor(toggleId, options = {}) {
         this.toggleButton = document.getElementById(toggleId);
-        this.sunIcon = document.querySelector('.sun-icon');
-        this.moonIcon = document.querySelector('.moon-icon');
+        this.sunIcon = this.toggleButton?.querySelector('.sun-icon');
+        this.moonIcon = this.toggleButton?.querySelector('.moon-icon');
 
         if (!this.toggleButton || !this.sunIcon || !this.moonIcon) {
             console.error('Theme toggler elements not found.');
             return;
         }
 
-        // Animation properties
-        this.animationDuration = 500; // ms, matches the CSS transition
-        this.centerTransform = 'translate(-50%, -50%) rotate(0deg)';
-        this.exitTransform = 'translate(-70px, 70px) rotate(-45deg)';
-        this.enterTransform = 'translate(70px, 70px) rotate(45deg)';
+        // Set default options
+        const defaults = {
+            initialTheme: 'light',
+            onToggle: () => {}
+        };
+        this.options = Object.assign({}, defaults, options);
 
-        this.isDark = false; // We just track the state for animation
-        this.addEventListeners();
-        this.applyInitialState();
+        this.currentTheme = this.options.initialTheme;
+        this.isAnimating = false;
+
+        this._init();
     }
 
-    applyInitialState() {
-        // Set initial state without animation
+    /**
+     * Sets the initial state of the icons without animations.
+     * @private
+     */
+    _init() {
+        // Temporarily disable transitions to set initial state instantly
+        this.toggleButton.style.pointerEvents = 'none';
         this.sunIcon.style.transition = 'none';
         this.moonIcon.style.transition = 'none';
 
-        if (this.isDark) {
-            this.sunIcon.style.transform = this.exitTransform;
-            this.sunIcon.style.opacity = '0';
-            this.moonIcon.style.transform = this.centerTransform;
-            this.moonIcon.style.opacity = '1';
+        if (this.currentTheme === 'dark') {
+            this.sunIcon.classList.add('is-exiting');
+            this.moonIcon.classList.add('is-visible');
         } else {
-            this.sunIcon.style.transform = this.centerTransform;
-            this.sunIcon.style.opacity = '1';
-            this.moonIcon.style.transform = this.enterTransform;
-            this.moonIcon.style.opacity = '0';
+            this.sunIcon.classList.add('is-visible');
+            this.moonIcon.classList.add('is-entering');
         }
-    }
 
-    addEventListeners() {
-        this.toggleButton.addEventListener('click', () => this.toggleTheme());
-    }
-
-    toggleTheme() {
-        const exitingIcon = this.isDark ? this.moonIcon : this.sunIcon;
-        const enteringIcon = this.isDark ? this.sunIcon : this.moonIcon;
-
-        // Position the entering icon to its start point without transition
-        enteringIcon.style.transition = 'none';
-        enteringIcon.style.transform = this.enterTransform;
-        enteringIcon.style.opacity = '0';
-
-        // Use a timeout to ensure the initial state is rendered before starting the animation
+        // Use a timeout to re-enable transitions after the browser has rendered the initial state
         setTimeout(() => {
-            exitingIcon.style.transition = ''; // Re-enable CSS transition
-            exitingIcon.style.transform = this.exitTransform;
+            this.sunIcon.style.transition = '';
+            this.moonIcon.style.transition = '';
+            this.toggleButton.style.pointerEvents = 'auto';
+        }, 100);
 
-            enteringIcon.style.transition = ''; // Re-enable CSS transition
-            enteringIcon.style.transform = this.centerTransform;
-            enteringIcon.style.opacity = '1';
+        this.toggleButton.addEventListener('click', () => this.toggle());
+    }
 
-        }, 10);
+    /**
+     * Toggles the theme and triggers the animation.
+     */
+    toggle() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
 
-        this.isDark = !this.isDark;
+        const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+        const exitingIcon = this.currentTheme === 'light' ? this.sunIcon : this.moonIcon;
+        const enteringIcon = newTheme === 'light' ? this.sunIcon : this.moonIcon;
+
+        // --- Animation Logic ---
+        // 1. Move entering icon to its starting position instantly
+        enteringIcon.classList.remove('is-visible', 'is-exiting');
+        enteringIcon.classList.add('is-entering');
+        
+        // 2. Animate the exiting icon out and the entering icon in
+        exitingIcon.classList.remove('is-visible');
+        exitingIcon.classList.add('is-exiting');
+
+        enteringIcon.classList.remove('is-entering');
+        enteringIcon.classList.add('is-visible');
+        
+        // Update the state
+        this.currentTheme = newTheme;
+
+        // Call the callback function with the new theme
+        this.options.onToggle(this.currentTheme);
+        
+        // Prevent multiple clicks during the animation
+        setTimeout(() => {
+            this.isAnimating = false;
+        }, 500); // Should match the CSS transition duration
     }
 }
-
 class App {
     constructor() {
         this.mobileMenu = new MobileMenu(); // Tailwind's md breakpoint is 768px
