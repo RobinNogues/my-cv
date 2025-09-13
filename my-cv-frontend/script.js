@@ -149,14 +149,14 @@ class ContactFormHandler {
 
     #displayStatus(message, type = 'info') {
         const classMap = {
-            success: 'text-green-600',
-            error: 'text-red-600',
-            info: 'text-gray-600'
+            success: 'status-success',
+            error: 'status-error',
+            info: 'text-muted'
         };
         const className = classMap[type] || classMap.info;
 
         this.statusMessage.style.display = 'block';
-        this.statusMessage.className = `mt-4 text-center text-sm font-medium ${className}`;
+        this.statusMessage.className = `mt-4 text-center font-medium ${className}`;
         this.statusMessage.textContent = message;
     }
 

@@ -22,6 +22,10 @@
     /* Borders & Dividers */
     --color-border: #D1D5DB;
     --color-divider: #E5E7EB;
+
+    /* Status Colors */
+    --color-status-success: #16A34A;
+    --color-status-error: #DC2626;
  
     /* --- Layout & Sizing --- */
     --spacing-xs: 0.25rem;
@@ -340,4 +344,12 @@ section h2.text-2xl { font-size: 1.25rem; }
 
 .hover-text-primary:hover {
     color: var(--color-primary);
+}
+
+/* Status message colors for the contact form */
+.status-success {
+    color: var(--color-status-success);
+}
+.status-error {
+    color: var(--color-status-error);
 }
