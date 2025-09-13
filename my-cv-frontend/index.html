@@ -75,10 +75,10 @@
 
     <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
+    <button id="mobile-menu-close-button" class="mobile-menu-close-button" aria-label="Close mobile menu">
+        <i class="fas fa-times text-2xl"></i>
+    </button>
     <div id="mobile-menu-drawer" class="mobile-menu">
-        <button id="mobile-menu-close-button" class="self-end text-gray-600 hover:text-gray-900 focus:outline-none mb-4" aria-label="Close mobile menu">
-            <i class="fas fa-times text-2xl"></i>
-        </button>
         <a href="#experience" class="nav-link" data-scroll>Experience</a>
         <a href="#projects" class="nav-link" data-scroll>Projects</a>
         <a href="#skills" class="nav-link" data-scroll>Skills</a>
@@ -159,7 +159,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">Gesture Recognition</h3>
-                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for Gesture Recognition project">
+                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="GitHub repository for Gesture Recognition project">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
@@ -173,7 +173,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">DeFi Platform Simulator</h3>
-                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for DeFi Platform Simulator project">
+                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="GitHub repository for DeFi Platform Simulator project">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
@@ -188,7 +188,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">robin-nogues.com</h3>
-                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="GitHub repository for My CV Website project">
+                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="GitHub repository for My CV Website project">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
@@ -204,7 +204,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">Weather Impact in Football</h3>
-                        <span class="text-gray-400"> (No repository)</span>
+                        <span class="text-gray-400 ml-4 text-right"> (No repository)</span>
                     </div>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
                         <li>Retrieve historical data for a team's matches (result, location, date) on flashscore.fr using <strong>Beautifulsoup</strong>.</li>
@@ -221,7 +221,7 @@
             </div>
             <div class="flex flex-col gap-6">
                 <article class="card">
-                    <h3 class="font-semibold mb-4 text-gray-800">Languages</h3>
+                    <h3 class="card-title mb-4">Languages</h3>
                     <div class="flex flex-wrap gap-4">
                         <span class="skill-tag">French (Native)</span>
                         <span class="skill-tag">English (Proficient)</span>
@@ -230,7 +230,7 @@
                 </article>
 
                 <article class="card">
-                    <h3 class="font-semibold mb-4 text-gray-800">Technical Skills</h3>
+                    <h3 class="card-title mb-4">Technical Skills</h3>
                     <div class="mb-6">
                         <h5 class="font-medium text-gray-700 mb-2">Programming & Tools</h5>
                         <div class="flex flex-wrap gap-4">
@@ -321,7 +321,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">Functional Programming in Scala Specialization</h3>
-                        <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Functional Programming in Scala certificate on Coursera">
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Functional Programming in Scala certificate on Coursera">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
@@ -331,8 +331,7 @@
                     </div>
                     <p class="card-date">September 2025</p>
                     <button class="course-toggle-link" data-toggle="scala-courses" aria-expanded="false" aria-controls="scala-courses">
-                        Show courses <i class="fas fa-chevron-down toggle-arrow"></i>
-                    </button>
+                        Show courses <i class="fas fa-chevron-down toggle-arrow"></i> </button>
                     <div id="scala-courses" class="course-details-list">
                         <ul class="list-disc list-inside text-gray-600 space-y-1">
                             <li>Functional Programming Principles in Scala</li>
@@ -346,7 +345,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">Docker Foundations Professional Certificate</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Docker Foundations certificate on LinkedIn Learning">
+                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Docker Foundations certificate on LinkedIn Learning">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
@@ -359,7 +358,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">Develop Your Scala Skills for Data Engineering</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View Develop Your Scala Skills certificate on LinkedIn Learning">
+                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Develop Your Scala Skills certificate on LinkedIn Learning">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>
@@ -372,7 +371,7 @@
                 <article class="card">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="card-title">Become an AI and ML Specialist</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none" aria-label="View AI and ML Specialist certificate on LinkedIn Learning">
+                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" rel="noopener" class="text-gray-600 hover:text-[var(--color-primary)] transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View AI and ML Specialist certificate on LinkedIn Learning">
                             <i class="fa-solid fa-square-arrow-up-right"></i>
                         </a>
                     </div>

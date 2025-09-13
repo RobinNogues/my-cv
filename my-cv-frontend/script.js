@@ -1,10 +1,11 @@
 class MobileMenu {
-    constructor() {
+    constructor(breakpoint = 768) {
         this.menuButton = document.getElementById('mobile-menu-button');
         this.closeButton = document.getElementById('mobile-menu-close-button');
         this.drawer = document.getElementById('mobile-menu-drawer');
         this.overlay = document.getElementById('mobile-menu-overlay');
-
+        this.breakpoint = breakpoint;
+ 
         if (this.menuButton && this.closeButton && this.drawer && this.overlay) {
             this.addEventListeners();
         }
@@ -14,22 +15,25 @@ class MobileMenu {
         this.menuButton.addEventListener('click', () => this.open());
         this.closeButton.addEventListener('click', () => this.close());
         this.overlay.addEventListener('click', () => this.close());
+        window.addEventListener('resize', () => this.handleResize());
+    }
+
+    handleResize() {
+        if (window.innerWidth >= this.breakpoint && this.isOpen()) {
+            this.close();
+        }
     }
 
     open() {
-        this.overlay.style.display = 'block';
-        requestAnimationFrame(() => {
-            this.drawer.classList.add('open');
-            this.overlay.classList.add('visible');
-        });
+        this.drawer.classList.add('open');
+        this.closeButton.classList.add('visible');
+        this.overlay.classList.add('visible');
     }
 
     close() {
         this.drawer.classList.remove('open');
+        this.closeButton.classList.remove('visible');
         this.overlay.classList.remove('visible');
-        this.overlay.addEventListener('transitionend', () => {
-            this.overlay.style.display = 'none';
-        }, { once: true });
     }
 
     isOpen() {
@@ -197,7 +201,7 @@ class ContactFormHandler {
 
 class App {
     constructor() {
-        this.mobileMenu = new MobileMenu();
+        this.mobileMenu = new MobileMenu(); // Tailwind's md breakpoint is 768px
         new BackToTopButton('back-to-top');
         new NavLinkHighlighter('.nav-link', 'section[id]');
         new ContactFormHandler('contact-form', 'form-status-message');
