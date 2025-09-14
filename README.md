@@ -8,7 +8,7 @@ It is designed to showcase my skills, experience, and projects in a clean, moder
 
 -   **Fully Responsive:** Optimized for desktops, tablets, and mobile devices.
 -   **Comprehensive Sections:** Includes Professional Experience, Personal Projects, Skills, Education, and Certifications.
--   **Interactive UI:** Features smooth scrolling, active navigation link highlighting, and a "Back to Top" button.
+-   **Interactive UI:** Dark mode, smooth animations, active navigation link highlighting, animated burger menu and a "Back to Top" button.
 -   **Contact Form:** A secure contact form with backend processing, input validation, and anti-spam (honeypot, API Rate Limiting) protection.
 -   **Automated Deployment:** CI/CD pipeline for automated builds and deployments to a live server.
 
@@ -139,7 +139,7 @@ You can do it with a cron job. This job will run daily, attempts renewal, and re
 1.  Open the crontab editor: `crontab -e`
 2.  Add the following line, replacing `/path/to/your/project` with the absolute path to your project's root directory on the VPS. It will try to renew the certificat every day at 4:17 AM (you can change it if you want, take into account the timezone).
 ```bash
-17 4 * * * /bin/bash /home/rnogues/my-cv/renew-certs.sh
+17 4 * * * /bin/bash /path/to/your/project/scripts/renew-certs.sh
 ```
 
 ## 🤝 Contributions and Security
