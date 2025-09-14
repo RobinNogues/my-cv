@@ -8,7 +8,7 @@ It is designed to showcase my skills, experience, and projects in a clean, moder
 
 -   **Fully Responsive:** Optimized for desktops, tablets, and mobile devices.
 -   **Comprehensive Sections:** Includes Professional Experience, Personal Projects, Skills, Education, and Certifications.
--   **Interactive UI:** Features smooth scrolling, Dark mode, active navigation link highlighting, and a "Back to Top" button.
+-   **Interactive UI:** Dark mode, smooth animations, active navigation link highlighting, animated burger menu and a "Back to Top" button.
 -   **Contact Form:** A secure contact form with backend processing, input validation, and anti-spam (honeypot, API Rate Limiting) protection.
 -   **Automated Deployment:** CI/CD pipeline for automated builds and deployments to a live server.
 
