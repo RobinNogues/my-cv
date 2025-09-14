@@ -262,6 +262,10 @@ class ThemeToggler {
         this.sunIcon.style.transition = 'none';
         this.moonIcon.style.transition = 'none';
 
+        // Ensure both icons are display: block so animations work
+        this.sunIcon.style.display = 'block';
+        this.moonIcon.style.display = 'block';
+
         if (this.currentTheme === 'dark') {
             this.sunIcon.classList.add('is-exiting');
             this.moonIcon.classList.add('is-visible');
@@ -321,6 +325,10 @@ class App {
     initializeTheme() {
         const initialTheme = document.documentElement.getAttribute('data-theme') || 'light';
         this.themeToggler.setInitialTheme(initialTheme);
+
+        // Clean up pre-JS classes now that JS has hydrated the component.
+        document.documentElement.classList.remove('light-theme-active', 'dark-theme-active');
+
     }
 
     setTheme(theme, save = true) {

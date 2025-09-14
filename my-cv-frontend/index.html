@@ -24,11 +24,12 @@
         (function() {
             const theme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (theme === 'dark' || (!theme && systemPrefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
+            const isDarkMode = theme === 'dark' || (!theme && systemPrefersDark);
+
+            const docEl = document.documentElement;
+            docEl.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+            // Add a class to manage initial icon visibility before JS loads.
+            docEl.classList.add(isDarkMode ? 'dark-theme-active' : 'light-theme-active');
         })();
     </script>
 
