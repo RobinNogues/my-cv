@@ -117,28 +117,32 @@ article.card {
     padding: var(--spacing-lg);
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease-in-out;
     width: 100%;
-    
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-card-hover);
-    }
-    .card-title {
-        font-weight: 600;
-        color: var(--color-text-heading);
-    }
-    .card-location {
-        color: var(--color-primary);
-        font-weight: 500;
-    }
-    .card-date {
-        color: var(--color-text-muted);
-    }
-    .card-icon {
-        width: 1.5rem;
-        height: 1.5rem;
-        margin-right: 0.5rem;
-        object-fit: contain;
-    }
+}
+
+article.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+article.card .card-title {
+    font-weight: 600;
+    color: var(--color-text-heading);
+}
+
+article.card .card-location {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+article.card .card-date {
+    color: var(--color-text-muted);
+}
+
+article.card .card-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    object-fit: contain;
 }
 
 .skill-tag {
@@ -150,11 +154,11 @@ article.card {
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease-in-out;
     font-size: 0.825rem;
+}
 
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
-    }
+.skill-tag:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
 }
 
 .mobile-menu-overlay {
@@ -221,8 +225,6 @@ article.card {
 .mobile-menu .btn-primary {
     text-align: center;
     margin-top: var(--spacing-md);
-    padding: 10px 20px;
-    border-radius: var(--border-radius-md);
     border-bottom: none;
     width: auto;
     align-self: center;
