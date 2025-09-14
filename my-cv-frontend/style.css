@@ -37,10 +37,25 @@
     --border-radius-md: 8px;
     --border-radius-lg: 12px;
 
+    /* --- Typography --- */
+    --font-size-xs: 0.825rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 0.9rem;
+    --font-size-md: 0.95rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.9rem;
+    --font-size-4xl: 3rem;
+
     /* --- Shadows --- */
     --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
     --shadow-mobile-menu: -4px 0 10px rgba(0,0,0,0.2);
+
+    /* --- Transitions --- */
+    --transition-duration: 0.3s;
+    --transition-timing: ease-in-out;
 }
 
 [data-theme="dark"] {
@@ -73,23 +88,23 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--color-background);
     color: var(--color-text-base);
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    font-size: var(--font-size-base);
+    transition: background-color var(--transition-duration) var(--transition-timing), color var(--transition-duration) var(--transition-timing);
 }
 
 .header-background {
     background-color: var(--color-header-background);
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color var(--transition-duration) var(--transition-timing);
 }
 
 .accent-orange {
     color: var(--color-primary);
-    transition: color 0.3s ease-in-out;
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 .nav-link {
     color: var(--color-text-heading);
-    transition: color 0.3s, border-bottom-color 0.3s;
+    transition: color var(--transition-duration), border-bottom-color var(--transition-duration);
     border-bottom: 2px solid transparent;
 }
 
@@ -101,7 +116,7 @@ body {
 .btn-primary {
     background-color: var(--color-primary);
     color: var(--color-text-inverted);
-    transition: background-color 0.3s;
+    transition: background-color var(--transition-duration);
     padding: 10px 20px;
     border-radius: var(--border-radius-md);
     font-weight: 500;
@@ -116,7 +131,7 @@ article.card {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-card);
     padding: var(--spacing-lg);
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease-in-out;
+    transition: transform var(--transition-duration), box-shadow var(--transition-duration), background-color var(--transition-duration) var(--transition-timing);
     width: 100%;
     will-change: transform;
 }
@@ -129,21 +144,21 @@ article.card:hover {
 article.card .card-title {
     font-weight: 600;
     color: var(--color-text-heading);
-    font-size: 0.95rem;
-    transition: color 0.3s ease-in-out;
+    font-size: var(--font-size-md);
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 article.card .card-location {
     color: var(--color-primary);
     font-weight: 600;
-    font-size: 0.875rem;
-    transition: color 0.3s ease-in-out;
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 article.card .card-date {
     color: var(--color-text-muted);
-    font-size: 0.825rem;
-    transition: color 0.3s ease-in-out;
+    font-size: var(--font-size-xs);
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 article.card .card-icon {
@@ -160,8 +175,8 @@ article.card .card-icon {
     border-radius: var(--border-radius-sm);
     font-weight: 500;    
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-    font-size: 0.825rem;
+    transition: transform var(--transition-duration), box-shadow var(--transition-duration), background-color var(--transition-duration) var(--transition-timing), color var(--transition-duration) var(--transition-timing);
+    font-size: var(--font-size-xs);
     will-change: transform;
 }
 
@@ -180,7 +195,7 @@ article.card .card-icon {
     z-index: 90;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+    transition: opacity var(--transition-duration) var(--transition-timing), visibility 0s linear var(--transition-duration);
     pointer-events: none;
 }
 
@@ -203,7 +218,7 @@ article.card .card-icon {
     transform: translateX(100%);
     padding: 4rem var(--spacing-xl) var(--spacing-xl);
     box-shadow: var(--shadow-mobile-menu);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s, background-color 0.3s ease-in-out;
+    transition: transform var(--transition-duration) var(--transition-timing), box-shadow var(--transition-duration), background-color var(--transition-duration) var(--transition-timing);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -218,7 +233,7 @@ article.card .card-icon {
     background: none;
     border: none;
     cursor: pointer;
-    transition: color 0.3s ease-in-out;
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 .mobile-menu.open {
@@ -255,7 +270,7 @@ article.card .card-icon {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: var(--font-size-2xl);
     box-shadow: var(--shadow-card);
     display: flex;
     justify-content: center;
@@ -264,7 +279,7 @@ article.card .card-icon {
     opacity: 0;
     visibility: hidden;
     transform: translateY(var(--spacing-md));
-    transition: background-color 0.3s, transform 0.3s, opacity 0.3s, visibility 0.3s;
+    transition: background-color var(--transition-duration), transform var(--transition-duration), opacity var(--transition-duration), visibility var(--transition-duration);
     z-index: 99;
 }
 
@@ -287,7 +302,7 @@ article.card .card-icon {
     line-height: 1.5;
     background-color: var(--color-card-background);
     color: var(--color-text-base);
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    transition: background-color var(--transition-duration) var(--transition-timing), color var(--transition-duration) var(--transition-timing), border-color var(--transition-duration) var(--transition-timing);
 }
 
 .form-input:focus, .form-textarea:focus {
@@ -316,37 +331,37 @@ ul.list-disc {
 }
 
 ul.list-disc li, p.text-content { 
-    font-size: 0.825rem; 
+    font-size: var(--font-size-xs); 
 }
 
 #hero a { 
-    font-size: 0.9rem; 
+    font-size: var(--font-size-base); 
 }
 
 #hero p { 
-    font-size: 0.95rem; 
+    font-size: var(--font-size-md); 
 }
 
 .nav-name { 
-    font-size: 1.125rem; 
+    font-size: var(--font-size-lg); 
 }
 
 section h2.text-2xl { 
-    font-size: 1.25rem; 
+    font-size: var(--font-size-xl); 
 }
 
 #certifications .card a .fa-square-arrow-up-right { 
-    font-size: 1.25rem; 
+    font-size: var(--font-size-xl); 
 }
 
 #hero h1 { 
-    font-size: 1.9rem; 
+    font-size: var(--font-size-3xl); 
 }
 
 .course-details-list {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease-in-out;
+    transition: grid-template-rows var(--transition-duration) var(--transition-timing);
 }
 
 .course-details-list > ul {
@@ -366,8 +381,8 @@ section h2.text-2xl {
     margin-top: var(--spacing-md);
     text-align: left;
     font-family: inherit;
-    transition: color 0.3s;
-    font-size: 0.875rem;
+    transition: color var(--transition-duration);
+    font-size: var(--font-size-sm);
 }
 
 .course-toggle-link:hover {
@@ -376,7 +391,7 @@ section h2.text-2xl {
 
 .toggle-arrow {
     display: inline-block;
-    transition: transform 0.3s ease-in-out;
+    transition: transform var(--transition-duration) var(--transition-timing);
 }
 
 article.card .card-date + ul {
@@ -400,7 +415,7 @@ article.card .card-icon {
     }    
 
     p.text-content, .card-date, .skill-tag, ul.list-disc li { 
-        font-size: 0.875rem; 
+        font-size: var(--font-size-sm); 
     }
 
     #hero a { 
@@ -408,15 +423,15 @@ article.card .card-icon {
     }
 
     #hero p, article.card .card-title { 
-        font-size: 1.125rem; 
+        font-size: var(--font-size-lg); 
     }
 
     section h2.text-2xl, #certifications .card a .fa-square-arrow-up-right { 
-        font-size: 1.5rem; 
+        font-size: var(--font-size-2xl); 
     }
 
     #hero h1 { 
-        font-size: 3rem; 
+        font-size: var(--font-size-4xl); 
     }
 
     article.card:hover {
@@ -435,23 +450,23 @@ article.card .card-icon {
 /* Text color utilities */
 .text-heading {
     color: var(--color-text-heading);
-    transition: color 0.3s ease-in-out;
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 .text-content {
     color: var(--color-text-base);
-    transition: color 0.3s ease-in-out;
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 .text-muted {
     color: var(--color-text-muted);
-    transition: color 0.3s ease-in-out;
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 /* Background color utilities */
 .bg-footer {
     background-color: var(--color-footer-bg);
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color var(--transition-duration) var(--transition-timing);
 }
 
 .text-white {
@@ -476,7 +491,7 @@ article.card .card-icon {
     position: absolute;
     top: 50%;
     left: 50%;
-    transition: transform 0.3s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.3s;
+    transition: transform var(--transition-duration) cubic-bezier(0.5, 0, 0.5, 1), opacity var(--transition-duration);
 }
 
 /* State: The icon is hidden and positioned at the bottom-right (its starting point) */
