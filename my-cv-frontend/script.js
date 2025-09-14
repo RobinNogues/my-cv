@@ -269,12 +269,10 @@ class ThemeToggler {
     }
 
     _updateIcons(animate = true) {
-        // Temporarily disable transitions to set initial state instantly
         this.toggleButton.style.pointerEvents = 'none';
         this.sunIcon.style.transition = 'none';
         this.moonIcon.style.transition = 'none';
 
-        // Ensure both icons are display: block so animations work
         this.sunIcon.style.display = 'block';
         this.moonIcon.style.display = 'block';
 
@@ -287,8 +285,6 @@ class ThemeToggler {
         }
 
         if (!animate) {
-            // Use requestAnimationFrame to ensure the browser has painted the style changes
-            // before we re-enable transitions. This is more reliable than a fixed setTimeout.
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     this.sunIcon.style.transition = '';
@@ -348,7 +344,7 @@ class CourseToggler {
             toggleLink.setAttribute('aria-expanded', isOpening);
             toggleText.textContent = isOpening ? 'Hide courses' : 'Show courses';
             toggleArrow.style.transform = isOpening ? 'rotate(180deg)' : 'rotate(0deg)';
-            // The following two lines are redundant if using transform, but kept for compatibility.
+
             toggleArrow.classList.toggle('fa-chevron-down', !isOpening);
             toggleArrow.classList.toggle('fa-chevron-up', isOpening);
         }
@@ -356,7 +352,7 @@ class CourseToggler {
 }
 class App {
     constructor() {
-        this.mobileMenu = new MobileMenu(); // Tailwind's md breakpoint is 768px
+        this.mobileMenu = new MobileMenu();
         new BackToTopButton('back-to-top');
         new NavLinkHighlighter('.nav-link', 'section[id]');
         new ContactFormHandler('contact-form', 'form-status-message');

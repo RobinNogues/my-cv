@@ -3,7 +3,7 @@ name: Build and Deploy to Production VPS
 on:
   push:
     branches:
-      - dev
+      - main
 
 env:
   REGISTRY: ghcr.io
@@ -34,21 +34,21 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./my-cv-frontend
-          push: false
+          push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
 
       - name: Build and push backend image
         uses: docker/build-push-action@v6
         with:
           context: ./my-cv-backend
-          push: false
+          push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
 
       - name: Build and push reverse-proxy image
         uses: docker/build-push-action@v6
         with:
           context: ./reverse-proxy
-          push: false
+          push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_REVERSE_PROXY }}:latest
 
   deploy:

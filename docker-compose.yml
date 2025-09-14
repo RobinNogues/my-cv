@@ -35,11 +35,6 @@ services:
     volumes:
       - certbot_www:/var/www/certbot:rw
       - letsencrypt_data:/etc/letsencrypt:rw
-    command: >
-      renew
-      --webroot --webroot-path=/var/www/certbot
-      --quiet --no-random-sleep-on-renew
-      --dry-run --force-renewal
     depends_on:
       - reverse-proxy
 

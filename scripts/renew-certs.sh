@@ -10,9 +10,9 @@ log_message() {
 
 log_message "Start of HTTPS certificate renewal"
 
-OUTPUT=$(/usr/bin/docker compose run --rm --quiet certbot 2>&1)
+OUTPUT=$(/usr/bin/docker compose run --rm certbot renew 2>&1)
 
-if echo "$OUTPUT" | grep -qE "Congratulations|renewed" && ! echo "$OUTPUT" | grep -q "dry-run"; then
+if echo "$OUTPUT" | grep -qE "Congratulations|renewed"; then
     log_message "Certificates renewed. Restarting Nginx..."
     /usr/bin/docker compose restart reverse-proxy >> "$LOG_FILE" 2>&1
     log_message "Nginx restarted."
