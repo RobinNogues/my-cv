@@ -293,16 +293,16 @@ class ThemeToggler {
         exitingIcon.classList.remove('is-visible');
         exitingIcon.classList.add('is-exiting');
 
+        enteringIcon.addEventListener('transitionend', () => {
+            this.isAnimating = false;
+        }, { once: true });
+
         enteringIcon.classList.remove('is-entering');
         enteringIcon.classList.add('is-visible');
         
         this.currentTheme = newTheme;
 
         this.onToggle(this.currentTheme);
-        
-        setTimeout(() => {
-            this.isAnimating = false;
-        }, 500); // Should match the CSS transition duration
     }
 }
 class App {
@@ -363,11 +363,12 @@ class App {
         const targetId = toggleLink.getAttribute('aria-controls');
         const targetElement = document.getElementById(targetId);
         const toggleArrow = toggleLink.querySelector('.toggle-arrow');
+        const toggleText = toggleLink.querySelector('.course-toggle-text');
 
-        if (targetElement && toggleArrow) {
+        if (targetElement && toggleArrow && toggleText) {
             const isOpening = targetElement.classList.toggle('open');
             toggleLink.setAttribute('aria-expanded', isOpening);
-            toggleLink.firstChild.textContent = isOpening ? 'Hide courses ' : 'Show courses ';
+            toggleText.textContent = isOpening ? 'Hide courses' : 'Show courses';
             toggleArrow.style.transform = isOpening ? 'rotate(180deg)' : 'rotate(0deg)';
             toggleArrow.classList.toggle('fa-chevron-down', !isOpening);
             toggleArrow.classList.toggle('fa-chevron-up', isOpening);

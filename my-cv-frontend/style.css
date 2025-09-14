@@ -72,17 +72,12 @@ body {
     background-color: var(--color-background);
     color: var(--color-text-base);
     font-size: 0.9rem;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
-
-/* Universal transition for theme changes */
-*, *::before, *::after {
-    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-}
-/* Slower transition for text color for a softer effect */
-h1, h2, h3, h4, h5, h6, p, span, a, li, label, button { transition: color 0.5s ease-in-out; }
 
 .header-background {
     background-color: var(--color-header-background);
+    transition: background-color 0.3s ease-in-out;
 }
 
 .accent-orange {
@@ -93,6 +88,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, button { transition: color 0.5s e
     transition: color 0.3s, border-bottom-color 0.3s;
     border-bottom: 2px solid transparent;
 }
+
 .nav-link:hover, .nav-link.active {
     color: var(--color-primary);
     border-bottom-color: var(--color-primary);
@@ -106,6 +102,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, button { transition: color 0.5s e
     border-radius: var(--border-radius-md);
     font-weight: 500;
 }
+
 .btn-primary:hover {
     background-color: var(--color-primary-hover);
 }
@@ -127,15 +124,18 @@ article.card:hover {
 article.card .card-title {
     font-weight: 600;
     color: var(--color-text-heading);
+    font-size: 0.95rem;
 }
 
 article.card .card-location {
     color: var(--color-primary);
     font-weight: 500;
+    font-size: 0.875rem;
 }
 
 article.card .card-date {
     color: var(--color-text-muted);
+    font-size: 0.825rem;
 }
 
 article.card .card-icon {
@@ -174,12 +174,14 @@ article.card .card-icon {
     transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
     pointer-events: none;
 }
+
 .mobile-menu-overlay.visible {
     opacity: 1;
     visibility: visible;
     transition-delay: 0s, 0s;
     pointer-events: auto;
 }
+
 .mobile-menu {
     position: fixed;
     top: 0;
@@ -192,11 +194,12 @@ article.card .card-icon {
     transform: translateX(100%);
     padding: 4rem var(--spacing-xl) var(--spacing-xl);
     box-shadow: var(--shadow-mobile-menu);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s, background-color 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
+
 .mobile-menu-close-button {
     position: absolute;
     top: 1.25rem;
@@ -207,9 +210,11 @@ article.card .card-icon {
     border: none;
     cursor: pointer;
 }
+
 .mobile-menu.open {
     transform: translateX(0);
 }
+
 .mobile-menu .nav-link {
     width: 100%;
     padding: var(--spacing-md) 0;
@@ -218,6 +223,7 @@ article.card .card-icon {
     border-radius: 0;
     margin-bottom: var(--spacing-sm);
 }
+
 .mobile-menu .nav-link:last-of-type {
     border-bottom: none;
 }
@@ -271,8 +277,8 @@ article.card .card-icon {
     line-height: 1.5;
     background-color: var(--color-card-background);
     color: var(--color-text-base);    
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.3s ease-in-out;
 }
+
 .form-input:focus, .form-textarea:focus {
     outline: none;
     border-color: var(--color-primary);
@@ -294,27 +300,48 @@ article.card .card-icon {
     object-position: center 25%;
 }
 
-/* --- Mobile Font Sizes --- */
-ul.list-disc { text-align: left; }
+ul.list-disc { 
+    text-align: left; 
+}
 
-ul.list-disc li, p.text-content, .card-date, .skill-tag { font-size: 0.825rem; }
-.card-location, .course-toggle-link { font-size: 0.875rem; }
-#hero a { font-size: 0.9rem; }
-#hero p, .card-title { font-size: 0.95rem; }
-.nav-name { font-size: 1.125rem; }
-section h2.text-2xl { font-size: 1.25rem; }
-#certifications .card a .fa-square-arrow-up-right { font-size: 1.25rem; }
-#hero h1 { font-size: 1.9rem; }
+ul.list-disc li, p.text-content { 
+    font-size: 0.825rem; 
+}
 
+#hero a { 
+    font-size: 0.9rem; 
+}
+
+#hero p { 
+    font-size: 0.95rem; 
+}
+
+.nav-name { 
+    font-size: 1.125rem; 
+}
+
+section h2.text-2xl { 
+    font-size: 1.25rem; 
+}
+
+#certifications .card a .fa-square-arrow-up-right { 
+    font-size: 1.25rem; 
+}
+
+#hero h1 { 
+    font-size: 1.9rem; 
+}
 
 .course-details-list {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.4s ease-in-out;
+    transition: grid-template-rows 0.3s ease-in-out;
 }
+
 .course-details-list > ul {
     overflow: hidden;
 }
+
 .course-details-list.open {
     grid-template-rows: 1fr;
 }
@@ -329,7 +356,9 @@ section h2.text-2xl { font-size: 1.25rem; }
     text-align: left;
     font-family: inherit;
     transition: color 0.3s;
+    font-size: 0.875rem;
 }
+
 .course-toggle-link:hover {
     color: var(--color-primary-hover);
 }
@@ -341,16 +370,32 @@ section h2.text-2xl { font-size: 1.25rem; }
 
 @media (min-width: 768px) {
     body {
-        font-size: 0.95rem; /* Base font size for desktop */
+        font-size: 1rem;
     }
     
-    /* --- Desktop Font Sizes --- */
-    ul.list-disc { text-align: justify; }    
-    p.text-content, .card-date, .skill-tag, ul.list-disc li { font-size: 0.875rem; }
-    #hero a { font-size: 1rem; }
-    #hero p, .card-title { font-size: 1.125rem; }
-    section h2.text-2xl, #certifications .card a .fa-square-arrow-up-right { font-size: 1.5rem; }
-    #hero h1 { font-size: 3rem; }
+    ul.list-disc { 
+        text-align: justify; 
+    }    
+
+    p.text-content, .card-date, .skill-tag, ul.list-disc li { 
+        font-size: 0.875rem; 
+    }
+
+    #hero a { 
+        font-size: 1rem; 
+    }
+
+    #hero p, article.card .card-title { 
+        font-size: 1.125rem; 
+    }
+
+    section h2.text-2xl, #certifications .card a .fa-square-arrow-up-right { 
+        font-size: 1.5rem; 
+    }
+
+    #hero h1 { 
+        font-size: 3rem; 
+    }
 
     article.card {
         padding: var(--spacing-xl);
@@ -361,12 +406,15 @@ section h2.text-2xl { font-size: 1.25rem; }
 .text-heading {
     color: var(--color-text-heading);
 }
+
 .text-content {
     color: var(--color-text-base);
 }
+
 .text-muted {
     color: var(--color-text-muted);
 }
+
 .text-subtle {
     color: var(--color-text-subtle);
 }
@@ -388,6 +436,7 @@ section h2.text-2xl { font-size: 1.25rem; }
 .status-success {
     color: var(--color-status-success);
 }
+
 .status-error {
     color: var(--color-status-error);
 }
@@ -397,8 +446,7 @@ section h2.text-2xl { font-size: 1.25rem; }
     position: absolute;
     top: 50%;
     left: 50%;
-    /* Define the transition that will be used for all animations */
-    transition: transform 0.5s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.4s;
+    transition: transform 0.3s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.3s;
 }
 
 /* State: The icon is hidden and positioned at the bottom-right (its starting point) */
