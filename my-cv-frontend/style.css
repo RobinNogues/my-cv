@@ -527,3 +527,70 @@ article.card .card-icon {
 .dark-theme-active .moon-icon {
     opacity: 1;
 }
+
+/* --- Theme Toggle Button Styling --- */
+.theme-toggle-button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; /* Reduced size */
+    height: 40px; /* Reduced size */
+    padding: 0;
+    /* Removed border-radius and border */
+    background-color: transparent; /* Make button background transparent */
+    cursor: pointer;
+    overflow: hidden;
+    /* Removed box-shadow */
+    transition: background-color var(--transition-duration) var(--transition-timing); /* Synchronized transition */
+}
+
+.theme-toggle-button:hover {
+    /* Removed box-shadow */
+}
+
+.theme-toggle-button:active {
+    transform: scale(0.95);
+}
+
+/* --- SVG Icon Styling and Animation --- */
+.theme-toggle-button svg {
+    position: absolute;
+    width: 22px; /* Reduced size */
+    height: 22px; /* Reduced size */
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.2s ease-in-out;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+/* Sun Icon (default state) */
+.sun-icon { /* Changed from .sun to .sun-icon to match existing HTML */
+    stroke: var(--color-primary); /* Use existing primary color */
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+}
+
+/* Moon Icon (default state) */
+.moon-icon { /* Changed from .moon to .moon-icon to match existing HTML */
+    stroke: var(--color-text-base); /* Use existing text color for moon in light theme */
+    transform: scale(0.1) rotate(-90deg);
+    opacity: 0;
+}
+
+/* --- Dark Theme state --- */
+[data-theme="dark"] .theme-toggle-button {
+    background-color: transparent; /* Make button background transparent */
+}
+
+[data-theme="dark"] .sun-icon {
+    transform: scale(0.1) rotate(90deg);
+    opacity: 0;
+}
+
+[data-theme="dark"] .moon-icon {
+    stroke: var(--color-text-inverted); /* Use inverted text color for moon in dark theme */
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+}
