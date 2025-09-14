@@ -91,39 +91,51 @@ class NavLinkHighlighter {
         this.sections = document.querySelectorAll(sectionSelector);
         this.header = document.querySelector('header');
         this.isTicking = false;
+        this.sectionData = [];
 
         if (this.navLinks.length > 0 && this.sections.length > 0 && this.header) {
+            this.calculateSectionPositions();
             this.addEventListeners();
-            this.update();
+            this.updateActiveLink();
         }
     }
 
     addEventListeners() {
-        const onScrollOrResize = () => {
+        window.addEventListener('scroll', () => {
             if (!this.isTicking) {
                 window.requestAnimationFrame(() => {
-                    this.update();
+                    this.updateActiveLink();
                     this.isTicking = false;
                 });
                 this.isTicking = true;
             }
-        };
-        window.addEventListener('scroll', onScrollOrResize);
-        window.addEventListener('resize', onScrollOrResize);
+        });
+
+        // Recalculate positions on resize, as section dimensions might change.
+        window.addEventListener('resize', () => this.calculateSectionPositions());
     }
 
-    update() {
-        let currentActiveId = null;
+    calculateSectionPositions() {
         const headerOffset = this.header.offsetHeight + 20; // 20px buffer
-
-        this.sections.forEach(section => {
-            const sectionTop = section.offsetTop - headerOffset;
-            const sectionBottom = sectionTop + section.offsetHeight;
-
-            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
-                currentActiveId = section.id;
-            }
+        this.sectionData = Array.from(this.sections).map(section => {
+            const top = section.offsetTop - headerOffset;
+            return {
+                id: section.id,
+                top: top,
+                bottom: top + section.offsetHeight
+            };
         });
+    }
+
+    updateActiveLink() {
+        let currentActiveId = null;
+        const scrollY = window.scrollY;
+        for (const section of this.sectionData) {
+            if (scrollY >= section.top && scrollY < section.bottom) {
+                currentActiveId = section.id;
+                break; // Found the active section, no need to check further
+            }
+        }
 
         this.navLinks.forEach(link => {
             link.classList.remove('active');
@@ -275,11 +287,15 @@ class ThemeToggler {
         }
 
         if (!animate) {
-            setTimeout(() => {
-                this.sunIcon.style.transition = '';
-                this.moonIcon.style.transition = '';
-                this.toggleButton.style.pointerEvents = 'auto';
-            }, 100);
+            // Use requestAnimationFrame to ensure the browser has painted the style changes
+            // before we re-enable transitions. This is more reliable than a fixed setTimeout.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    this.sunIcon.style.transition = '';
+                    this.moonIcon.style.transition = '';
+                    this.toggleButton.style.pointerEvents = 'auto';
+                });
+            });
         }
     }
 
@@ -309,6 +325,35 @@ class ThemeToggler {
         this.onToggle(this.currentTheme);
     }
 }
+
+class CourseToggler {
+    constructor(containerSelector = 'body') {
+        this.container = document.querySelector(containerSelector);
+        if (this.container) {
+            this.container.addEventListener('click', this.handleToggle.bind(this));
+        }
+    }
+
+    handleToggle(e) {
+        const toggleLink = e.target.closest('.course-toggle-link');
+        if (!toggleLink) return;
+
+        const targetId = toggleLink.getAttribute('aria-controls');
+        const targetElement = document.getElementById(targetId);
+        const toggleArrow = toggleLink.querySelector('.toggle-arrow');
+        const toggleText = toggleLink.querySelector('.course-toggle-text');
+
+        if (targetElement && toggleArrow && toggleText) {
+            const isOpening = targetElement.classList.toggle('open');
+            toggleLink.setAttribute('aria-expanded', isOpening);
+            toggleText.textContent = isOpening ? 'Hide courses' : 'Show courses';
+            toggleArrow.style.transform = isOpening ? 'rotate(180deg)' : 'rotate(0deg)';
+            // The following two lines are redundant if using transform, but kept for compatibility.
+            toggleArrow.classList.toggle('fa-chevron-down', !isOpening);
+            toggleArrow.classList.toggle('fa-chevron-up', isOpening);
+        }
+    }
+}
 class App {
     constructor() {
         this.mobileMenu = new MobileMenu(); // Tailwind's md breakpoint is 768px
@@ -316,6 +361,7 @@ class App {
         new NavLinkHighlighter('.nav-link', 'section[id]');
         new ContactFormHandler('contact-form', 'form-status-message');
         
+        new CourseToggler('#certifications');
         this.themeToggler = new ThemeToggler('theme-toggle', (newTheme) => this.setTheme(newTheme));
         this.initializeTheme();
 
@@ -348,11 +394,6 @@ class App {
             this.#handleLinkClick(e, anchor);
             return;
         }
-
-        const toggleLink = e.target.closest('.course-toggle-link');
-        if (toggleLink) {
-            this.#handleCourseToggle(toggleLink);
-        }
     }
 
     #handleLinkClick(e, anchor) {
@@ -364,22 +405,6 @@ class App {
         }
         if (this.mobileMenu.isOpen()) {
             this.mobileMenu.close();
-        }
-    }
-
-    #handleCourseToggle(toggleLink) {
-        const targetId = toggleLink.getAttribute('aria-controls');
-        const targetElement = document.getElementById(targetId);
-        const toggleArrow = toggleLink.querySelector('.toggle-arrow');
-        const toggleText = toggleLink.querySelector('.course-toggle-text');
-
-        if (targetElement && toggleArrow && toggleText) {
-            const isOpening = targetElement.classList.toggle('open');
-            toggleLink.setAttribute('aria-expanded', isOpening);
-            toggleText.textContent = isOpening ? 'Hide courses' : 'Show courses';
-            toggleArrow.style.transform = isOpening ? 'rotate(180deg)' : 'rotate(0deg)';
-            toggleArrow.classList.toggle('fa-chevron-down', !isOpening);
-            toggleArrow.classList.toggle('fa-chevron-up', isOpening);
         }
     }
 }
