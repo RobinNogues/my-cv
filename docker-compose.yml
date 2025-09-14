@@ -35,6 +35,8 @@ services:
     volumes:
       - certbot_www:/var/www/certbot:rw
       - letsencrypt_data:/etc/letsencrypt:rw
+    depends_on:
+      - reverse-proxy
 
 volumes:
   certbot_www:

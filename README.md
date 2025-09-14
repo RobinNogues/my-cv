@@ -64,13 +64,14 @@ To run the project with HTTPS locally, you need a self-signed SSL certificate.
 
 Generate the certificate and private key using OpenSSL:
 
-    ```bash
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-        -keyout reverse-proxy/local_certs/nginx.key \
-        -out reverse-proxy/local_certs/nginx.crt
-    ```
 
-    You will be prompted for some information. You can leave most fields blank by pressing Enter. For the "Common Name", it's important to use `localhost`.
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout reverse-proxy/local_certs/nginx.key \
+    -out reverse-proxy/local_certs/nginx.crt
+```
+
+You will be prompted for some information. You can leave most fields blank by pressing Enter. For the "Common Name", it's important to use `localhost`.
 
 ### 4. Build and Run
 
@@ -136,10 +137,10 @@ Let's Encrypt certificates expire every 90 days. The renewal process should be a
 You can do it with a cron job. This job will run daily, attempts renewal, and reloads Nginx if a new certificate was obtained.
 
 1.  Open the crontab editor: `crontab -e`
-2.  Add the following line, replacing `/path/to/your/project` with the absolute path to your project's root directory on the VPS. It will try to renew the certificat every day at 4:17 AM (you can change it if you want).
-    ```
-    17 4 * * * cd /path/to/your/project && /usr/bin/docker compose run --rm certbot renew --quiet && /usr/bin/docker kill --signal=SIGHUP cv_reverse_proxy >> /path/to/your/project/cron-certbot.log 2>&1
-    ```
+2.  Add the following line, replacing `/path/to/your/project` with the absolute path to your project's root directory on the VPS. It will try to renew the certificat every day at 4:17 AM (you can change it if you want, take into account the timezone).
+```bash
+17 4 * * * /bin/bash /home/rnogues/my-cv/renew-certs.sh
+```
 
 ## 🤝 Contributions and Security
 

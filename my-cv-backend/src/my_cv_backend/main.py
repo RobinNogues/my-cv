@@ -41,7 +41,7 @@ async def submit_contact_form(form_data: ContactForm):
         )
 
     logger.info(f"Email sent successfully from {email} with subject '{subject}'")
-    return {"message": "Message received successfully."}
+    return {"message": "Message sent successfully."}
 
 
 def sanitize_input(text: str) -> str:

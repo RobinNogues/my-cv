@@ -65,16 +65,15 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          script: mkdir -p ${{ secrets.VPS_DIR }}/my-cv-backend
+          script: mkdir -p ${{ secrets.VPS_DIR }}/my-cv-backend ${{ secrets.VPS_DIR }}/scripts
       - name: Copy deployment files to VPS
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml"
+          source: "docker-compose.yml,scripts/renew-certs.sh"
           target: "${{ secrets.VPS_DIR }}"
-          overwrite: true
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
@@ -92,6 +91,5 @@ jobs:
 
             printf "%s" "${{ secrets.GHCR_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
-            # Pull the new images and restart the services
             docker compose pull
             docker compose up -d --remove-orphans
