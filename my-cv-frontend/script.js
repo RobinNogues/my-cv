@@ -319,17 +319,7 @@ class App {
     }
 
     initializeTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        let initialTheme = 'light';
-        if (savedTheme) {
-            initialTheme = savedTheme;
-        } else if (systemPrefersDark) {
-            initialTheme = 'dark';
-        }
-
-        this.setTheme(initialTheme, false); // Set theme without saving to localStorage again
+        const initialTheme = document.documentElement.getAttribute('data-theme') || 'light';
         this.themeToggler.setInitialTheme(initialTheme);
     }
 
