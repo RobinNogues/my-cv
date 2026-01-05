@@ -264,6 +264,7 @@ img {
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.025em;
+    color: var(--text-main);
 }
 
 .nav-logo span {
@@ -280,6 +281,10 @@ img {
     gap: 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
+}
+
+.nav-link {
+    color: var(--text-main);
 }
 
 .nav-link:hover {
@@ -377,6 +382,7 @@ img {
 .mobile-link {
     font-size: 1.125rem;
     font-weight: 500;
+    color: var(--text-main);
 }
 
 .mobile-link:hover {
@@ -471,6 +477,7 @@ img {
     align-items: center;
     gap: 0.5rem;
     background: transparent;
+    color: var(--text-main);
     /* Default transparent for icon-glass if separate, or rely on glass shared */
 }
 
@@ -788,68 +795,66 @@ img {
 
 .skill-pill {
     padding: 0.5rem 1rem;
-
-    /* --- Utility / Helper Classes (Extracted from Inline) --- */
-    .text-primary-600 {
-        color: var(--primary-600);
-    }
-
-    .text-primary-500 {
-        color: var(--primary-500);
-    }
-
-    .text-bold {
-        font-weight: 700;
-    }
-
-    .text-muted {
-        color: var(--text-muted);
-    }
-
-    .mb-2 {
-        margin-bottom: 0.5rem;
-    }
-
-    .mb-4 {
-        margin-bottom: 1rem;
-    }
-
-    .mb-6 {
-        margin-bottom: 1.5rem;
-    }
-
-    .mb-8 {
-        margin-bottom: 2rem;
-    }
-
-    .mt-auto {
-        margin-top: auto;
-    }
-
-    .pt-4 {
-        padding-top: 1rem;
-    }
-
-    .flex-col {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .gap-6 {
-        gap: 1.5rem;
-    }
-
-    .justify-center {
-        justify-content: center;
-    }
-
     background-color: white;
     border: 1px solid var(--slate-200);
     border-radius: 0.75rem;
     font-size: 0.75rem;
     font-weight: 600;
     cursor: default;
+}
 
+/* --- Utility / Helper Classes --- */
+.text-primary-600 {
+    color: var(--primary-600);
+}
+
+.text-primary-500 {
+    color: var(--primary-500);
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
+.pt-4 {
+    padding-top: 1rem;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.gap-6 {
+    gap: 1.5rem;
+}
+
+.justify-center {
+    justify-content: center;
 }
 
 [data-theme="dark"] .skill-pill {
@@ -1164,7 +1169,8 @@ details[open] .course-list {
 }
 
 .btn-submit {
-    width: 100%;
+    width: fit-content;
+    margin: 1rem auto 0;
     background-color: var(--primary-600);
     color: white;
     font-weight: 700;
