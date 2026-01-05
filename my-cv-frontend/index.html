@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robin Nogues - Software Engineer</title>
-    <meta name="description" content="Robin Nogues - Software Engineer & Data Engineer Portfolio. Specializing in Python, Data Pipelines, and Computer Vision.">
-    
+    <meta name="description"
+        content="Robin Nogues - Software Engineer & Data Engineer Portfolio. Specializing in Python, Data Pipelines, and Computer Vision.">
+
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 
     <!-- Theme Initialization -->
     <script>
-        (function() {
+        (function () {
             const theme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             if (theme === 'dark' || (!theme && systemPrefersDark)) {
@@ -23,6 +27,7 @@
         })();
     </script>
 </head>
+
 <body>
 
     <!-- Background Decoration -->
@@ -39,7 +44,7 @@
                 <a href="#" class="nav-logo">
                     Robin<span>.Nogues</span>
                 </a>
-                
+
                 <!-- Desktop Menu -->
                 <div class="nav-desktop">
                     <a href="#experience" class="nav-link">Experience</a>
@@ -47,12 +52,12 @@
                     <a href="#skills" class="nav-link">Skills</a>
                     <a href="#certifications" class="nav-link">Certifications</a>
                     <a href="#about" class="nav-link">About</a>
-                    
+
                     <button class="theme-toggle" aria-label="Toggle Theme">
                         <i class="fas fa-sun"></i>
                         <i class="fas fa-moon"></i>
                     </button>
-                    
+
                     <a href="#contact" class="btn-contact">Contact</a>
                 </div>
 
@@ -75,7 +80,8 @@
                 <a href="#skills" class="mobile-link">Skills</a>
                 <a href="#certifications" class="mobile-link">Certifications</a>
                 <a href="#about" class="mobile-link">About</a>
-                <a href="#contact" class="mobile-link" style="color: var(--primary-600); font-weight: 700;">Contact Me</a>
+                <a href="#contact" class="mobile-link" style="color: var(--primary-600); font-weight: 700;">Contact
+                    Me</a>
             </div>
         </div>
     </nav>
@@ -89,7 +95,8 @@
                     Building <span class="text-gradient">Intelligent</span> Data Pipelines.
                 </h1>
                 <p>
-                    Hi, I'm <strong>Robin Nogues</strong>. A Software Engineer specializing in Python, Data Engineering, and Computer Vision. I turn complex data into actionable insights.
+                    Hi, I'm <strong>Robin Nogues</strong>. A Software Engineer specializing in Python, Data Engineering,
+                    and Computer Vision. I turn complex data into actionable insights.
                 </p>
                 <div class="hero-actions">
                     <a href="#contact" class="btn-primary">Get in touch</a>
@@ -97,11 +104,11 @@
                         <i class="fab fa-github"></i> GitHub
                     </a>
                     <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" class="btn-icon-glass">
-                        <i class="fab fa-linkedin-in"></i>
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
                     </a>
                 </div>
             </div>
-            
+
             <div class="hero-img-container">
                 <div class="hero-glow"></div>
                 <img src="images/robin-nogues.jpg" alt="Robin Nogues" class="hero-img">
@@ -113,7 +120,7 @@
             <h2 class="section-title">
                 <i class="fas fa-briefcase"></i> Experience
             </h2>
-            
+
             <div class="timeline">
                 <!-- Sancare -->
                 <div class="timeline-item">
@@ -123,15 +130,18 @@
                             <div>
                                 <h3 class="exp-title">Data Engineer</h3>
                                 <div class="exp-company">
-                                    <img src="images/icons/sancare.png" alt="Sancare" onerror="this.style.display='none'"> 
+                                    <img src="images/icons/sancare.png" alt="Sancare" loading="lazy"
+                                        onerror="this.style.display='none'">
                                     Sancare, Paris
                                 </div>
                             </div>
                             <span class="exp-date">Jun 2023 - Present</span>
                         </div>
                         <ul class="exp-list">
-                            <li>Design & implement robust <strong>ETL pipelines</strong> (Python, SQL) for healthcare data.</li>
-                            <li>Complex data recovery from hospital databases & <strong>OCR</strong> implementation.</li>
+                            <li>Design & implement robust <strong>ETL pipelines</strong> (Python, SQL) for healthcare
+                                data.</li>
+                            <li>Complex data recovery from hospital databases & <strong>OCR</strong> implementation.
+                            </li>
                             <li>Indexing & extraction of textual data (HL7 FHIR, PDF, CSV).</li>
                             <li>Query optimization via SQL execution plans.</li>
                             <li>Contribute to clinical studies by providing data engineering support.</li>
@@ -147,7 +157,8 @@
                             <div>
                                 <h3 class="exp-title">Data Science Intern - Computer Vision</h3>
                                 <div class="exp-company" style="color: var(--text-muted);">
-                                    <img src="images/icons/alten.png" alt="Alten" onerror="this.style.display='none'">
+                                    <img src="images/icons/alten.png" alt="Alten" loading="lazy"
+                                        onerror="this.style.display='none'">
                                     Alten, Toulouse
                                 </div>
                             </div>
@@ -169,14 +180,15 @@
                 <i class="fas fa-code-branch"></i> Projects
             </h2>
             <div class="grid-2">
-                
+
                 <!-- Project 1 -->
                 <article class="project-card glass">
                     <div class="project-header">
                         <div class="icon-box blue-icon">
                             <i class="fas fa-hand-paper"></i>
                         </div>
-                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" class="github-link">
+                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank"
+                            class="github-link">
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
@@ -203,7 +215,8 @@
                     </div>
                     <h3 class="project-title">DeFi Platform Simulator</h3>
                     <p class="project-desc">
-                        Simulator for testing lending/borrowing strategies. Fetches crypto prices via CoinGecko API & Aave data via GraphQL.
+                        Simulator for testing lending/borrowing strategies. Fetches crypto prices via CoinGecko API &
+                        Aave data via GraphQL.
                     </p>
                     <div class="tags-wrapper">
                         <span class="skill-pill">Python</span>
@@ -212,8 +225,8 @@
                     </div>
                 </article>
 
-                 <!-- Project 3 -->
-                 <article class="project-card glass">
+                <!-- Project 3 -->
+                <article class="project-card glass">
                     <div class="project-header">
                         <div class="icon-box purple-icon">
                             <i class="fas fa-globe"></i>
@@ -224,7 +237,8 @@
                     </div>
                     <h3 class="project-title">Portfolio Architecture</h3>
                     <p class="project-desc">
-                        Micro-service architecture with Docker, FastAPI (Backend), Nginx (Reverse Proxy) and CI/CD via GitHub Actions.
+                        Micro-service architecture with Docker, FastAPI (Backend), Nginx (Reverse Proxy) and CI/CD via
+                        GitHub Actions.
                     </p>
                     <div class="tags-wrapper">
                         <span class="skill-pill">Docker</span>
@@ -234,7 +248,7 @@
                 </article>
 
                 <!-- Project 4 -->
-                 <article class="project-card glass">
+                <article class="project-card glass">
                     <div class="project-header">
                         <div class="icon-box yellow-icon">
                             <i class="fas fa-futbol"></i>
@@ -242,7 +256,8 @@
                     </div>
                     <h3 class="project-title">Weather Impact in Football</h3>
                     <p class="project-desc">
-                        Scraping historical match data (Beautifulsoup) and weather data (Selenium) to correlate weather conditions with game outcomes.
+                        Scraping historical match data (Beautifulsoup) and weather data (Selenium) to correlate weather
+                        conditions with game outcomes.
                     </p>
                     <div class="tags-wrapper">
                         <span class="skill-pill">Selenium</span>
@@ -257,7 +272,7 @@
             <h2 class="section-title">
                 <i class="fas fa-layer-group"></i> Skills & Stack
             </h2>
-            
+
             <div class="grid-2">
                 <!-- Languages -->
                 <div class="skill-card glass">
@@ -307,8 +322,8 @@
                     </div>
                 </div>
 
-                 <!-- ML & Web -->
-                 <div class="skill-card glass">
+                <!-- ML & Web -->
+                <div class="skill-card glass">
                     <h3 class="skill-title">ML, Vision & Web</h3>
                     <div class="tags-wrapper">
                         <div class="skill-pill">Tensorflow</div>
@@ -340,12 +355,14 @@
                 <i class="fas fa-certificate"></i> Certifications
             </h2>
             <div class="grid-3">
-                
+
                 <!-- AWS -->
                 <article class="cert-card glass">
                     <div class="cert-header">
-                        <img src="images/icons/aws.png" alt="AWS" class="cert-icon" onerror="this.style.display='none'">
-                        <a href="https://www.coursera.org/account/accomplishments/verify/NA8M0QWMHZM3" target="_blank" class="ext-link">
+                        <img src="images/icons/aws.png" alt="AWS" class="cert-icon" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <a href="https://www.coursera.org/account/accomplishments/verify/NA8M0QWMHZM3" target="_blank"
+                            class="ext-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
@@ -357,14 +374,16 @@
                 <!-- Scala Specialization (Expandable) -->
                 <article class="cert-card glass col-span-2">
                     <div class="cert-header">
-                        <img src="images/icons/epfl.png" alt="EPFL" class="cert-icon" onerror="this.style.display='none'">
-                        <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE" target="_blank" class="ext-link">
+                        <img src="images/icons/epfl.png" alt="EPFL" class="cert-icon" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE"
+                            target="_blank" class="ext-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
                     <h3 class="cert-title">Functional Programming in Scala</h3>
                     <p class="cert-issuer">EPFL - Coursera</p>
-                    
+
                     <details class="mt-4">
                         <summary class="summary-content">
                             <span>Show Courses</span>
@@ -378,15 +397,17 @@
                             <li>Capstone Project</li>
                         </ul>
                     </details>
-                    
+
                     <span class="cert-date" style="margin-top: auto; padding-top: 1rem;">Sep 2025</span>
                 </article>
 
                 <!-- Docker -->
                 <article class="cert-card glass">
                     <div class="cert-header">
-                        <img src="images/icons/docker.png" alt="Docker" class="cert-icon" onerror="this.style.display='none'">
-                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" class="ext-link">
+                        <img src="images/icons/docker.png" alt="Docker" class="cert-icon" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766"
+                            target="_blank" class="ext-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
@@ -398,8 +419,10 @@
                 <!-- Scala Data Eng -->
                 <article class="cert-card glass">
                     <div class="cert-header">
-                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon" onerror="this.style.display='none'">
-                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" class="ext-link">
+                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon"
+                            onerror="this.style.display='none'">
+                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8"
+                            target="_blank" class="ext-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
@@ -411,8 +434,10 @@
                 <!-- AI Specialist -->
                 <article class="cert-card glass">
                     <div class="cert-header">
-                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon" onerror="this.style.display='none'">
-                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" class="ext-link">
+                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon"
+                            onerror="this.style.display='none'">
+                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d"
+                            target="_blank" class="ext-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
@@ -424,7 +449,8 @@
                 <!-- TOEIC -->
                 <article class="cert-card glass">
                     <div class="cert-header">
-                        <img src="images/icons/ets.png" alt="ETS" class="cert-icon" onerror="this.style.display='none'">
+                        <img src="images/icons/ets.png" alt="ETS" class="cert-icon" loading="lazy"
+                            onerror="this.style.display='none'">
                     </div>
                     <h3 class="cert-title">TOEIC Exam (Score: 890)</h3>
                     <p class="cert-issuer">ETS Global</p>
@@ -443,7 +469,7 @@
                 <div class="edu-card glass">
                     <div class="edu-header">
                         <h3>M.S. in Computer Science</h3>
-                        <img src="images/icons/uqac.png" alt="UQAC" onerror="this.style.display='none'">
+                        <img src="images/icons/uqac.png" alt="UQAC" loading="lazy" onerror="this.style.display='none'">
                     </div>
                     <p class="edu-loc">UQAC, Chicoutimi, CA</p>
                     <p class="edu-year">2021 - 2023</p>
@@ -451,7 +477,7 @@
                 <div class="edu-card glass">
                     <div class="edu-header">
                         <h3>M.Eng in Computer Science</h3>
-                        <img src="images/icons/esme.png" alt="ESME" onerror="this.style.display='none'">
+                        <img src="images/icons/esme.png" alt="ESME" loading="lazy" onerror="this.style.display='none'">
                     </div>
                     <p class="edu-loc">ESME, Bordeaux Paris, FR</p>
                     <p class="edu-year">2017 - 2023</p>
@@ -463,7 +489,7 @@
         <section id="about" class="scroll-mt">
             <div class="about-container glass">
                 <div class="about-bg-glow"></div>
-                
+
                 <div class="about-content-wrapper">
                     <h2 class="section-title" style="margin-bottom: 2rem;">About Me</h2>
                     <div class="about-grid">
@@ -472,7 +498,10 @@
                                 <i class="fas fa-laptop-code"></i> Work Philosophy
                             </h4>
                             <p class="about-text">
-                                I am committed to continuous improvement, regularly reviewing my work to identify and implement enhancements. I have a strong drive to investigate, whether through testing new tools or proactively identifying bugs. While adept at working autonomously, I highly value collaboration and insights from experienced colleagues.
+                                I am committed to continuous improvement, regularly reviewing my work to identify and
+                                implement enhancements. I have a strong drive to investigate, whether through testing
+                                new tools or proactively identifying bugs. While adept at working autonomously, I highly
+                                value collaboration and insights from experienced colleagues.
                             </p>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
@@ -481,7 +510,8 @@
                                     <i class="fas fa-drum"></i> Music
                                 </h4>
                                 <p class="about-text">
-                                    Drummer for years. It taught me rhythm and discipline. I can also play the cajon, a Peruvian instrument.
+                                    Drummer for years. It taught me rhythm and discipline. I can also play the cajon, a
+                                    Peruvian instrument.
                                 </p>
                             </div>
                             <div>
@@ -489,7 +519,8 @@
                                     <i class="fas fa-running"></i> Sport
                                 </h4>
                                 <p class="about-text">
-                                    Former club football player, now into bodybuilding and running. I enjoy the discipline of early morning workouts before work.
+                                    Former club football player, now into bodybuilding and running. I enjoy the
+                                    discipline of early morning workouts before work.
                                 </p>
                             </div>
                         </div>
@@ -515,26 +546,32 @@
                 <form id="contact-form">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Name <span
+                                    style="color: var(--primary-600)">*</span></label>
                             <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                            <label for="email" class="form-label">Email <span
+                                    style="color: var(--primary-600)">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input"
+                                placeholder="john@example.com" required>
                         </div>
                     </div>
-                    
+
                     <!-- Honeypot -->
                     <input type="text" id="address" name="address" class="hp-field" autocomplete="off">
 
                     <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea id="message" name="message" rows="5" class="form-input resize-none" placeholder="Tell me about your project..." required></textarea>
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-input"
+                            placeholder="Inquiry about...">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label for="subject" class="form-label">Subject (Optional)</label>
-                        <input type="text" id="subject" name="subject" class="form-input" placeholder="Inquiry about...">
+                        <label for="message" class="form-label">Message <span
+                                style="color: var(--primary-600)">*</span></label>
+                        <textarea id="message" name="message" rows="5" class="form-input resize-none"
+                            placeholder="Tell me about your project..." required></textarea>
                     </div>
 
                     <button type="submit" id="submit-btn" class="btn-submit">
@@ -558,4 +595,5 @@
 
     <script type="module" src="script.js"></script>
 </body>
+
 </html>

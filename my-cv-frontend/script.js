@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // --- 1. Theme Toggling ---
     const themeToggles = document.querySelectorAll('.theme-toggle');
     const html = document.documentElement;
-    
+
     // Check local storage or system preference is already handled in head script, 
     // but we need to ensure icons are correct on load if we were using a class-based system.
     // Our CSS handles icon visibility based on [data-theme], so no extra JS needed for icon state on load.
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
         });
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menuBtn && mobileMenu) {
         menuBtn.addEventListener('click', () => {
             isMenuOpen = !isMenuOpen;
-            if(isMenuOpen) {
+            if (isMenuOpen) {
                 mobileMenu.classList.add('open');
                 menuBtn.innerHTML = '<i class="fas fa-times"></i>';
             } else {
@@ -62,52 +62,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 4. Intersection Observer for Fade In ---
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in-up');
-                entry.target.style.opacity = "1"; 
+                entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-    document.querySelectorAll('section').forEach(section => {
-        // Hero is already animated via class in HTML
-        if (section.id !== 'hero') {
-            section.style.opacity = "0"; // Initial state
-            observer.observe(section);
-        }
+    document.querySelectorAll('section:not(#hero)').forEach(section => {
+        section.classList.add('reveal');
+        observer.observe(section);
     });
 
     // --- 5. Smooth Scroll for Anchor Links ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start' 
-                });
-                
-                // If mobile menu is open, close it (handled by other listener, but safe to keep logic clean)
-                if (isMenuOpen && mobileMenu) {
-                    isMenuOpen = false;
-                    mobileMenu.classList.remove('open');
-                    if (menuBtn) menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            }
-        });
-    });
+    // --- 5. Smooth Scroll (Handled by CSS) ---
+    // Legacy JS removed in favor of scroll-behavior: smooth in CSS
 
 
     // --- 6. Contact Form Handling (Real Backend) ---
@@ -119,17 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const showToast = (type, message) => {
         // Reset classes
-        toast.className = 'toast'; 
+        toast.className = 'toast';
         toast.classList.add(type === 'success' ? 'toast-success' : 'toast-error');
-        
+
         toastIcon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
         toastMsg.textContent = message;
-        
+
         // Show
         requestAnimationFrame(() => {
             toast.classList.add('visible');
         });
-        
+
         // Hide after 5s
         setTimeout(() => {
             toast.classList.remove('visible');
@@ -139,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             // Honeypot check
             const honeypot = document.getElementById('address');
             if (honeypot && honeypot.value) {
@@ -170,13 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     const errorData = await response.json();
                     let errorMessage = 'Failed to send message.';
-                    
+
                     if (errorData.detail) {
                         if (typeof errorData.detail === 'string') {
                             errorMessage = errorData.detail;
                         } else if (Array.isArray(errorData.detail)) {
-                             // Handle FastAPI validation errors (array of objects)
-                             const fieldErrors = errorData.detail.map(err => {
+                            // Handle FastAPI validation errors (array of objects)
+                            const fieldErrors = errorData.detail.map(err => {
                                 const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'Field';
                                 return `${field}: ${err.msg}`;
                             }).join('. ');
