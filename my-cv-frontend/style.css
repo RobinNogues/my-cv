@@ -268,7 +268,6 @@ img {
 
 .nav-logo span {
     color: var(--primary-500);
-    transition: color 0.3s;
 }
 
 .nav-logo:hover span {
@@ -285,7 +284,6 @@ img {
 
 .nav-link:hover {
     color: var(--primary-500);
-    transition: color 0.3s;
 }
 
 .btn-contact {
@@ -294,7 +292,6 @@ img {
     padding: 0.5rem 1.25rem;
     border-radius: 9999px;
     box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.2);
-    transition: all 0.3s;
 }
 
 .btn-contact:hover {
@@ -315,7 +312,6 @@ img {
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
-    transition: background-color 0.3s;
 }
 
 .theme-toggle:hover {
@@ -367,7 +363,7 @@ img {
     transform-origin: top;
     transform: scaleY(0);
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     visibility: hidden;
     /* Glass styles will be added via .glass class in HTML */
 }
@@ -416,7 +412,7 @@ img {
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--primary-600);
+    color: var(--primary-500);
     background-color: var(--primary-100);
     border-radius: 9999px;
     margin-bottom: 1.5rem;
@@ -454,7 +450,6 @@ img {
     padding: 0.875rem 2rem;
     border-radius: 9999px;
     font-weight: 600;
-    transition: all 0.3s;
 }
 
 .btn-primary:hover {
@@ -475,8 +470,6 @@ img {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.3s;
-    /* Unified transition */
     background: transparent;
     /* Default transparent for icon-glass if separate, or rely on glass shared */
 }
@@ -601,7 +594,6 @@ img {
     border: 4px solid var(--primary-500);
     border-radius: 50%;
     z-index: 10;
-    transition: all 0.3s;
     box-sizing: border-box;
     /* Maintain size with border */
 }
@@ -626,12 +618,10 @@ img {
 .timeline-card {
     padding: 1.5rem;
     border-radius: 1rem;
-    transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
+
 }
 
-.timeline-card:hover {
-    border-color: rgba(249, 115, 22, 0.3);
-}
+
 
 .exp-header {
     display: flex;
@@ -646,7 +636,7 @@ img {
 }
 
 .exp-company {
-    color: var(--primary-600);
+    color: var(--primary-500);
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -686,9 +676,9 @@ img {
     color: var(--primary-500);
 }
 
-.exp-list.alt li::marker {
+/* .exp-list.alt li::marker {
     color: var(--slate-400);
-}
+} */
 
 /* --- Projects Grid (Base Mobile) --- */
 .grid-2 {
@@ -701,15 +691,13 @@ img {
 .project-card {
     padding: 2rem;
     border-radius: 1.5rem;
-    transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.project-card:hover {
-    transform: translateY(-0.5rem);
-}
+
 
 .project-header {
     display: flex;
@@ -777,7 +765,7 @@ img {
     align-items: center;
     justify-content: center;
     color: var(--slate-400);
-    transition: all 0.3s;
+
 }
 
 .github-link:hover {
@@ -804,6 +792,10 @@ img {
     /* --- Utility / Helper Classes (Extracted from Inline) --- */
     .text-primary-600 {
         color: var(--primary-600);
+    }
+
+    .text-primary-500 {
+        color: var(--primary-500);
     }
 
     .text-bold {
@@ -857,9 +849,7 @@ img {
     font-size: 0.75rem;
     font-weight: 600;
     cursor: default;
-    transition: color 0.3s,
-    border-color 0.3s,
-    background-color 0.3s;
+
 }
 
 [data-theme="dark"] .skill-pill {
@@ -905,30 +895,7 @@ img {
     border-color: var(--slate-700);
 }
 
-/* Specialized pills */
-.pill-primary {
-    color: var(--primary-600);
-    background-color: var(--primary-50);
-    border-color: var(--primary-200);
-}
 
-[data-theme="dark"] .pill-primary {
-    background-color: rgba(124, 45, 18, 0.2);
-    color: var(--primary-300);
-    border-color: var(--primary-800);
-}
-
-.pill-orange {
-    color: #c2410c;
-    background-color: #fff7ed;
-    border-color: #fed7aa;
-}
-
-[data-theme="dark"] .pill-orange {
-    background-color: rgba(124, 45, 18, 0.2);
-    color: #fdba74;
-    border-color: #9a3412;
-}
 
 /* --- Certifications (Base Mobile) --- */
 .grid-3 {
@@ -944,7 +911,7 @@ img {
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: border-color 0.2s;
+
 }
 
 .cert-card:hover {
@@ -966,7 +933,7 @@ img {
 
 .ext-link {
     color: var(--slate-400);
-    transition: color 0.3s;
+
 }
 
 .ext-link:hover {
@@ -1012,12 +979,10 @@ details>summary::-webkit-details-marker {
     gap: 0.25rem;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--primary-600);
+    color: var(--primary-500);
 }
 
-.summary-chevron {
-    transition: transform 0.2s;
-}
+.summary-chevron {}
 
 details[open] .summary-chevron {
     transform: rotate(180deg);
@@ -1268,19 +1233,40 @@ details[open] .course-list {
 }
 
 /* --- Card Hover Effects Consistency --- */
+/* --- Unified Card Hover Effects --- */
 .timeline-card,
+.project-card,
 .skill-card,
 .cert-card,
-.edu-card {
-    transition: transform 0.3s, border-color 0.3s, background-color 0.3s;
+.edu-card,
+.about-container,
+.form-card {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .timeline-card:hover,
+.project-card:hover,
 .skill-card:hover,
 .cert-card:hover,
-.edu-card:hover {
+.edu-card:hover,
+.about-container:hover,
+.form-card:hover {
     transform: translateY(-0.5rem);
-    border-color: rgba(249, 115, 22, 0.3);
+    border-color: var(--primary-500);
+    box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
+    /* Lighter orange shadow for light mode */
+}
+
+/* Dark Mode Hover Override */
+[data-theme="dark"] .timeline-card:hover,
+[data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .skill-card:hover,
+[data-theme="dark"] .cert-card:hover,
+[data-theme="dark"] .edu-card:hover,
+[data-theme="dark"] .about-container:hover,
+[data-theme="dark"] .form-card:hover {
+    box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+    /* Orange shadow for dark mode */
 }
 
 /* --- Back to Top --- */
@@ -1299,7 +1285,7 @@ details[open] .course-list {
     justify-content: center;
     transform: translateY(5rem);
     opacity: 0;
-    transition: all 0.3s;
+
     z-index: 40;
 }
 
