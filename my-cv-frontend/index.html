@@ -1,551 +1,561 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robin Nogues - Software Engineer</title>
+    <meta name="description" content="Robin Nogues - Software Engineer & Data Engineer Portfolio. Specializing in Python, Data Pipelines, and Computer Vision.">
     
-    <meta name="description" content="Robin Nogues is a passionate Software Engineer with strong Python experience, specializing in data pipelines and data analysis. View his professional experience, projects, skills, and education.">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <meta name="keywords" content="Robin Nogues, Software Engineer, Python, Data Engineer, Data Pipelines, Data Analysis, Computer Vision, ETL, SQL, TensorFlow, OpenCV, CV, Résumé, Portfolio, Java, Scala">
-    
-    <meta property="og:title" content="Robin Nogues - Software Engineer">
-    <meta property="og:description" content="Robin Nogues is a passionate Software Engineer with strong Python experience, specializing in data pipelines and data analysis.">
-    <meta property="og:image" content="https://robin-nogues.com/images/robin-nogues.jpg">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://robin-nogues.com/">
-    <meta property="og:locale" content="en_US">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 
-    <meta name="robots" content="index, follow"> 
-    
-    <link rel="canonical" href="https://robin-nogues.com/">
-
+    <!-- Theme Initialization -->
     <script>
         (function() {
             const theme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isDarkMode = theme === 'dark' || (!theme && systemPrefersDark);
-
-            const docEl = document.documentElement;
-            docEl.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-            docEl.classList.add(isDarkMode ? 'dark-theme-active' : 'light-theme-active');
+            if (theme === 'dark' || (!theme && systemPrefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
         })();
     </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Robin Nogues",
-      "url": "https://robin-nogues.com/",
-      "image": "https://robin-nogues.com/images/robin-nogues.jpg",
-      "sameAs": [
-        "https://www.linkedin.com/in/robin-nogues/",
-        "https://github.com/RobinNogues"
-      ],
-      "jobTitle": "Software Engineer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Sancare"
-      },
-      "alumniOf": [
-        { "@type": "CollegeOrUniversity", "name": "UQAC" },
-        { "@type": "CollegeOrUniversity", "name": "ESME Sudria" }
-      ]
-    }
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
 </head>
-<body class="antialiased">
+<body>
 
-    <header class="header-background backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-10 py-4 flex justify-between items-center">
-            <a href="#" class="nav-name font-bold text-heading">
-                Robin<span class="accent-orange">.Nogues</span>
-            </a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#certifications" class="nav-link">Certifications</a>
-                <a href="#about" class="nav-link">About Me</a>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark/light theme">
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-
-                <a href="#contact-form-section" class="btn-primary hidden md:block">Contact</a>
-                <button id="mobile-menu-button" class="md:hidden text-heading focus:outline-none" aria-label="Open mobile menu">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
-
-    <div id="mobile-menu-drawer" class="mobile-menu">
-        <button id="mobile-menu-close-button" class="mobile-menu-close-button" aria-label="Close mobile menu">
-            <i class="fas fa-times text-2xl"></i>
-        </button>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#education" class="nav-link">Education</a>
-        <a href="#certifications" class="nav-link">Certifications</a>
-        <a href="#about" class="nav-link">About Me</a>
-        <a href="#contact-form-section" class="btn-primary">Contact</a>
+    <!-- Background Decoration -->
+    <div class="bg-decoration">
+        <div class="blob blob-1 animate-blob"></div>
+        <div class="blob blob-2 animate-blob delay-2000"></div>
+        <div class="blob blob-3 animate-blob delay-4000"></div>
     </div>
 
-    <main class="container mx-auto px-6 py-8 md:py-12">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content glass">
+                <a href="#" class="nav-logo">
+                    Robin<span>.Nogues</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="nav-desktop">
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#certifications" class="nav-link">Certifications</a>
+                    <a href="#about" class="nav-link">About</a>
+                    
+                    <button class="theme-toggle" aria-label="Toggle Theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    <a href="#contact" class="btn-contact">Contact</a>
+                </div>
 
-        <section id="hero" class="flex flex-col md:flex-row items-center justify-center mb-10 md:space-x-12 text-center md:text-left">
-            <img src="images/robin-nogues.jpg" alt="Photo of Robin Nogues" class="profile-photo-position w-32 h-32 md:w-48 md:h-48 rounded-full mb-6 md:mb-0 shadow-lg border-4 border-white object-cover flex-shrink-0">
-            <div class="flex flex-col items-center md:items-start">
-                <h1 class="font-bold text-heading mb-4 leading-tight">Robin Nogues</h1>
-                <p class="text-content max-w-3xl mb-2">
-                    Passionate Software Engineer with a strong Python experience, specialized in data pipelines and data analysis.
+                <!-- Mobile Menu Button -->
+                <div class="nav-mobile-btn">
+                    <button class="theme-toggle mobile-theme-toggle" aria-label="Toggle Theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="menu-toggle-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Drawer -->
+            <div id="mobile-menu" class="mobile-menu glass">
+                <a href="#experience" class="mobile-link">Experience</a>
+                <a href="#projects" class="mobile-link">Projects</a>
+                <a href="#skills" class="mobile-link">Skills</a>
+                <a href="#certifications" class="mobile-link">Certifications</a>
+                <a href="#about" class="mobile-link">About</a>
+                <a href="#contact" class="mobile-link" style="color: var(--primary-600); font-weight: 700;">Contact Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container main-content">
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-text">
+                <h1>
+                    Building <span class="text-gradient">Intelligent</span> Data Pipelines.
+                </h1>
+                <p>
+                    Hi, I'm <strong>Robin Nogues</strong>. A Software Engineer specializing in Python, Data Engineering, and Computer Vision. I turn complex data into actionable insights.
                 </p>
-                <div class="flex justify-center md:justify-start space-x-4 mt-4">
-                    <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener" class="text-content hover-text-primary hover:underline transition-colors duration-300 flex items-center space-x-1" aria-label="LinkedIn profile">
-                        <i class="fa-brands fa-linkedin"></i>
-                        <span>robin-nogues</span>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn-primary">Get in touch</a>
+                    <a href="https://github.com/RobinNogues" target="_blank" class="btn-glass">
+                        <i class="fab fa-github"></i> GitHub
                     </a>
-                    <a href="https://github.com/RobinNogues" target="_blank" rel="noopener" class="text-content hover-text-primary hover:underline transition-colors duration-300 flex items-center space-x-1" aria-label="GitHub profile">
-                        <i class="fa-brands fa-github"></i>
-                        <span>RobinNogues</span>
+                    <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" class="btn-icon-glass">
+                        <i class="fab fa-linkedin-in"></i>
                     </a>
                 </div>
             </div>
-        </section>
-
-        <section id="experience" class="mb-10 scroll-mt-20 pt-6 border-t border-gray-200">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-heading">Professional Experience</h2>
-            </div>
-            <div class="space-y-6">
-                <article class="card">
-                    <h3 class="card-title">Data Engineer</h3>
-                    <div class="flex items-center">
-                        <img src="images/icons/sancare.png" alt="Sancare" class="card-icon">
-                        <p class="card-location">Sancare, Paris, FR</p>
-                    </div>
-                    <p class="card-date">June 2023 - Present</p>
-                    <ul class="list-disc list-inside text-content space-y-2">
-                        <li>Design and implement robust <strong>ETL pipelines</strong> for healthcare data with <strong>Python</strong> and <strong>SQL</strong>, ensuring data integrity and system scalability.</li>
-                        <li>Data recovery from complex <strong>hospital databases</strong>.</li>
-                        <li><strong>Indexing</strong> and extraction of a wide range of textual data (PDF, DOC, HTML, CSV, <strong>HL7 FHIR</strong>, ...).</li>
-                        <li>Implement <strong>Optical Character Recognition (OCR)</strong> technology to extract and digitize data.</li>
-                        <li>Optimising queries using the <strong>SQL execution plan</strong>.</li>
-                        <li>Investigation, repair and improvement of legacy code.</li>
-                        <li>Contribute to <strong>clinical studies</strong> by providing data engineering support, ensuring accurate and timely data processing for research purposes.</li>
-                        <li>Collaborate with clients to define product specifications, translating business needs into technical requirements.</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <h3 class="card-title">Data Science Intern - Computer Vision</h3>
-                    <div class="flex items-center">
-                        <img src="images/icons/alten.png" alt="Alten" class="card-icon">
-                        <p class="card-location">Alten, Toulouse, FR</p>
-                    </div>
-                    <p class="card-date">September 2022 - February 2023</p>
-                    <ul class="list-disc list-inside text-content space-y-2">
-                        <li>Applied <strong>computer vision</strong> to team pursuit races (cycling).</li>
-                        <li>Track line detection using <strong>image processing</strong> tools (<strong>OpenCV</strong>).</li>
-                        <li>Cyclist detection with a detection model (<strong>YOLOV5</strong>) + tracking (<strong>Norfair</strong>).</li>
-                        <li>Measurement of various distances from detections and post-processing (<strong>clustering</strong> and <strong>signal processing</strong>).</li>
-                        <li>Results presented in a <strong>Streamlit dashboard</strong> using <strong>Plotly graphs</strong>.</li>
-                    </ul>
-                </article>
+            
+            <div class="hero-img-container">
+                <div class="hero-glow"></div>
+                <img src="images/robin-nogues.jpg" alt="Robin Nogues" class="hero-img">
             </div>
         </section>
 
-        <section id="projects" class="mb-10 scroll-mt-20 pt-6 border-t border-gray-200">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-heading">Personal Projects</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <article class="card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="card-title">Gesture Recognition</h3>
-                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="GitHub repository for Gesture Recognition project">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-                    </div>
-                    <ul class="list-disc list-inside text-content space-y-2">
-                        <li>Hands recognized using <strong>Mediapipe</strong>.</li>
-                        <li><strong>Python</strong> script to create the training dataset.</li>
-                        <li>Training and use of an <strong>RNN model</strong> using <strong>TensorFlow</strong>.</li>
-                        <li>Detection of letters with gestures (see <a href="https://youtu.be/WMdoohGD50E" target="_blank" rel="noopener" class="text-content hover:underline">https://youtu.be/WMdoohGD50E</a>).</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="card-title">DeFi Platform Simulator</h3>
-                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="GitHub repository for DeFi Platform Simulator project">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-                    </div>
-                    <ul class="list-disc list-inside text-content space-y-2">
-                        <li><strong>DeFi simulator</strong> in <strong>Python</strong> for testing lending and borrowing strategies.</li>
-                        <li>Fetch cryptocurrency prices from the <strong>CoinGecko API</strong>.</li>
-                        <li>Create a fake lending/borrowing platform or retrieved Aave data (platform info and public address positions) using TheGraph (<strong>GraphQL</strong>).</li>
-                        <li>Perform basic lending and borrowing transactions, and more complex ones (loops).</li>
-                        <li>Calculate all <strong>DeFi statistics</strong> (health factor, net APY, net value, borrow power used,...).</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="card-title">robin-nogues.com</h3>
-                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="GitHub repository for My CV Website project">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-                    </div>
-                    <ul class="list-disc list-inside text-content space-y-2">
-                        <li>Creation of this website using a <strong>micro-service architecture</strong> with <strong>Docker</strong>, hosted on a VPS, and orchestrated with a <strong>Docker Compose</strong>.</li>
-                        <li>Frontend developed with <strong>HTML</strong> and <strong>JavaScript</strong>, styled with <strong>CSS</strong> and <strong>TailwindCSS</strong>.</li>
-                        <li>Backend built with <strong>Python</strong> and <strong>FastAPI</strong> to handle the contact form with protections.</li>
-                        <li>Reverse proxy with <strong>Nginx</strong> (<strong>API Gateway</strong>) for redirections and spam protections.</li>
-                        <li>Use of the Cerbot container for the SSL certificate, with automated renewal using a <strong>cron task</strong>.</li>
-                        <li>Automated build and deployment pipeline on the VPS using <strong>GitHub Actions</strong>.</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="card-title">Weather Impact in Football</h3>
-                        <p class="text-muted">(No repository)</p>
-                    </div>
-                    <ul class="list-disc list-inside text-content space-y-2">
-                        <li>Retrieve historical data for a team's matches (result, location, date) on flashscore.fr using <strong>Beautifulsoup</strong>.</li>
-                        <li>Get the weather during the match on ventusky.com using <strong>Selenium</strong>.</li>
-                        <li>Show the correlation between wins/losses, goals scored/conceded and temperature or rain with <strong>Matplotlib</strong>.</li>
-                    </ul>
-                </article>
-            </div>
-        </section>
-
-        <section id="skills" class="mb-10 scroll-mt-20 pt-6 border-t border-gray-200">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-heading">Skills</h2>
-            </div>
-            <div class="flex flex-col gap-6">
-                <article class="card">
-                    <h3 class="card-title mb-4">Languages</h3>
-                    <div class="flex flex-wrap gap-4">
-                        <span class="skill-tag">French (Native)</span>
-                        <span class="skill-tag">English (Proficient)</span>
-                        <span class="skill-tag">Spanish (Basic)</span>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <h3 class="card-title mb-4">Technical Skills</h3>
-                    <div class="mb-6">
-                        <h5 class="font-medium text-heading mb-2">Programming Languages</h5>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Scala</span>
-                            <span class="skill-tag">Java</span>
+        <!-- Experience Section (Timeline) -->
+        <section id="experience" class="scroll-mt">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase"></i> Experience
+            </h2>
+            
+            <div class="timeline">
+                <!-- Sancare -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card glass">
+                        <div class="exp-header">
+                            <div>
+                                <h3 class="exp-title">Data Engineer</h3>
+                                <div class="exp-company">
+                                    <img src="images/icons/sancare.png" alt="Sancare" onerror="this.style.display='none'"> 
+                                    Sancare, Paris
+                                </div>
+                            </div>
+                            <span class="exp-date">Jun 2023 - Present</span>
                         </div>
-                    </div>
-                    <div class="mb-6">
-                        <h5 class="font-medium text-heading mb-2">Data Engineering & Databases</h5>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">Pandas</span>
-                            <span class="skill-tag">Spark</span>
-                            <span class="skill-tag">BeautifulSoup</span>
-                            <span class="skill-tag">Selenium</span>
-                            <span class="skill-tag">SQL</span>
-                            <span class="skill-tag">GraphQL</span>
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <h5 class="font-medium text-heading mb-2">Cloud (AWS)</h5>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">EC2</span>
-                            <span class="skill-tag">Lambda</span>
-                            <span class="skill-tag">S3</span>
-                            <span class="skill-tag">RDS</span>
-                            <span class="skill-tag">DynamoDB</span>
-                            <span class="skill-tag">IAM</span>
-                            <span class="skill-tag">VPC</span>
-                            <span class="skill-tag">ELB</span>
-                            <span class="skill-tag">CloudWatch</span>
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <h5 class="font-medium text-heading mb-2">Machine Learning & Computer Vision</h5>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">Scikit-Learn</span>
-                            <span class="skill-tag">Tensorflow</span>
-                            <span class="skill-tag">YOLO</span>
-                            <span class="skill-tag">Mediapipe</span>
-                            <span class="skill-tag">Norfair</span>
-                            <span class="skill-tag">OpenCV</span>
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <h5 class="font-medium text-heading mb-2">Data Visualization</h5>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">Streamlit</span>
-                            <span class="skill-tag">Plotly</span>
-                            <span class="skill-tag">Matplotlib</span>
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <h5 class="font-medium text-heading mb-2">DevOps</h5>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Docker Compose</span>
-                            <span class="skill-tag">GitHub Actions</span>
-                            <span class="skill-tag">Nginx</span>
-                        </div>
-                    </div>
-                    <div>
-                        <h5 class="font-medium text-heading mb-2">Web Development</h5>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="skill-tag">HTML</span>
-                            <span class="skill-tag">CSS</span>
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">TailwindCSS</span>
-                            <span class="skill-tag">FastAPI</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="card">
-                    <h3 class="card-title mb-4">Soft Skills</h3>
-                    <div class="flex flex-wrap gap-4">
-                        <span class="skill-tag">Collaboration & Team Spirit</span>
-                        <span class="skill-tag">Communication (NVC)</span>
-                        <span class="skill-tag">Critical Thinking</span>
-                        <span class="skill-tag">Adaptability</span>
-                        <span class="skill-tag">Rigor & Attention to Detail</span>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section id="education" class="mb-10 scroll-mt-20 pt-6 border-t border-gray-200">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-heading">Education</h2>
-            </div>
-            <div class="flex flex-col md:flex-row md:space-x-8 md:space-y-0 space-y-6 justify-center items-stretch">
-                <article class="card flex-1">
-                    <h3 class="card-title">M.S. in Computer Science</h3>
-                    <div class="flex items-center">
-                        <img src="images/icons/uqac.png" alt="UQAC" class="card-icon">
-                        <p class="card-location">UQAC, Chicoutimi, CA</p>
-                    </div>
-                    <p class="card-date">September 2021 - February 2023</p>
-                </article>
-                <article class="card flex-1">
-                    <h3 class="card-title">M.Eng in Computer Science</h3>
-                    <div class="flex items-center">
-                        <img src="images/icons/esme.png" alt="ESME" class="card-icon">
-                        <p class="card-location">ESME, Bordeaux Paris, FR</p>
-                    </div>
-                    <p class="card-date">September 2017 - February 2023</p>
-                </article>
-            </div>
-        </section>
-
-        <section id="certifications" class="mb-10 scroll-mt-20 pt-6 border-t border-gray-200">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-heading">Certifications & Courses</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:items-start">
-                <article class="card">
-                    <div class="flex items-center justify-between">
-                        <h3 class="card-title">AWS Cloud Technical Essentials</h3>
-                        <a href="https://www.coursera.org/account/accomplishments/verify/NA8M0QWMHZM3" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View AWS Cloud Technical Essentials certificate on Coursera">
-                            <i class="fa-solid fa-square-arrow-up-right"></i>
-                        </a>
-                    </div>
-                    <div class="flex items-center">
-                        <img src="images/icons/aws.png" alt="AWS" class="card-icon">
-                        <p class="card-location text-content">AWS</p>
-                    </div>
-                    <p class="card-date">January 2026</p>
-                </article>
-                <article class="card">
-                    <div class="flex items-center justify-between">
-                        <h3 class="card-title">Functional Programming in Scala Specialization</h3>
-                        <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Functional Programming in Scala certificate on Coursera">
-                            <i class="fa-solid fa-square-arrow-up-right"></i>
-                        </a>
-                    </div>
-                    <div class="flex items-center">
-                        <img src="images/icons/epfl.png" alt="EPFL" class="card-icon">
-                        <p class="card-location text-content">EPFL</p>
-                    </div>
-                    <p class="card-date">September 2025</p>
-                    <button class="course-toggle-link" data-toggle="scala-courses" aria-expanded="false" aria-controls="scala-courses-list">
-                        <span class="course-toggle-text">Show courses</span> <i class="fas fa-chevron-down toggle-arrow"></i> </button>
-                    <div id="scala-courses-list" class="course-details-list">
-                        <ul class="list-disc list-inside text-content space-y-1">
-                            <li>Functional Programming Principles in Scala</li>
-                            <li>Functional Program Design in Scala</li>
-                            <li>Parallel programming</li>
-                            <li>Big Data Analysis with Scala and Spark</li>
-                            <li>Functional Programming in Scala Capstone</li>
+                        <ul class="exp-list">
+                            <li>Design & implement robust <strong>ETL pipelines</strong> (Python, SQL) for healthcare data.</li>
+                            <li>Complex data recovery from hospital databases & <strong>OCR</strong> implementation.</li>
+                            <li>Indexing & extraction of textual data (HL7 FHIR, PDF, CSV).</li>
+                            <li>Query optimization via SQL execution plans.</li>
+                            <li>Contribute to clinical studies by providing data engineering support.</li>
                         </ul>
                     </div>
-                </article>
-                <article class="card">
-                    <div class="flex items-center justify-between">
-                        <h3 class="card-title">Docker Foundations Professional Certificate</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Docker Foundations certificate on LinkedIn Learning">
-                            <i class="fa-solid fa-square-arrow-up-right"></i>
+                </div>
+
+                <!-- Alten -->
+                <div class="timeline-item">
+                    <div class="timeline-dot alt"></div>
+                    <div class="timeline-card glass">
+                        <div class="exp-header">
+                            <div>
+                                <h3 class="exp-title">Data Science Intern - Computer Vision</h3>
+                                <div class="exp-company" style="color: var(--text-muted);">
+                                    <img src="images/icons/alten.png" alt="Alten" onerror="this.style.display='none'">
+                                    Alten, Toulouse
+                                </div>
+                            </div>
+                            <span class="exp-date">Sep 2022 - Feb 2023</span>
+                        </div>
+                        <ul class="exp-list alt">
+                            <li>Computer vision applied to cycling team pursuit races.</li>
+                            <li>Track line detection (OpenCV) & Cyclist tracking (YOLOV5 + Norfair).</li>
+                            <li>Streamlit dashboard visualization with Plotly.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <section id="projects" class="scroll-mt">
+            <h2 class="section-title">
+                <i class="fas fa-code-branch"></i> Projects
+            </h2>
+            <div class="grid-2">
+                
+                <!-- Project 1 -->
+                <article class="project-card glass">
+                    <div class="project-header">
+                        <div class="icon-box blue-icon">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                        <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank" class="github-link">
+                            <i class="fab fa-github"></i>
                         </a>
                     </div>
-                    <div class="flex items-center">
-                        <img src="images/icons/docker.png" alt="Docker" class="card-icon">
-                        <p class="card-location text-content">Docker</p>
+                    <h3 class="project-title">Gesture Recognition</h3>
+                    <p class="project-desc">
+                        Hand recognition using Mediapipe and RNN models with TensorFlow. Detects letters via gestures.
+                    </p>
+                    <div class="tags-wrapper">
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">TensorFlow</span>
+                        <span class="skill-pill">Mediapipe</span>
                     </div>
-                    <p class="card-date">March 2025</p>
                 </article>
-                <article class="card">
-                    <div class="flex items-center justify-between">
-                        <h3 class="card-title">Develop Your Scala Skills for Data Engineering</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View Develop Your Scala Skills certificate on LinkedIn Learning">
-                            <i class="fa-solid fa-square-arrow-up-right"></i>
+
+                <!-- Project 2 -->
+                <article class="project-card glass">
+                    <div class="project-header">
+                        <div class="icon-box green-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" class="github-link">
+                            <i class="fab fa-github"></i>
                         </a>
                     </div>
-                    <div class="flex items-center">
-                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="card-icon">
-                        <p class="card-location text-content">LinkedIn Learning</p>
+                    <h3 class="project-title">DeFi Platform Simulator</h3>
+                    <p class="project-desc">
+                        Simulator for testing lending/borrowing strategies. Fetches crypto prices via CoinGecko API & Aave data via GraphQL.
+                    </p>
+                    <div class="tags-wrapper">
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">GraphQL</span>
+                        <span class="skill-pill">API</span>
                     </div>
-                    <p class="card-date">March 2025</p>
                 </article>
-                <article class="card">
-                    <div class="flex items-center justify-between">
-                        <h3 class="card-title">Become an AI and ML Specialist</h3>
-                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" rel="noopener" class="text-content hover-text-primary transition-colors duration-300 inline-block text-2xl leading-none ml-4" aria-label="View AI and ML Specialist certificate on LinkedIn Learning">
-                            <i class="fa-solid fa-square-arrow-up-right"></i>
+
+                 <!-- Project 3 -->
+                 <article class="project-card glass">
+                    <div class="project-header">
+                        <div class="icon-box purple-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" class="github-link">
+                            <i class="fab fa-github"></i>
                         </a>
                     </div>
-                    <div class="flex items-center">
-                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="card-icon">
-                        <p class="card-location text-content">LinkedIn Learning</p>
+                    <h3 class="project-title">Portfolio Architecture</h3>
+                    <p class="project-desc">
+                        Micro-service architecture with Docker, FastAPI (Backend), Nginx (Reverse Proxy) and CI/CD via GitHub Actions.
+                    </p>
+                    <div class="tags-wrapper">
+                        <span class="skill-pill">Docker</span>
+                        <span class="skill-pill">FastAPI</span>
+                        <span class="skill-pill">Nginx</span>
                     </div>
-                    <p class="card-date">May 2022</p>
                 </article>
-                <article class="card">
-                    <div class="flex items-center justify-between">
-                        <h3 class="card-title">TOEIC Exam (Score: 890)</h3>
+
+                <!-- Project 4 -->
+                 <article class="project-card glass">
+                    <div class="project-header">
+                        <div class="icon-box yellow-icon">
+                            <i class="fas fa-futbol"></i>
+                        </div>
                     </div>
-                    <div class="flex items-center">
-                        <img src="images/icons/ets.png" alt="ETS" class="card-icon">
-                        <p class="card-location text-content">ETS Global</p>
+                    <h3 class="project-title">Weather Impact in Football</h3>
+                    <p class="project-desc">
+                        Scraping historical match data (Beautifulsoup) and weather data (Selenium) to correlate weather conditions with game outcomes.
+                    </p>
+                    <div class="tags-wrapper">
+                        <span class="skill-pill">Selenium</span>
+                        <span class="skill-pill">Matplotlib</span>
                     </div>
-                    <p class="card-date">May 2021</p>
                 </article>
             </div>
         </section>
 
-        <section id="about" class="mb-10 scroll-mt-20 pt-6 border-t border-gray-200">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-heading">About Me</h2>
+        <!-- Skills Section -->
+        <section id="skills" class="scroll-mt">
+            <h2 class="section-title">
+                <i class="fas fa-layer-group"></i> Skills & Stack
+            </h2>
+            
+            <div class="grid-2">
+                <!-- Languages -->
+                <div class="skill-card glass">
+                    <h3 class="skill-title">Languages</h3>
+                    <div class="tags-wrapper">
+                        <div class="skill-pill">French (Native)</div>
+                        <div class="skill-pill">English (Proficient)</div>
+                        <div class="skill-pill">Spanish (Basic)</div>
+                    </div>
+                </div>
+
+                <!-- Programming -->
+                <div class="skill-card glass">
+                    <h3 class="skill-title">Programming Languages</h3>
+                    <div class="tags-wrapper">
+                        <div class="skill-pill pill-primary">Python</div>
+                        <div class="skill-pill">Scala</div>
+                        <div class="skill-pill">Java</div>
+                        <div class="skill-pill">SQL</div>
+                    </div>
+                </div>
+
+                <!-- Data Engineering -->
+                <div class="skill-card glass">
+                    <h3 class="skill-title">Data Engineering & DB</h3>
+                    <div class="tags-wrapper">
+                        <div class="skill-pill">Pandas</div>
+                        <div class="skill-pill">Spark</div>
+                        <div class="skill-pill">BeautifulSoup</div>
+                        <div class="skill-pill">Selenium</div>
+                        <div class="skill-pill">GraphQL</div>
+                    </div>
+                </div>
+
+                <!-- Cloud & DevOps -->
+                <div class="skill-card glass">
+                    <h3 class="skill-title">Cloud (AWS) & DevOps</h3>
+                    <div class="tags-wrapper">
+                        <div class="skill-pill pill-orange">AWS Lambda</div>
+                        <div class="skill-pill pill-orange">S3</div>
+                        <div class="skill-pill pill-orange">EC2</div>
+                        <div class="skill-pill pill-orange">RDS</div>
+                        <div class="skill-pill">Docker</div>
+                        <div class="skill-pill">Git</div>
+                        <div class="skill-pill">CI/CD</div>
+                        <div class="skill-pill">Nginx</div>
+                    </div>
+                </div>
+
+                 <!-- ML & Web -->
+                 <div class="skill-card glass">
+                    <h3 class="skill-title">ML, Vision & Web</h3>
+                    <div class="tags-wrapper">
+                        <div class="skill-pill">Tensorflow</div>
+                        <div class="skill-pill">OpenCV</div>
+                        <div class="skill-pill">YOLO</div>
+                        <div class="skill-pill">Streamlit</div>
+                        <div class="skill-pill">FastAPI</div>
+                        <div class="skill-pill">HTML/CSS</div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="skill-card glass">
+                    <h3 class="skill-title">Soft Skills</h3>
+                    <div class="tags-wrapper">
+                        <div class="skill-pill">Collaboration</div>
+                        <div class="skill-pill">Communication (NVC)</div>
+                        <div class="skill-pill">Critical Thinking</div>
+                        <div class="skill-pill">Adaptability</div>
+                        <div class="skill-pill">Rigor</div>
+                    </div>
+                </div>
             </div>
-            <article class="card flex flex-col gap-6">
-                <div>
-                    <h4 class="font-medium text-heading mb-2">Work Philosophy 💻</h4>
-                    <p class="text-content text-justify">I am committed to continuous improvement, regularly reviewing my work to identify and implement enhancements. I have a strong drive to investigate, whether through testing new tools or proactively identifying bugs, finding great satisfaction in problem-solving. While adept at working autonomously, I highly value collaboration and insights from experienced colleagues. I am eager to expand my technical expertise and integrate new technologies into my skillset.</p>
-                </div>
-                <div>
-                    <div class="mb-4">
-                        <h4 class="font-medium text-heading">Music 🥁</h4>
-                        <p class="text-content text-justify">I discovered percussion in music class at secondary school. It made me want to start drumming, because I was doing well compared to my classmates. I started learning drums with online lessons, then continued with a teacher for 3 years. I stopped taking lessons when I moved to another city to study, but I still practice every day. I can also play the cajon, a Peruvian instrument.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-medium text-heading">Sport ⚽🏋️‍♂️</h4>
-                        <p class="text-content text-justify">I played club football from the age of six to seventeen. It was also at the age of 17 that I started going to the gym with my friends. Combining the two activities was hard on the body, so I decided to stop playing football because bodybuilding suited me better. I appreciate that you can do it alone or with partners. Recently, I started running to complement bodybuilding with a cardio activity. I also enjoy these sports because I can practise them alone early in the morning, before work and without any constraints.</p>
-                    </div>
-                </div>
-            </article>
         </section>
 
-        <section id="contact-form-section" class="mb-8 scroll-mt-20 pt-6 border-t border-gray-200">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-heading">Contact</h2>
-                <p class="text-base text-content max-w-3xl mx-auto mt-4">
-                    Have a question or an opportunity? Fill out the form below and I'll get back to you!
-                </p>
+        <!-- Certifications -->
+        <section id="certifications" class="scroll-mt">
+            <h2 class="section-title">
+                <i class="fas fa-certificate"></i> Certifications
+            </h2>
+            <div class="grid-3">
+                
+                <!-- AWS -->
+                <article class="cert-card glass">
+                    <div class="cert-header">
+                        <img src="images/icons/aws.png" alt="AWS" class="cert-icon" onerror="this.style.display='none'">
+                        <a href="https://www.coursera.org/account/accomplishments/verify/NA8M0QWMHZM3" target="_blank" class="ext-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <h3 class="cert-title">AWS Cloud Technical Essentials</h3>
+                    <p class="cert-issuer">AWS - Coursera</p>
+                    <span class="cert-date">Jan 2026</span>
+                </article>
+
+                <!-- Scala Specialization (Expandable) -->
+                <article class="cert-card glass col-span-2">
+                    <div class="cert-header">
+                        <img src="images/icons/epfl.png" alt="EPFL" class="cert-icon" onerror="this.style.display='none'">
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE" target="_blank" class="ext-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <h3 class="cert-title">Functional Programming in Scala</h3>
+                    <p class="cert-issuer">EPFL - Coursera</p>
+                    
+                    <details class="mt-4">
+                        <summary class="summary-content">
+                            <span>Show Courses</span>
+                            <i class="fas fa-chevron-down summary-chevron"></i>
+                        </summary>
+                        <ul class="course-list">
+                            <li>Functional Programming Principles</li>
+                            <li>Functional Program Design</li>
+                            <li>Parallel programming</li>
+                            <li>Big Data Analysis (Spark)</li>
+                            <li>Capstone Project</li>
+                        </ul>
+                    </details>
+                    
+                    <span class="cert-date" style="margin-top: auto; padding-top: 1rem;">Sep 2025</span>
+                </article>
+
+                <!-- Docker -->
+                <article class="cert-card glass">
+                    <div class="cert-header">
+                        <img src="images/icons/docker.png" alt="Docker" class="cert-icon" onerror="this.style.display='none'">
+                        <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766" target="_blank" class="ext-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <h3 class="cert-title">Docker Foundations Professional Certificate</h3>
+                    <p class="cert-issuer">Docker - LinkedIn</p>
+                    <span class="cert-date">Mar 2025</span>
+                </article>
+
+                <!-- Scala Data Eng -->
+                <article class="cert-card glass">
+                    <div class="cert-header">
+                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon" onerror="this.style.display='none'">
+                        <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8" target="_blank" class="ext-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <h3 class="cert-title">Scala Skills for Data Engineering</h3>
+                    <p class="cert-issuer">LinkedIn Learning</p>
+                    <span class="cert-date">Mar 2025</span>
+                </article>
+
+                <!-- AI Specialist -->
+                <article class="cert-card glass">
+                    <div class="cert-header">
+                        <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon" onerror="this.style.display='none'">
+                        <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d" target="_blank" class="ext-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <h3 class="cert-title">Become an AI and ML Specialist</h3>
+                    <p class="cert-issuer">LinkedIn Learning</p>
+                    <span class="cert-date">May 2022</span>
+                </article>
+
+                <!-- TOEIC -->
+                <article class="cert-card glass">
+                    <div class="cert-header">
+                        <img src="images/icons/ets.png" alt="ETS" class="cert-icon" onerror="this.style.display='none'">
+                    </div>
+                    <h3 class="cert-title">TOEIC Exam (Score: 890)</h3>
+                    <p class="cert-issuer">ETS Global</p>
+                    <span class="cert-date">May 2021</span>
+                </article>
+
             </div>
-            <article class="card max-w-2xl mx-auto">
-                <form id="contact-form" class="space-y-6" aria-describedby="form-status-message">
-                    <div>
-                        <label for="name" class="block text-heading font-medium mb-2">Your Name <span class="accent-orange">*</span></label>
-                        <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+        </section>
+
+        <!-- Education -->
+        <section id="education" class="scroll-mt">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i> Education
+            </h2>
+            <div class="grid-2">
+                <div class="edu-card glass">
+                    <div class="edu-header">
+                        <h3>M.S. in Computer Science</h3>
+                        <img src="images/icons/uqac.png" alt="UQAC" onerror="this.style.display='none'">
                     </div>
-                    <div>
-                        <label for="email" class="block text-heading font-medium mb-2">Your Email <span class="accent-orange">*</span></label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="john.doe@example.com" required>
+                    <p class="edu-loc">UQAC, Chicoutimi, CA</p>
+                    <p class="edu-year">2021 - 2023</p>
+                </div>
+                <div class="edu-card glass">
+                    <div class="edu-header">
+                        <h3>M.Eng in Computer Science</h3>
+                        <img src="images/icons/esme.png" alt="ESME" onerror="this.style.display='none'">
                     </div>
-                    <div class="hp_address" aria-hidden="true">
-                        <input type="text" id="address" name="address" class="form-input" autocomplete="off" tabindex="-1">
+                    <p class="edu-loc">ESME, Bordeaux Paris, FR</p>
+                    <p class="edu-year">2017 - 2023</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me -->
+        <section id="about" class="scroll-mt">
+            <div class="about-container glass">
+                <div class="about-bg-glow"></div>
+                
+                <div class="about-content-wrapper">
+                    <h2 class="section-title" style="margin-bottom: 2rem;">About Me</h2>
+                    <div class="about-grid">
+                        <div>
+                            <h4 class="about-subtitle">
+                                <i class="fas fa-laptop-code"></i> Work Philosophy
+                            </h4>
+                            <p class="about-text">
+                                I am committed to continuous improvement, regularly reviewing my work to identify and implement enhancements. I have a strong drive to investigate, whether through testing new tools or proactively identifying bugs. While adept at working autonomously, I highly value collaboration and insights from experienced colleagues.
+                            </p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div>
+                                <h4 class="about-subtitle">
+                                    <i class="fas fa-drum"></i> Music
+                                </h4>
+                                <p class="about-text">
+                                    Drummer for years. It taught me rhythm and discipline. I can also play the cajon, a Peruvian instrument.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="about-subtitle">
+                                    <i class="fas fa-running"></i> Sport
+                                </h4>
+                                <p class="about-text">
+                                    Former club football player, now into bodybuilding and running. I enjoy the discipline of early morning workouts before work.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="subject" class="block text-heading font-medium mb-2">Subject</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section id="contact" class="scroll-mt contact-container">
+            <div class="contact-intro">
+                <h2 class="section-title" style="justify-content: center; margin-bottom: 1rem;">Let's Connect</h2>
+                <p>Have a question or an opportunity? Drop me a message.</p>
+            </div>
+
+            <div class="form-card glass">
+                <!-- Status Toast -->
+                <div id="form-toast" class="toast">
+                    <i id="toast-icon" class="fas"></i>
+                    <span id="toast-message"></span>
+                </div>
+
+                <form id="contact-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Honeypot -->
+                    <input type="text" id="address" name="address" class="hp-field" autocomplete="off">
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" rows="5" class="form-input resize-none" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="subject" class="form-label">Subject (Optional)</label>
                         <input type="text" id="subject" name="subject" class="form-input" placeholder="Inquiry about...">
                     </div>
-                    <div>
-                        <label for="message" class="block text-heading font-medium mb-2">Your Message <span class="accent-orange">*</span></label>
-                        <textarea id="message" name="message" rows="6" class="form-textarea" placeholder="I'm interested in..." required></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn-primary w-full md:w-auto">
-                            Send Message
-                        </button>
-                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-submit">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </form>
-                <div id="form-status-message" role="status" class="mt-4 text-center font-medium hidden"></div>
-            </article>
+            </div>
         </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 Robin Nogues.</p>
+        </footer>
 
     </main>
 
-    <footer class="bg-footer text-white mt-8">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener" class="text-white hover-text-primary transition-colors duration-300 text-2xl" aria-label="LinkedIn profile">
-                    <i class="fa-brands fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/RobinNogues" target="_blank" rel="noopener" class="text-white hover-text-primary transition-colors duration-300 text-2xl" aria-label="GitHub profile">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-            </div>
-            <p>&copy; 2025 Robin Nogues. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <button id="back-to-top" aria-label="Back to top">
+    <!-- Scroll To Top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
+
     <script type="module" src="script.js"></script>
 </body>
 </html>
