@@ -77,8 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 5. Smooth Scroll for Anchor Links ---
-    // --- 5. Smooth Scroll (Handled by CSS) ---
-    // Legacy JS removed in favor of scroll-behavior: smooth in CSS
+    // Handled by CSS scroll-behavior: smooth
 
 
     // --- 6. Contact Form Handling (Real Backend) ---

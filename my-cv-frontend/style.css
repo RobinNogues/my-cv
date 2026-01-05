@@ -401,7 +401,7 @@ img {
     flex-direction: column;
     align-items: center;
     gap: 3rem;
-    /* opacity: 0; - Removed to disable fade-in */
+    /* opacity: 0; removed to disable fade-in */
 }
 
 .hero-text {
@@ -602,6 +602,8 @@ img {
     border-radius: 50%;
     z-index: 10;
     transition: all 0.3s;
+    box-sizing: border-box;
+    /* Maintain size with border */
 }
 
 .timeline-item:hover .timeline-dot {
@@ -798,13 +800,66 @@ img {
 
 .skill-pill {
     padding: 0.5rem 1rem;
+
+    /* --- Utility / Helper Classes (Extracted from Inline) --- */
+    .text-primary-600 {
+        color: var(--primary-600);
+    }
+
+    .text-bold {
+        font-weight: 700;
+    }
+
+    .text-muted {
+        color: var(--text-muted);
+    }
+
+    .mb-2 {
+        margin-bottom: 0.5rem;
+    }
+
+    .mb-4 {
+        margin-bottom: 1rem;
+    }
+
+    .mb-6 {
+        margin-bottom: 1.5rem;
+    }
+
+    .mb-8 {
+        margin-bottom: 2rem;
+    }
+
+    .mt-auto {
+        margin-top: auto;
+    }
+
+    .pt-4 {
+        padding-top: 1rem;
+    }
+
+    .flex-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .gap-6 {
+        gap: 1.5rem;
+    }
+
+    .justify-center {
+        justify-content: center;
+    }
+
     background-color: white;
     border: 1px solid var(--slate-200);
     border-radius: 0.75rem;
     font-size: 0.75rem;
     font-weight: 600;
     cursor: default;
-    transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+    transition: color 0.3s,
+    border-color 0.3s,
+    background-color 0.3s;
 }
 
 [data-theme="dark"] .skill-pill {

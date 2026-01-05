@@ -80,7 +80,7 @@
                 <a href="#skills" class="mobile-link">Skills</a>
                 <a href="#certifications" class="mobile-link">Certifications</a>
                 <a href="#about" class="mobile-link">About</a>
-                <a href="#contact" class="mobile-link" style="color: var(--primary-600); font-weight: 700;">Contact
+                <a href="#contact" class="mobile-link text-primary-600 text-bold">Contact
                     Me</a>
             </div>
         </div>
@@ -156,7 +156,7 @@
                         <div class="exp-header">
                             <div>
                                 <h3 class="exp-title">Data Science Intern - Computer Vision</h3>
-                                <div class="exp-company" style="color: var(--text-muted);">
+                                <div class="exp-company text-muted">
                                     <img src="images/icons/alten.png" alt="Alten" loading="lazy"
                                         onerror="this.style.display='none'">
                                     Alten, Toulouse
@@ -396,9 +396,10 @@
                             <li>Big Data Analysis (Spark)</li>
                             <li>Capstone Project</li>
                         </ul>
+
                     </details>
 
-                    <span class="cert-date" style="margin-top: auto; padding-top: 1rem;">Sep 2025</span>
+                    <span class="cert-date mt-auto pt-4">Sep 2025</span>
                 </article>
 
                 <!-- Docker -->
@@ -491,7 +492,7 @@
                 <div class="about-bg-glow"></div>
 
                 <div class="about-content-wrapper">
-                    <h2 class="section-title" style="margin-bottom: 2rem;">About Me</h2>
+                    <h2 class="section-title mb-8">About Me</h2>
                     <div class="about-grid">
                         <div>
                             <h4 class="about-subtitle">
@@ -504,7 +505,7 @@
                                 value collaboration and insights from experienced colleagues.
                             </p>
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="flex-col gap-6">
                             <div>
                                 <h4 class="about-subtitle">
                                     <i class="fas fa-drum"></i> Music
@@ -532,7 +533,7 @@
         <!-- Contact Form -->
         <section id="contact" class="scroll-mt contact-container">
             <div class="contact-intro">
-                <h2 class="section-title" style="justify-content: center; margin-bottom: 1rem;">Let's Connect</h2>
+                <h2 class="section-title justify-center mb-4">Let's Connect</h2>
                 <p>Have a question or an opportunity? Drop me a message.</p>
             </div>
 
@@ -546,13 +547,11 @@
                 <form id="contact-form">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="name" class="form-label">Name <span
-                                    style="color: var(--primary-600)">*</span></label>
+                            <label for="name" class="form-label">Name <span class="text-primary-600">*</span></label>
                             <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="form-label">Email <span
-                                    style="color: var(--primary-600)">*</span></label>
+                            <label for="email" class="form-label">Email <span class="text-primary-600">*</span></label>
                             <input type="email" id="email" name="email" class="form-input"
                                 placeholder="john@example.com" required>
                         </div>
@@ -561,15 +560,14 @@
                     <!-- Honeypot -->
                     <input type="text" id="address" name="address" class="hp-field" autocomplete="off">
 
-                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <div class="form-group mb-6">
                         <label for="subject" class="form-label">Subject</label>
                         <input type="text" id="subject" name="subject" class="form-input"
                             placeholder="Inquiry about...">
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label for="message" class="form-label">Message <span
-                                style="color: var(--primary-600)">*</span></label>
+                    <div class="form-group mb-6">
+                        <label for="message" class="form-label">Message <span class="text-primary-600">*</span></label>
                         <textarea id="message" name="message" rows="5" class="form-input resize-none"
                             placeholder="Tell me about your project..." required></textarea>
                     </div>
