@@ -392,7 +392,7 @@ img {
 /* --- Hero Section (Base Mobile) --- */
 .main-content {
     padding-top: 2rem;
-    padding-bottom: 5rem;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     gap: 4rem;
@@ -459,12 +459,18 @@ img {
 }
 
 .btn-primary:hover {
-    opacity: 0.9;
+    background-color: var(--primary-700);
+    color: white;
 }
 
 [data-theme="dark"] .btn-primary {
     background-color: white;
     color: var(--slate-900);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: var(--primary-700);
+    color: white;
 }
 
 /* Merged style for both GitHub and LinkedIn buttons to be consistent */
@@ -643,7 +649,7 @@ img {
 }
 
 .exp-company {
-    color: var(--primary-500);
+    color: var(--primary-400);
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -910,13 +916,26 @@ img {
     gap: 1.5rem;
 }
 
+.cert-masonry {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.cert-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 .cert-card {
     padding: 1.5rem;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    height: 100%;
-
+    height: auto;
+    min-height: 14rem;
+    /* Visually align cards */
 }
 
 .cert-card:hover {
@@ -984,10 +1003,17 @@ details>summary::-webkit-details-marker {
     gap: 0.25rem;
     font-size: 0.75rem;
     font-weight: 600;
+    color: var(--primary-400);
+    transition: color 0.3s ease;
+}
+
+.summary-content:hover {
     color: var(--primary-500);
 }
 
-.summary-chevron {}
+.summary-chevron {
+    transition: transform 0.3s ease;
+}
 
 details[open] .summary-chevron {
     transform: rotate(180deg);
@@ -1001,8 +1027,14 @@ details[open] .summary-chevron {
     list-style-position: inside;
 }
 
-details[open] .course-list {
+/* Animation handled in JS now */
+/* details[open] .course-list {
     animation: sweep .3s ease-in-out;
+} */
+
+.details-content-wrapper {
+    overflow: hidden;
+    transition: height 0.4s ease-out, opacity 0.4s ease-out;
 }
 
 @keyframes sweep {
@@ -1234,8 +1266,26 @@ details[open] .course-list {
     text-align: center;
     color: var(--slate-500);
     font-size: 0.875rem;
-    padding: 1rem 0 3rem 0;
+    padding: 1rem 0 1rem 0;
     margin-top: 0;
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-socials a {
+    color: var(--slate-500);
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: var(--primary-500);
+    transform: translateY(-3px);
 }
 
 /* --- Card Hover Effects Consistency --- */
@@ -1247,6 +1297,14 @@ details[open] .course-list {
 .edu-card,
 .about-container,
 .form-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+    /* Hint to browser to keep layer active */
+    isolation: isolate;
+    /* Create new stacking context */
+    z-index: 1;
+    /* Ensure layer is promoted */
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -1389,6 +1447,7 @@ details[open] .course-list {
 
     .grid-3 {
         grid-template-columns: repeat(3, 1fr);
+        align-items: start;
     }
 
     .about-grid {
@@ -1410,5 +1469,13 @@ details[open] .course-list {
 
     .about-container {
         padding: 3rem;
+    }
+
+    .cert-masonry {
+        flex-direction: row;
+    }
+
+    .cert-col {
+        flex: 1;
     }
 }

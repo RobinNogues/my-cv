@@ -165,4 +165,85 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // --- 7. Accordion Animation ---
+    document.querySelectorAll('details').forEach((detail) => {
+        const summary = detail.querySelector('summary');
+        const content = detail.querySelector('.details-content-wrapper');
+
+        if (!content) return;
+
+        let isClosing = false;
+        let animationFrameId;
+        let onEnd;
+
+        summary.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Clear any pending validation/cleanup
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            if (onEnd) {
+                content.removeEventListener('transitionend', onEnd);
+                onEnd = null;
+            }
+
+            if (detail.open && !isClosing) {
+                // Close
+                isClosing = true;
+                const startHeight = content.offsetHeight;
+
+                // Set fixed height to start transition from
+                content.style.height = `${startHeight}px`;
+                content.style.opacity = '1';
+
+                // Force reflow and animate to 0
+                animationFrameId = requestAnimationFrame(() => {
+                    content.style.height = '0px';
+                    content.style.opacity = '0';
+                });
+
+                onEnd = () => {
+                    detail.removeAttribute('open');
+                    isClosing = false;
+                    content.style.height = '';
+                    content.style.opacity = '';
+                    onEnd = null;
+                };
+                content.addEventListener('transitionend', onEnd, { once: true });
+
+            } else {
+                // Open
+                isClosing = false;
+                detail.setAttribute('open', '');
+
+                // If we are reopening from a closing state, height is already set to something (e.g. 50px)
+                // If we are opening new, height is auto (but effectively 0 hidden?)
+                // Actually, if we just added open, height is auto.
+                // We need to set it to 0 immediately if valid.
+
+                const targetHeight = content.scrollHeight;
+
+                // If completely closed, start from 0
+                if (content.style.height === '' || content.style.height === '0px') {
+                    content.style.height = '0px';
+                    content.style.opacity = '0';
+                } else {
+                    // We were closing, so style.height matches current computed height approximately
+                    // Do nothing, let it animate from there
+                }
+
+                animationFrameId = requestAnimationFrame(() => {
+                    content.style.height = `${targetHeight}px`;
+                    content.style.opacity = '1';
+                });
+
+                onEnd = () => {
+                    content.style.height = ''; // Auto
+                    content.style.opacity = '';
+                    onEnd = null;
+                };
+                content.addEventListener('transitionend', onEnd, { once: true });
+            }
+        });
+    });
+
 });
