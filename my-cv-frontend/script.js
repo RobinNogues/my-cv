@@ -263,4 +263,90 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- 8. Skills Filtering (Vanilla JS FLIP Animation) ---
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const skillCards = document.querySelectorAll('.skill-card');  // Initial NodeList
+    const skillsGrid = document.querySelector('.skills-grid');
+
+    if (filterBtns.length && skillsGrid) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 1. Update Buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                // --- FLIP: FIRST ---
+                // Record initial positions of ALL currently visible cards
+                const firstPositions = new Map();
+                skillCards.forEach(card => {
+                    if (!card.classList.contains('hidden')) {
+                        firstPositions.set(card, card.getBoundingClientRect());
+                    }
+                });
+
+                // 2. Apply Visibility Changes (Layout Shift)
+                skillCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    const shouldShow = filter === 'all' || category === filter;
+
+                    if (shouldShow) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                // --- FLIP: LAST ---
+                // Record new positions of visible cards
+                // & Invert (Apply translate to mimic old position)
+                skillCards.forEach(card => {
+                    if (!card.classList.contains('hidden')) {
+                        const first = firstPositions.get(card);
+                        const last = card.getBoundingClientRect();
+
+                        if (first) {
+                            // Elements that were already visible: Move them
+                            const dx = first.left - last.left;
+                            const dy = first.top - last.top;
+
+                            // Invert
+                            card.style.transition = 'none';
+                            card.style.transform = `translate(${dx}px, ${dy}px)`;
+                        } else {
+                            // Elements entering: Fade in / Scale Up
+                            card.style.animation = 'none'; // Reset
+                            // Force reflow
+                            void card.offsetWidth;
+                            card.style.animation = 'fadeInCard 0.4s forwards';
+                        }
+                    }
+                });
+
+                // --- FLIP: PLAY ---
+                // Force reflow before enabling transitions
+                requestAnimationFrame(() => {
+                    skillCards.forEach(card => {
+                        if (!card.classList.contains('hidden')) {
+                            // If it has a transform (was moving), transition it to 0
+                            if (card.style.transform && card.style.transform !== 'none') {
+                                card.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
+                                card.style.transform = '';
+                            }
+                        }
+                    });
+                });
+
+                // Cleanup after transition
+                setTimeout(() => {
+                    skillCards.forEach(card => {
+                        card.style.transition = '';
+                        card.style.transform = '';
+                    });
+                }, 400);
+            });
+        });
+    }
+
 });
