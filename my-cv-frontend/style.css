@@ -335,7 +335,6 @@ img {
 
 .btn-contact:hover {
     background-color: var(--primary-700);
-    transform: translateY(-1px);
 }
 
 .nav-mobile-btn {
@@ -498,7 +497,6 @@ img {
 
 .btn-primary:hover {
     background-color: var(--primary-700);
-    transform: translateY(-1px);
     color: white;
 }
 
@@ -657,6 +655,7 @@ img {
     z-index: 10;
     box-sizing: border-box;
     /* Maintain size with border */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .timeline-item:hover .timeline-dot {
