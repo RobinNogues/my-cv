@@ -806,10 +806,7 @@ img {
     color: #4ade80;
 }
 
-[data-theme="dark"] .green-icon {
-    background: rgba(20, 83, 45, 0.3);
-    color: #4ade80;
-}
+
 
 .purple-icon {
     background: #f3e8ff;
@@ -821,10 +818,7 @@ img {
     color: #c084fc;
 }
 
-[data-theme="dark"] .purple-icon {
-    background: rgba(88, 28, 135, 0.3);
-    color: #c084fc;
-}
+
 
 .yellow-icon {
     background: #fef9c3;
@@ -1182,8 +1176,8 @@ details[open] .summary-chevron {
 }
 
 .edu-header img {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: contain;
 }
 
