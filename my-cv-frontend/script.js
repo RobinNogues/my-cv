@@ -325,76 +325,139 @@ function initSkillFilters() {
 
     if (!filterBtns.length || !skillsGrid) return;
 
+    let activeTimeout = null;
+
+    // Helper: Perform cleanup of all styles/classes
+    const performCleanup = () => {
+        skillsGrid.style.height = '';
+        skillsGrid.style.overflow = '';
+        skillsGrid.style.transition = '';
+
+        skillCards.forEach(card => {
+            if (card.classList.contains('exiting')) {
+                card.classList.remove('exiting');
+                card.classList.add('hidden');
+                card.style.position = '';
+                card.style.top = '';
+                card.style.left = '';
+                card.style.width = '';
+                card.style.height = '';
+                card.style.margin = '';
+                card.style.animation = '';
+            } else {
+                card.style.transition = '';
+                card.style.transform = '';
+                card.style.animation = '';
+            }
+        });
+        activeTimeout = null;
+    };
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            // 0. Interrupt previous animation if any
+            if (activeTimeout) {
+                clearTimeout(activeTimeout);
+                performCleanup();
+            }
+
             // Update Active State
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const filter = btn.getAttribute('data-filter');
+            const containerRect = skillsGrid.getBoundingClientRect();
 
-            // --- 1. Measure Start Container Height ---
+            // --- 1. Measure Start Container Height & Positions ---
             const startHeight = skillsGrid.offsetHeight;
-
-            // --- 2. FLIP: Record First Positions (Card Animation) ---
             const firstPositions = new Map();
+
+            // Record positions of currently visible items
             skillCards.forEach(card => {
                 if (!card.classList.contains('hidden')) {
-                    firstPositions.set(card, card.getBoundingClientRect());
+                    const rect = card.getBoundingClientRect();
+                    firstPositions.set(card, rect);
                 }
             });
 
-            // --- 3. Change State (DOM Layout Shift) ---
+            // --- 2. Identify Exiting & Entering Items ---
             skillCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 const shouldShow = filter === 'all' || category === filter;
-                card.classList.toggle('hidden', !shouldShow);
+                const isVisible = !card.classList.contains('hidden');
+
+                if (isVisible && !shouldShow) {
+                    // EXITING ITEM
+                    const rect = firstPositions.get(card);
+                    // Use optional chaining/safe checks in case element was strangely hidden
+                    if (rect) {
+                        const top = rect.top - containerRect.top;
+                        const left = rect.left - containerRect.left;
+                        const width = rect.width;
+                        const height = rect.height;
+
+                        card.style.position = 'absolute';
+                        card.style.top = `${top}px`;
+                        card.style.left = `${left}px`;
+                        card.style.width = `${width}px`;
+                        card.style.height = `${height}px`;
+                        card.style.margin = '0';
+
+                        card.classList.add('exiting');
+                        card.style.animation = 'fadeOutCard 0.4s forwards';
+                    } else {
+                        // Fallback if measurement failed (shouldn't happen if logic holds)
+                        card.classList.add('hidden');
+                    }
+                }
+                else if (!isVisible && shouldShow) {
+                    // ENTERING ITEM
+                    card.classList.remove('hidden');
+                    card.style.animation = 'none';
+                }
             });
 
-            // --- 4. Measure End Container Height ---
-            // Force a recalc to get the natural height with the new items
+            // --- 3. Measure End Container Height & FLIP ---
             const endHeight = skillsGrid.offsetHeight;
 
-            // --- 5. FLIP: Setup Invert (Cards) ---
+            // FLIP for Remaining Items
             skillCards.forEach(card => {
-                if (!card.classList.contains('hidden')) {
+                if (!card.classList.contains('hidden') && !card.classList.contains('exiting')) {
                     const first = firstPositions.get(card);
                     const last = card.getBoundingClientRect();
 
                     if (first) {
-                        // Existing Item: specific transform
+                        // Existing (Moving) Item
                         const dx = first.left - last.left;
                         const dy = first.top - last.top;
 
-                        card.style.transition = 'none';
-                        card.style.transform = `translate(${dx}px, ${dy}px)`;
+                        if (dx !== 0 || dy !== 0) {
+                            card.style.transition = 'none';
+                            card.style.transform = `translate(${dx}px, ${dy}px)`;
+                        }
                     } else {
-                        // New Item: Fade In
+                        // New (Entering) Item
                         card.style.animation = 'none';
-                        void card.offsetWidth; // Force Reflow
+                        void card.offsetWidth; // force reflow
                         card.style.animation = 'fadeInCard 0.4s forwards';
                     }
                 }
             });
 
-            // --- 6. Setup Container Animation (Height) ---
+            // --- 4. Animate Container Height ---
             skillsGrid.style.height = `${startHeight}px`;
-            skillsGrid.style.overflow = 'hidden'; // Prevent overflow during transition
+            skillsGrid.style.overflow = 'hidden';
             skillsGrid.style.transition = 'height 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
 
-            // Force Reflow for container and cards
-            void skillsGrid.offsetWidth;
+            void skillsGrid.offsetWidth; // Reflow
 
-            // --- 7. Play Animations (Cards & Container) ---
             requestAnimationFrame(() => {
-                // Animate Container Height
                 skillsGrid.style.height = `${endHeight}px`;
 
-                // Animate Cards
+                // Animate Moving Cards
                 skillCards.forEach(card => {
-                    if (!card.classList.contains('hidden')) {
-                        // Transition existing items back to 0
-                        if (card.style.transform && card.style.transform !== 'none') {
+                    if (!card.classList.contains('hidden') && !card.classList.contains('exiting')) {
+                        if (card.style.transform) {
                             card.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
                             card.style.transform = '';
                         }
@@ -402,20 +465,8 @@ function initSkillFilters() {
                 });
             });
 
-            // --- 8. Cleanup ---
-            setTimeout(() => {
-                // Reset card styles
-                skillCards.forEach(card => {
-                    card.style.transition = '';
-                    card.style.transform = '';
-                    card.style.animation = '';
-                });
-
-                // Reset container styles to auto to allow responsiveness
-                skillsGrid.style.height = '';
-                skillsGrid.style.overflow = '';
-                skillsGrid.style.transition = '';
-            }, 400);
+            // --- 5. Cleanup ---
+            activeTimeout = setTimeout(performCleanup, 400);
         });
     });
 }

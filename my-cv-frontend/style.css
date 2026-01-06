@@ -750,6 +750,8 @@ img {
     grid-template-columns: 1fr;
     /* Single column by default */
     gap: 1.5rem;
+    position: relative;
+    /* Essential for absolute positioning of exiting items */
 }
 
 .project-card {
@@ -1621,4 +1623,22 @@ details[open] .summary-chevron {
         opacity: 1;
         transform: scale(1);
     }
+}
+
+@keyframes fadeOutCard {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+.skill-card.exiting {
+    pointer-events: none;
+    z-index: 0;
+    /* Ensure exiting items are behind if overlapping (though margins usually prevent it) */
 }
