@@ -24,37 +24,54 @@ document.addEventListener('DOMContentLoaded', () => {
     let isMenuOpen = false;
 
     if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
+        const toggleMenu = (open) => {
+            isMenuOpen = open;
+            if (open) {
                 mobileMenu.classList.add('open');
                 menuBtn.innerHTML = '<i class="fas fa-times"></i>';
             } else {
                 mobileMenu.classList.remove('open');
                 menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
+        };
+
+        menuBtn.addEventListener('click', () => {
+            toggleMenu(!isMenuOpen);
         });
 
         // Close menu when clicking a link
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                isMenuOpen = false;
-                mobileMenu.classList.remove('open');
-                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                toggleMenu(false);
             });
+        });
+
+        // Close menu on resize if switching to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024 && isMenuOpen) {
+                toggleMenu(false);
+            }
         });
     }
 
     // --- 3. Scroll to Top ---
     const backToTop = document.getElementById('back-to-top');
     if (backToTop) {
+        let isScrolling = false;
+
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    if (window.scrollY > 500) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
+                    isScrolling = false;
+                });
+                isScrolling = true;
             }
-        });
+        }, { passive: true });
 
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
