@@ -1,6 +1,5 @@
 /**
  * my-cv-frontend main script
- * Modularized for code quality and maintainability.
  */
 
 document.addEventListener('DOMContentLoaded', () => {

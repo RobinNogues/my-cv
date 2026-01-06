@@ -440,7 +440,7 @@ img {
     flex-direction: column;
     align-items: center;
     gap: 3rem;
-    /* opacity: 0; removed to disable fade-in */
+
 }
 
 .hero-text {
@@ -623,7 +623,6 @@ img {
     top: 0;
     bottom: 0;
     left: 8px;
-    /* Reduced from 20px */
     width: 2px;
     background: var(--slate-200);
     z-index: 0;
@@ -644,8 +643,7 @@ img {
 .timeline-dot {
     position: absolute;
     left: 1px;
-    /* Center dot on new line position (8px line center - 7px half-dot + adjustment) -> actually dot is 14px wide */
-    /* width: 14px, height: 14px to be more discreet */
+    /* Center dot on new line position */
     top: 6px;
     width: 16px;
     height: 16px;
@@ -740,9 +738,7 @@ img {
     color: var(--primary-500);
 }
 
-/* .exp-list.alt li::marker {
-    color: var(--slate-400);
-} */
+
 
 /* --- Projects Grid (Base Mobile) --- */
 .grid-2 {
@@ -1131,10 +1127,7 @@ details[open] .summary-chevron {
     list-style-position: inside;
 }
 
-/* Animation handled in JS now */
-/* details[open] .course-list {
-    animation: sweep .3s ease-in-out;
-} */
+
 
 .details-content-wrapper {
     overflow: hidden;
@@ -1393,7 +1386,6 @@ details[open] .summary-chevron {
 }
 
 /* --- Card Hover Effects Consistency --- */
-/* --- Unified Card Hover Effects --- */
 .timeline-card,
 .project-card,
 .skill-card,
@@ -1458,7 +1450,7 @@ details[open] .summary-chevron {
     cursor: pointer;
 }
 
-/* Remove dark mode override to keep it orange */
+
 [data-theme="dark"] .back-to-top {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
@@ -1556,7 +1548,7 @@ details[open] .summary-chevron {
         margin-top: 0;
     }
 
-    /* Restore Timeline spacing on Desktop */
+
     .timeline::before {
         left: 20px;
     }
