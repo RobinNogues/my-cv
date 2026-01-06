@@ -835,7 +835,7 @@ img {
     align-items: center;
     justify-content: center;
     color: var(--slate-400);
-
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .github-link:hover {
@@ -1061,7 +1061,7 @@ img {
 
 .ext-link {
     color: var(--slate-400);
-
+    transition: color 0.3s ease;
 }
 
 .ext-link:hover {
