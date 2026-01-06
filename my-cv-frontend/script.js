@@ -1,208 +1,174 @@
-class MobileMenu {
-    constructor(breakpoint = 768) {
-        this.menuButton = document.getElementById('mobile-menu-button');
-        this.closeButton = document.getElementById('mobile-menu-close-button');
-        this.drawer = document.getElementById('mobile-menu-drawer');
-        this.overlay = document.getElementById('mobile-menu-overlay');
-        this.breakpoint = breakpoint;
-        this.elements = [this.drawer, this.closeButton, this.overlay];
- 
-        if (this.menuButton && this.closeButton && this.drawer && this.overlay) {
-            this.addEventListeners();
-        }
-    }
+/**
+ * my-cv-frontend main script
+ */
 
-    addEventListeners() {
-        this.menuButton.addEventListener('click', () => this.open());
-        this.closeButton.addEventListener('click', () => this.close());
-        this.overlay.addEventListener('click', () => this.close());
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    initMobileMenu();
+    initScrollToTop();
+    initScrollAnimations();
+    initContactForm();
+    initAccordion();
+    initSkillFilters();
+});
 
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => this.handleResize(), 20);
+/**
+ * 1. Theme Toggling
+ * Handles switching between light and dark modes and syncing with system preferences.
+ */
+function initTheme() {
+    const themeToggles = document.querySelectorAll('.theme-toggle');
+    const html = document.documentElement;
+
+    const setTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    };
+
+    themeToggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
         });
-    }
+    });
 
-    handleResize() {
-        if (window.innerWidth >= this.breakpoint && this.isOpen()) {
-            this.close();
+    // System Preference Sync
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches ? 'dark' : 'light');
         }
-    }
-
-    #toggleClasses(shouldOpen) {
-        const action = shouldOpen ? 'add' : 'remove';
-        this.elements.forEach(el => el.classList[action](el === this.drawer ? 'open' : 'visible'));
-    }
-
-    open() {
-        this.#toggleClasses(true);
-    }
-
-    close() {
-        this.#toggleClasses(false);
-    }
-
-    isOpen() {
-        return this.drawer.classList.contains('open');
-    }
+    });
 }
 
-class BackToTopButton {
-    constructor(buttonId, visibilityThreshold = 300) {
-        this.button = document.getElementById(buttonId);
-        this.visibilityThreshold = visibilityThreshold;
+/**
+ * 2. Mobile Menu
+ * Handles opening/closing of the mobile navigation drawer.
+ */
+function initMobileMenu() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-        this.isTicking = false;
+    if (!menuBtn || !mobileMenu) return;
 
-        if (this.button) {
-            this.addEventListeners();
+    let isMenuOpen = false;
+
+    const toggleMenu = (open) => {
+        isMenuOpen = open;
+        if (open) {
+            mobileMenu.classList.add('open');
+            menuBtn.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+            menuBtn.setAttribute('aria-expanded', 'true');
+        } else {
+            mobileMenu.classList.remove('open');
+            menuBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+            menuBtn.setAttribute('aria-expanded', 'false');
         }
-    }
+    };
 
-    addEventListeners() {
-        window.addEventListener('scroll', () => {
-            if (!this.isTicking) {
-                window.requestAnimationFrame(() => {
-                    this.toggleVisibility();
-                    this.isTicking = false;
-                });
-                this.isTicking = true;
-            }
-        });
-        this.button.addEventListener('click', () => this.scrollToTop());
-    }
+    menuBtn.addEventListener('click', () => toggleMenu(!isMenuOpen));
 
-    toggleVisibility() {
-        this.button.classList.toggle('visible', window.scrollY > this.visibilityThreshold);
-    }
+    // Close menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => toggleMenu(false));
+    });
 
-    scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
+    // Close menu on resize if switching to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024 && isMenuOpen) {
+            toggleMenu(false);
+        }
+    }, { passive: true });
 }
 
-class NavLinkHighlighter {
-    constructor(navLinkSelector, sectionSelector) {
-        this.navLinks = document.querySelectorAll(navLinkSelector);
-        this.sections = document.querySelectorAll(sectionSelector);
-        this.header = document.querySelector('header');
-        this.isTicking = false;
-        this.sectionData = [];
+/**
+ * 3. Scroll to Top
+ * Shows/hides the back-to-top button based on scroll position.
+ */
+function initScrollToTop() {
+    const backToTop = document.getElementById('back-to-top');
+    if (!backToTop) return;
 
-        if (this.navLinks.length > 0 && this.sections.length > 0 && this.header) {
-            this.calculateSectionPositions();
-            this.addEventListeners();
-            this.updateActiveLink();
+    let isScrolling = false;
+
+    window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                const shouldShow = window.scrollY > 500;
+                backToTop.classList.toggle('visible', shouldShow);
+                isScrolling = false;
+            });
+            isScrolling = true;
         }
-    }
+    }, { passive: true });
 
-    addEventListeners() {
-        window.addEventListener('scroll', () => {
-            if (!this.isTicking) {
-                window.requestAnimationFrame(() => {
-                    this.updateActiveLink();
-                    this.isTicking = false;
-                });
-                this.isTicking = true;
-            }
-        });
-
-        // Recalculate positions on resize, as section dimensions might change.
-        window.addEventListener('resize', () => this.calculateSectionPositions());
-    }
-
-    calculateSectionPositions() {
-        const headerOffset = this.header.offsetHeight + 20; // 20px buffer
-        this.sectionData = Array.from(this.sections).map(section => {
-            const top = section.offsetTop - headerOffset;
-            return {
-                id: section.id,
-                top: top,
-                bottom: top + section.offsetHeight
-            };
-        });
-    }
-
-    updateActiveLink() {
-        let currentActiveId = null;
-        const scrollY = window.scrollY;
-        for (const section of this.sectionData) {
-            if (scrollY >= section.top && scrollY < section.bottom) {
-                currentActiveId = section.id;
-                break; // Found the active section, no need to check further
-            }
-        }
-
-        this.navLinks.forEach(link => {
-            link.classList.remove('active');
-            // Check if the link's href corresponds to the current active section
-            if (link.getAttribute('href') === `#${currentActiveId}`) {
-                link.classList.add('active');
-            }
-        });
-    }
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
-class ContactFormHandler {
-    constructor(formId, statusId, cooldown = 5000) {
-        this.form = document.getElementById(formId);
-        this.statusMessage = document.getElementById(statusId);
-        this.cooldownPeriod = cooldown;
-        this.lastSubmissionTime = 0;
+/**
+ * 4. Scroll Animations (Intersection Observer)
+ * Reveals sections as they scroll into view.
+ */
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -25px 0px"
+    };
 
-        if (this.form && this.statusMessage) {
-            this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section:not(#hero)').forEach(section => {
+        // Check if section is already possibly visible
+        const rect = section.getBoundingClientRect();
+        const alreadyVisible = rect.top < window.innerHeight;
+
+        section.classList.add('reveal');
+
+        if (alreadyVisible) {
+            section.classList.add('visible');
+        } else {
+            observer.observe(section);
         }
-    }
+    });
+}
 
-    #displayStatus(message, type = 'info') {
-        const classMap = {
-            success: 'status-success',
-            error: 'status-error',
-            info: 'text-muted'
-        };
-        const className = classMap[type] || classMap.info;
+/**
+ * 5. Contact Form Handling
+ * Manages form submission to the backend API with Toast feedback.
+ */
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
 
-        this.statusMessage.style.display = 'block';
-        this.statusMessage.className = `mt-4 text-center font-medium ${className}`;
-        this.statusMessage.textContent = message;
-    }
+    const submitBtn = document.getElementById('submit-btn');
 
-    #handleHoneypot() {
-        const honeypotField = this.form.querySelector('#address');
-        if (honeypotField && honeypotField.value) {
-            console.warn('Honeypot field filled. Likely a bot submission.');
-            // We pretend it was successful to mislead the bot.
-            this.#displayStatus('Message sent successfully!', 'success');
-            this.form.reset();
-            return true;
-        }
-        return false;
-    }
-
-    async handleSubmit(e) {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const currentTime = Date.now();
 
-        if (currentTime - this.lastSubmissionTime < this.cooldownPeriod) {
-            this.#displayStatus('Please wait a moment before sending another message.', 'error');
+        // Honeypot check
+        const honeypot = document.getElementById('address');
+        if (honeypot && honeypot.value) {
+            // Silently fail for bots
             return;
         }
 
-        if (this.#handleHoneypot()) {
-            this.lastSubmissionTime = currentTime;
-            return;
-        }
+        // UI Loading State
+        const originalBtnContent = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i> Sending...';
+        submitBtn.disabled = true;
 
-        this.#displayStatus('Message being sent...', 'info');
-
-        const formData = new FormData(this.form);
+        const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        delete data.address;
+        delete data.address; // Remove honeypot
 
         try {
             const response = await fetch('/api/contact', {
@@ -213,196 +179,293 @@ class ContactFormHandler {
 
             if (response.ok) {
                 const result = await response.json();
-                this.#displayStatus(result.message || 'Message sent successfully!', 'success');
-                this.form.reset();
-                this.lastSubmissionTime = currentTime;
+                showToast('success', result.message || 'Message sent successfully!');
+                form.reset();
             } else {
-                this.#handleApiError(response);
+                const errorData = await response.json();
+                handleFormError(errorData);
             }
         } catch (error) {
-            console.error('Network or API issue:', error);
-            this.#displayStatus('An error occurred, please check your network and try again.', 'error');
+            console.error('Network error:', error);
+            showToast('error', 'Network error. Please try again later.');
+        } finally {
+            submitBtn.innerHTML = originalBtnContent;
+            submitBtn.disabled = false;
         }
-    }
-
-    async #handleApiError(response) {
-        let errorMessage = 'An error occurred, please try again later.';
-        try {
-            const errorData = await response.json();
-            console.error('API Error:', errorData);
-
-            if (response.status === 422 && Array.isArray(errorData.detail)) {
-                const fieldErrors = errorData.detail.map(err => {
-                    const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'field';
-                    return `${field}: ${err.msg}`;
-                }).join('. ');
-                errorMessage = `Validation error: ${fieldErrors}.`;
-            } else if (typeof errorData.detail === 'string') {
-                errorMessage = errorData.detail;
-            }
-        } catch (e) {
-            console.error('Could not parse API error response', e);
-        }
-        this.#displayStatus(errorMessage, 'error');
-    }
+    });
 }
 
-class ThemeToggler {
-    constructor(toggleId, onToggle = () => {}) {
-        this.onToggle = onToggle;
-        this.toggleButton = document.getElementById(toggleId);
-        this.sunIcon = this.toggleButton?.querySelector('.sun-icon');
-        this.moonIcon = this.toggleButton?.querySelector('.moon-icon');
+/**
+ * Helper: Handle Form Errors
+ */
+function handleFormError(errorData) {
+    let errorMessage = 'Failed to send message.';
 
-        if (!this.toggleButton || !this.sunIcon || !this.moonIcon) {
-            console.error('Theme toggler elements not found.');
-            return;
+    if (errorData?.detail) {
+        if (typeof errorData.detail === 'string') {
+            errorMessage = errorData.detail;
+        } else if (Array.isArray(errorData.detail)) {
+            // Handle FastAPI validation errors
+            const fieldErrors = errorData.detail.map(err => {
+                const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'Field';
+                return `${field}: ${err.msg}`;
+            }).join('. ');
+            errorMessage = `Validation Error: ${fieldErrors}`;
         }
-
-        this.isAnimating = false;
-        this.toggleButton.addEventListener('click', () => this.toggle());
     }
+    showToast('error', errorMessage);
+}
 
-    setInitialTheme(theme) {
-        this.currentTheme = theme;
-        this._updateIcons(false);
-    }
+/**
+ * Helper: Show Toast Notification
+ */
+function showToast(type, message) {
+    const toast = document.getElementById('form-toast');
+    const toastMsg = document.getElementById('toast-message');
+    const toastIcon = document.getElementById('toast-icon');
 
-    _updateIcons(animate = true) {
-        this.toggleButton.style.pointerEvents = 'none';
-        this.sunIcon.style.transition = 'none';
-        this.moonIcon.style.transition = 'none';
+    if (!toast || !toastMsg || !toastIcon) return;
 
-        this.sunIcon.style.display = 'block';
-        this.moonIcon.style.display = 'block';
+    // Reset and Set Type
+    toast.className = `toast ${type === 'success' ? 'toast-success' : 'toast-error'}`;
+    toastIcon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    toastMsg.textContent = message;
 
-        if (this.currentTheme === 'dark') {
-            this.sunIcon.classList.add('is-exiting');
-            this.moonIcon.classList.add('is-visible');
-        } else {
-            this.sunIcon.classList.add('is-visible');
-            this.moonIcon.classList.add('is-entering');
-        }
+    // Show
+    requestAnimationFrame(() => {
+        toast.classList.add('visible');
+    });
 
-        if (!animate) {
+    // Auto Hide
+    setTimeout(() => {
+        toast.classList.remove('visible');
+    }, 5000);
+}
+
+/**
+ * 6. Accordion Animation
+ * Smoothly animates the verification details element.
+ */
+function initAccordion() {
+    document.querySelectorAll('details').forEach((detail) => {
+        const summary = detail.querySelector('summary');
+        const content = detail.querySelector('.details-content-wrapper');
+
+        if (!content) return;
+
+        let isClosing = false;
+        let animationFrameId; // keep track to cancel if spam-clicked
+
+        summary.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Cancel any previous frames
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+            if (detail.open && !isClosing) {
+                // Closing animation
+                isClosing = true;
+                const startHeight = content.offsetHeight;
+
+                content.style.height = `${startHeight}px`;
+                content.style.opacity = '1';
+
+                animationFrameId = requestAnimationFrame(() => {
+                    content.style.height = '0px';
+                    content.style.opacity = '0';
+                });
+
+                const onEnd = () => {
+                    detail.removeAttribute('open');
+                    isClosing = false;
+                    content.style.height = '';
+                    content.style.opacity = '';
+                    content.removeEventListener('transitionend', onEnd);
+                };
+                content.addEventListener('transitionend', onEnd);
+
+            } else {
+                // Opening animation
+                isClosing = false;
+                detail.setAttribute('open', '');
+
+                // Reset to specific start state if simplified
+                if (content.style.height === '' || content.style.height === '0px') {
+                    content.style.height = '0px';
+                    content.style.opacity = '0';
+                }
+
+                const targetHeight = content.scrollHeight;
+
+                animationFrameId = requestAnimationFrame(() => {
+                    content.style.height = `${targetHeight}px`;
+                    content.style.opacity = '1';
+                });
+
+                const onEnd = () => {
+                    content.style.height = ''; // Auto
+                    content.style.opacity = '';
+                    content.removeEventListener('transitionend', onEnd);
+                };
+                content.addEventListener('transitionend', onEnd);
+            }
+        });
+    });
+}
+
+/**
+ * 7. Skills Filtering (FLIP Animation)
+ * Filters skill cards with a smooth layout transition.
+ */
+function initSkillFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const skillCards = document.querySelectorAll('.skill-card');
+    const skillsGrid = document.querySelector('.skills-grid');
+
+    if (!filterBtns.length || !skillsGrid) return;
+
+    let activeTimeout = null;
+
+    // Helper: Perform cleanup of all styles/classes
+    const performCleanup = () => {
+        skillsGrid.style.height = '';
+        skillsGrid.style.overflow = '';
+        skillsGrid.style.transition = '';
+
+        skillCards.forEach(card => {
+            if (card.classList.contains('exiting')) {
+                card.classList.remove('exiting');
+                card.classList.add('hidden');
+                card.style.position = '';
+                card.style.top = '';
+                card.style.left = '';
+                card.style.width = '';
+                card.style.height = '';
+                card.style.margin = '';
+                card.style.animation = '';
+            } else {
+                card.style.transition = '';
+                card.style.transform = '';
+                card.style.animation = '';
+            }
+        });
+        activeTimeout = null;
+    };
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 0. Interrupt previous animation if any
+            if (activeTimeout) {
+                clearTimeout(activeTimeout);
+                performCleanup();
+            }
+
+            // Update Active State
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+            const containerRect = skillsGrid.getBoundingClientRect();
+
+            // --- 1. Measure Start Container Height & Positions ---
+            const startHeight = skillsGrid.offsetHeight;
+            const firstPositions = new Map();
+
+            // Record positions of currently visible items
+            skillCards.forEach(card => {
+                if (!card.classList.contains('hidden')) {
+                    const rect = card.getBoundingClientRect();
+                    firstPositions.set(card, rect);
+                }
+            });
+
+            // --- 2. Identify Exiting & Entering Items ---
+            skillCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const shouldShow = filter === 'all' || category === filter;
+                const isVisible = !card.classList.contains('hidden');
+
+                if (isVisible && !shouldShow) {
+                    // EXITING ITEM
+                    const rect = firstPositions.get(card);
+                    // Use optional chaining/safe checks in case element was strangely hidden
+                    if (rect) {
+                        const top = rect.top - containerRect.top;
+                        const left = rect.left - containerRect.left;
+                        const width = rect.width;
+                        const height = rect.height;
+
+                        card.style.position = 'absolute';
+                        card.style.top = `${top}px`;
+                        card.style.left = `${left}px`;
+                        card.style.width = `${width}px`;
+                        card.style.height = `${height}px`;
+                        card.style.margin = '0';
+
+                        card.classList.add('exiting');
+                        card.style.animation = 'fadeOutCard 0.4s forwards';
+                    } else {
+                        // Fallback if measurement failed (shouldn't happen if logic holds)
+                        card.classList.add('hidden');
+                    }
+                }
+                else if (!isVisible && shouldShow) {
+                    // ENTERING ITEM
+                    card.classList.remove('hidden');
+                    card.style.animation = 'none';
+                }
+            });
+
+            // --- 3. Measure End Container Height & FLIP ---
+            const endHeight = skillsGrid.offsetHeight;
+
+            // FLIP for Remaining Items
+            skillCards.forEach(card => {
+                if (!card.classList.contains('hidden') && !card.classList.contains('exiting')) {
+                    const first = firstPositions.get(card);
+                    const last = card.getBoundingClientRect();
+
+                    if (first) {
+                        // Existing (Moving) Item
+                        const dx = first.left - last.left;
+                        const dy = first.top - last.top;
+
+                        if (dx !== 0 || dy !== 0) {
+                            card.style.transition = 'none';
+                            card.style.transform = `translate(${dx}px, ${dy}px)`;
+                        }
+                    } else {
+                        // New (Entering) Item
+                        card.style.animation = 'none';
+                        void card.offsetWidth; // force reflow
+                        card.style.animation = 'fadeInCard 0.4s forwards';
+                    }
+                }
+            });
+
+            // --- 4. Animate Container Height ---
+            skillsGrid.style.height = `${startHeight}px`;
+            skillsGrid.style.overflow = 'hidden';
+            skillsGrid.style.transition = 'height 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
+
+            void skillsGrid.offsetWidth; // Reflow
+
             requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    this.sunIcon.style.transition = '';
-                    this.moonIcon.style.transition = '';
-                    this.toggleButton.style.pointerEvents = 'auto';
+                skillsGrid.style.height = `${endHeight}px`;
+
+                // Animate Moving Cards
+                skillCards.forEach(card => {
+                    if (!card.classList.contains('hidden') && !card.classList.contains('exiting')) {
+                        if (card.style.transform) {
+                            card.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
+                            card.style.transform = '';
+                        }
+                    }
                 });
             });
-        }
-    }
 
-    toggle() {
-        if (this.isAnimating) return;
-        this.isAnimating = true;
-
-        const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-        const exitingIcon = this.currentTheme === 'light' ? this.sunIcon : this.moonIcon;
-        const enteringIcon = newTheme === 'light' ? this.sunIcon : this.moonIcon;
-
-        enteringIcon.classList.remove('is-visible', 'is-exiting');
-        enteringIcon.classList.add('is-entering');
-        
-        exitingIcon.classList.remove('is-visible');
-        exitingIcon.classList.add('is-exiting');
-
-        enteringIcon.addEventListener('transitionend', () => {
-            this.isAnimating = false;
-        }, { once: true });
-
-        enteringIcon.classList.remove('is-entering');
-        enteringIcon.classList.add('is-visible');
-        
-        this.currentTheme = newTheme;
-
-        this.onToggle(this.currentTheme);
-    }
+            // --- 5. Cleanup ---
+            activeTimeout = setTimeout(performCleanup, 400);
+        });
+    });
 }
-
-class CourseToggler {
-    constructor(containerSelector = 'body') {
-        this.container = document.querySelector(containerSelector);
-        if (this.container) {
-            this.container.addEventListener('click', this.handleToggle.bind(this));
-        }
-    }
-
-    handleToggle(e) {
-        const toggleLink = e.target.closest('.course-toggle-link');
-        if (!toggleLink) return;
-
-        const targetId = toggleLink.getAttribute('aria-controls');
-        const targetElement = document.getElementById(targetId);
-        const toggleArrow = toggleLink.querySelector('.toggle-arrow');
-        const toggleText = toggleLink.querySelector('.course-toggle-text');
-
-        if (targetElement && toggleArrow && toggleText) {
-            const isOpening = targetElement.classList.toggle('open');
-            toggleLink.setAttribute('aria-expanded', isOpening);
-            toggleText.textContent = isOpening ? 'Hide courses' : 'Show courses';
-            toggleArrow.style.transform = isOpening ? 'rotate(180deg)' : 'rotate(0deg)';
-
-            toggleArrow.classList.toggle('fa-chevron-down', !isOpening);
-            toggleArrow.classList.toggle('fa-chevron-up', isOpening);
-        }
-    }
-}
-class App {
-    constructor() {
-        this.mobileMenu = new MobileMenu();
-        new BackToTopButton('back-to-top');
-        new NavLinkHighlighter('.nav-link', 'section[id]');
-        new ContactFormHandler('contact-form', 'form-status-message');
-        
-        new CourseToggler('#certifications');
-        this.themeToggler = new ThemeToggler('theme-toggle', (newTheme) => this.setTheme(newTheme));
-        this.initializeTheme();
-
-        this.addEventListeners();
-    }
-
-    initializeTheme() {
-        const initialTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        this.themeToggler.setInitialTheme(initialTheme);
-
-        // Clean up pre-JS classes now that JS has hydrated the component.
-        document.documentElement.classList.remove('light-theme-active', 'dark-theme-active');
-
-    }
-
-    setTheme(theme, save = true) {
-        document.documentElement.setAttribute('data-theme', theme);
-        if (save) {
-            localStorage.setItem('theme', theme);
-        }
-    }
-
-    addEventListeners() {
-        document.body.addEventListener('click', this.#handleDelegatedClicks.bind(this));
-    }
-
-    #handleDelegatedClicks(e) {
-        const anchor = e.target.closest('a[href^="#"]');
-        if (anchor) {
-            this.#handleLinkClick(e, anchor);
-            return;
-        }
-    }
-
-    #handleLinkClick(e, anchor) {
-        e.preventDefault();
-        const targetId = anchor.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-        if (this.mobileMenu.isOpen()) {
-            this.mobileMenu.close();
-        }
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => new App());
