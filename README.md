@@ -18,7 +18,6 @@ The project follows a microservice architecture, containerized and orchestrated 
 
 -   **Frontend (`my-cv-frontend`):**
     -   **Languages:** HTML, CSS, JavaScript
-    -   **Frameworks/Libraries:** TailwindCSS for styling.
     -   **Purpose:** Serves the static website content.
 
 -   **Backend (`my-cv-backend`):**
