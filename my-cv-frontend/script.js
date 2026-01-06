@@ -333,7 +333,10 @@ function initSkillFilters() {
 
             const filter = btn.getAttribute('data-filter');
 
-            // --- FLIP: FIRST ---
+            // --- 1. Measure Start Container Height ---
+            const startHeight = skillsGrid.offsetHeight;
+
+            // --- 2. FLIP: Record First Positions (Card Animation) ---
             const firstPositions = new Map();
             skillCards.forEach(card => {
                 if (!card.classList.contains('hidden')) {
@@ -341,14 +344,18 @@ function initSkillFilters() {
                 }
             });
 
-            // Change State (DOM Layout Shift)
+            // --- 3. Change State (DOM Layout Shift) ---
             skillCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 const shouldShow = filter === 'all' || category === filter;
                 card.classList.toggle('hidden', !shouldShow);
             });
 
-            // --- FLIP: LAST & INVERT ---
+            // --- 4. Measure End Container Height ---
+            // Force a recalc to get the natural height with the new items
+            const endHeight = skillsGrid.offsetHeight;
+
+            // --- 5. FLIP: Setup Invert (Cards) ---
             skillCards.forEach(card => {
                 if (!card.classList.contains('hidden')) {
                     const first = firstPositions.get(card);
@@ -370,8 +377,20 @@ function initSkillFilters() {
                 }
             });
 
-            // --- FLIP: PLAY ---
+            // --- 6. Setup Container Animation (Height) ---
+            skillsGrid.style.height = `${startHeight}px`;
+            skillsGrid.style.overflow = 'hidden'; // Prevent overflow during transition
+            skillsGrid.style.transition = 'height 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
+
+            // Force Reflow for container and cards
+            void skillsGrid.offsetWidth;
+
+            // --- 7. Play Animations (Cards & Container) ---
             requestAnimationFrame(() => {
+                // Animate Container Height
+                skillsGrid.style.height = `${endHeight}px`;
+
+                // Animate Cards
                 skillCards.forEach(card => {
                     if (!card.classList.contains('hidden')) {
                         // Transition existing items back to 0
@@ -383,13 +402,19 @@ function initSkillFilters() {
                 });
             });
 
-            // Cleanup
+            // --- 8. Cleanup ---
             setTimeout(() => {
+                // Reset card styles
                 skillCards.forEach(card => {
                     card.style.transition = '';
                     card.style.transform = '';
                     card.style.animation = '';
                 });
+
+                // Reset container styles to auto to allow responsiveness
+                skillsGrid.style.height = '';
+                skillsGrid.style.overflow = '';
+                skillsGrid.style.transition = '';
             }, 400);
         });
     });
