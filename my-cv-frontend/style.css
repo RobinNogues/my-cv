@@ -158,6 +158,7 @@ img {
     /* max-w-6xl */
     margin: 0 auto;
     padding: 0 1rem;
+    position: relative;
 }
 
 .text-gradient {

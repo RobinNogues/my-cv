@@ -95,11 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    }, { threshold: 0.1, rootMargin: "0px 0px -25px 0px" });
 
     document.querySelectorAll('section:not(#hero)').forEach(section => {
+        // Check if section is already in viewport to prevent "disappearing" effect
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight;
+
         section.classList.add('reveal');
-        observer.observe(section);
+
+        if (isVisible) {
+            section.classList.add('visible');
+        } else {
+            observer.observe(section);
+        }
     });
 
     // --- 5. Smooth Scroll for Anchor Links ---
