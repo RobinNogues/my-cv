@@ -83,13 +83,46 @@ body {
     overflow-x: hidden;
 }
 
-/* Universal Transition for Theme Switch */
-*,
-*::before,
-*::after {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
+/* Transition for Theme Switch */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Explicit inputs/buttons transition if needed, but avoid * wildcard */
+/* Explicit inputs/buttons transition if needed, but avoid * wildcard */
+.skill-card,
+.timeline-card,
+.glass,
+.navbar,
+.mobile-menu,
+.btn-primary,
+.btn-glass,
+.btn-contact,
+.hero-img,
+.exp-date,
+.timeline::before,
+.timeline-dot,
+.project-tag,
+.project-link,
+.project-link i,
+.skill-pill,
+.nav-logo,
+.nav-logo span,
+.icon-box,
+.badge,
+.back-to-top,
+.form-input,
+.hero p,
+.project-desc,
+.exp-list,
+.about-text,
+.cert-issuer,
+.edu-loc,
+.contact-intro p,
+.mobile-link,
+.menu-toggle-btn,
+.skill-title {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Exclude transitions for specific animations to avoid conflicts */
@@ -428,37 +461,39 @@ img {
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 2.25rem;
     font-weight: 800;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.025em;
 }
 
 .hero p {
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: var(--text-muted);
     max-width: 36rem;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1.5rem;
 }
 
 .hero-actions {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
 }
 
 .btn-primary {
     background-color: var(--slate-900);
     color: white;
-    padding: 0.875rem 2rem;
+    padding: 0.625rem 1rem;
     border-radius: 9999px;
     font-weight: 600;
+    font-size: 0.875rem;
 }
 
 .btn-primary:hover {
     background-color: var(--primary-700);
+    transform: translateY(-1px);
     color: white;
 }
 
@@ -475,9 +510,10 @@ img {
 /* Merged style for both GitHub and LinkedIn buttons to be consistent */
 .btn-glass,
 .btn-icon-glass {
-    padding: 0.875rem 2rem;
+    padding: 0.625rem 1rem;
     border-radius: 9999px;
     font-weight: 600;
+    font-size: 0.875rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -579,7 +615,8 @@ img {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 20px;
+    left: 8px;
+    /* Reduced from 20px */
     width: 2px;
     background: var(--slate-200);
     z-index: 0;
@@ -591,19 +628,22 @@ img {
 
 .timeline-item {
     position: relative;
-    padding-left: 3.5rem;
+    padding-left: 2rem;
+    /* Reduced from 3.5rem */
     margin-bottom: 3rem;
     /* Group hover effect setup */
 }
 
 .timeline-dot {
     position: absolute;
-    left: 11px;
+    left: 1px;
+    /* Center dot on new line position (8px line center - 7px half-dot + adjustment) -> actually dot is 14px wide */
+    /* width: 14px, height: 14px to be more discreet */
     top: 6px;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background-color: var(--bg-body);
-    border: 4px solid var(--primary-500);
+    border: 3px solid var(--primary-500);
     border-radius: 50%;
     z-index: 10;
     box-sizing: border-box;
@@ -1461,10 +1501,19 @@ details[open] .summary-chevron {
 
     .hero p {
         margin: 0 0 2rem;
+        font-size: 1.25rem;
     }
 
     .hero-actions {
         justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    .btn-primary,
+    .btn-glass,
+    .btn-icon-glass {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
     }
 
     .hero-img-container {
@@ -1484,6 +1533,22 @@ details[open] .summary-chevron {
 
     .exp-date {
         margin-top: 0;
+    }
+
+    /* Restore Timeline spacing on Desktop */
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-item {
+        padding-left: 3.5rem;
+    }
+
+    .timeline-dot {
+        left: 11px;
+        width: 20px;
+        height: 20px;
+        border-width: 4px;
     }
 
     /* Grid Layouts */
