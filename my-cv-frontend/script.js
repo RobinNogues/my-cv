@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- 1.1 System Preference Sync ---
+    // If user hasn't manually set a preference, update theme when system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+        }
+    });
+
     // --- 2. Mobile Menu ---
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');

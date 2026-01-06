@@ -88,8 +88,8 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Explicit inputs/buttons transition if needed, but avoid * wildcard */
-/* Explicit inputs/buttons transition if needed, but avoid * wildcard */
+/* Unified transition for themeable elements */
+.theme-transition,
 .skill-card,
 .timeline-card,
 .glass,
@@ -249,6 +249,9 @@ img {
     mix-blend-mode: screen;
 }
 
+mix-blend-mode: screen;
+}
+
 .blob-1 {
     top: 0;
     left: 25%;
@@ -349,6 +352,7 @@ img {
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
+    cursor: pointer;
 }
 
 .theme-toggle:hover {
@@ -365,19 +369,21 @@ img {
     font-size: 1.2rem;
 }
 
+[data-theme="dark"] .theme-toggle .fa-sun {
+    display: block;
+}
+
 .theme-toggle .fa-moon {
     display: block;
     color: var(--slate-600);
     font-size: 1.2rem;
 }
 
-[data-theme="dark"] .theme-toggle .fa-sun {
-    display: block;
-}
-
 [data-theme="dark"] .theme-toggle .fa-moon {
     display: none;
 }
+
+
 
 .menu-toggle-btn {
     font-size: 1.25rem;
@@ -586,6 +592,10 @@ img {
     border-color: var(--slate-800);
 }
 
+[data-theme="dark"] .hero-img {
+    border-color: var(--slate-800);
+}
+
 /* --- Section Headers --- */
 .section-title {
     font-size: 1.875rem;
@@ -626,6 +636,10 @@ img {
     background: var(--slate-700);
 }
 
+[data-theme="dark"] .timeline::before {
+    background: var(--slate-700);
+}
+
 .timeline-item {
     position: relative;
     padding-left: 2rem;
@@ -657,6 +671,10 @@ img {
 /* Alternate dot style for second item */
 .timeline-dot.alt {
     border-color: var(--slate-300);
+}
+
+[data-theme="dark"] .timeline-dot.alt {
+    border-color: var(--slate-600);
 }
 
 [data-theme="dark"] .timeline-dot.alt {
@@ -710,6 +728,10 @@ img {
     border-radius: 9999px;
     width: fit-content;
     margin-top: 0.5rem;
+}
+
+[data-theme="dark"] .exp-date {
+    background-color: rgba(51, 65, 85, 0.5);
 }
 
 [data-theme="dark"] .exp-date {
@@ -779,6 +801,11 @@ img {
     color: #60a5fa;
 }
 
+[data-theme="dark"] .blue-icon {
+    background: rgba(30, 58, 138, 0.3);
+    color: #60a5fa;
+}
+
 .green-icon {
     background: #dcfce7;
     color: #16a34a;
@@ -789,9 +816,19 @@ img {
     color: #4ade80;
 }
 
+[data-theme="dark"] .green-icon {
+    background: rgba(20, 83, 45, 0.3);
+    color: #4ade80;
+}
+
 .purple-icon {
     background: #f3e8ff;
     color: #9333ea;
+}
+
+[data-theme="dark"] .purple-icon {
+    background: rgba(88, 28, 135, 0.3);
+    color: #c084fc;
 }
 
 [data-theme="dark"] .purple-icon {
