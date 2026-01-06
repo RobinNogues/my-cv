@@ -111,8 +111,8 @@
                     <a href="#experience" class="nav-link">Experience</a>
                     <a href="#projects" class="nav-link">Projects</a>
                     <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#certifications" class="nav-link">Certifications</a>
                     <a href="#education" class="nav-link">Education</a>
+                    <a href="#certifications" class="nav-link">Certifications</a>
                     <a href="#about" class="nav-link">About</a>
 
                     <button class="theme-toggle" aria-label="Toggle Theme">
@@ -140,11 +140,10 @@
                 <a href="#experience" class="mobile-link">Experience</a>
                 <a href="#projects" class="mobile-link">Projects</a>
                 <a href="#skills" class="mobile-link">Skills</a>
-                <a href="#certifications" class="mobile-link">Certifications</a>
                 <a href="#education" class="mobile-link">Education</a>
+                <a href="#certifications" class="mobile-link">Certifications</a>
                 <a href="#about" class="mobile-link">About</a>
-                <a href="#contact" class="mobile-link text-primary-500 text-bold">Contact
-                    Me</a>
+                <a href="#contact" class="mobile-link text-primary-500 text-bold">Contact Me</a>
             </div>
         </div>
     </nav>
@@ -165,10 +164,12 @@
                     <a href="#contact" class="btn-primary">
                         Get in touch <i class="fas fa-arrow-down" style="margin-left: 0.5rem;"></i>
                     </a>
-                    <a href="https://github.com/RobinNogues" target="_blank" class="btn-glass">
+                    <a href="https://github.com/RobinNogues" target="_blank" rel="noopener noreferrer" class="btn-glass"
+                        aria-label="GitHub Profile">
                         <i class="fab fa-github"></i> GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" class="btn-icon-glass">
+                    <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener noreferrer"
+                        class="btn-icon-glass" aria-label="LinkedIn Profile">
                         <i class="fab fa-linkedin-in"></i> LinkedIn
                     </a>
                 </div>
@@ -267,7 +268,7 @@
                             <i class="fas fa-hand-paper"></i>
                         </div>
                         <a href="https://github.com/RobinNogues/rnn-gesture-recognition" target="_blank"
-                            class="github-link">
+                            rel="noopener noreferrer" class="github-link" aria-label="View Project on GitHub">
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
@@ -291,7 +292,8 @@
                         <div class="icon-box green-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank" class="github-link">
+                        <a href="https://github.com/RobinNogues/pydefi-simulator" target="_blank"
+                            rel="noopener noreferrer" class="github-link" aria-label="View Project on GitHub">
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
@@ -315,7 +317,8 @@
                         <div class="icon-box purple-icon">
                             <i class="fas fa-globe"></i>
                         </div>
-                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" class="github-link">
+                        <a href="https://github.com/RobinNogues/my-cv" target="_blank" rel="noopener noreferrer"
+                            class="github-link" aria-label="View Project on GitHub">
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
@@ -471,6 +474,31 @@
             </div>
         </section>
 
+        <!-- Education -->
+        <section id="education" class="scroll-mt">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i> Education
+            </h2>
+            <div class="grid-2">
+                <div class="edu-card glass">
+                    <div class="edu-header">
+                        <h3>M.S. in Computer Science</h3>
+                        <img src="images/icons/uqac.png" alt="UQAC" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <p class="edu-loc">UQAC, Chicoutimi, CA</p>
+                    <p class="edu-year">2021 - 2023</p>
+                </div>
+                <div class="edu-card glass">
+                    <div class="edu-header">
+                        <h3>M.Eng in Computer Science</h3>
+                        <img src="images/icons/esme.png" alt="ESME" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <p class="edu-loc">ESME, Bordeaux Paris, FR</p>
+                    <p class="edu-year">2017 - 2023</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Certifications -->
         <section id="certifications" class="scroll-mt">
             <h2 class="section-title">
@@ -485,7 +513,8 @@
                             <img src="images/icons/aws.png" alt="AWS" class="cert-icon" loading="lazy"
                                 onerror="this.style.display='none'">
                             <a href="https://www.coursera.org/account/accomplishments/verify/NA8M0QWMHZM3"
-                                target="_blank" class="ext-link">
+                                target="_blank" rel="noopener noreferrer" class="ext-link"
+                                aria-label="Verify Certificate">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
                         </div>
@@ -500,7 +529,8 @@
                             <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon"
                                 onerror="this.style.display='none'">
                             <a href="https://www.linkedin.com/learning/certificates/b2a7a3c2fcc59472a1f577d424f08a1c681058f8af30a753c8a53b69704528b8"
-                                target="_blank" class="ext-link">
+                                target="_blank" rel="noopener noreferrer" class="ext-link"
+                                aria-label="Verify Certificate">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
                         </div>
@@ -518,7 +548,8 @@
                             <img src="images/icons/epfl.png" alt="EPFL" class="cert-icon" loading="lazy"
                                 onerror="this.style.display='none'">
                             <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE"
-                                target="_blank" class="ext-link">
+                                target="_blank" rel="noopener noreferrer" class="ext-link"
+                                aria-label="Verify Specialization">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
                         </div>
@@ -550,7 +581,8 @@
                             <img src="images/icons/linkedin.png" alt="LinkedIn" class="cert-icon"
                                 onerror="this.style.display='none'">
                             <a href="https://www.linkedin.com/learning/certificates/99792923b6ab109948011ce69940a032a8c0b1cd899d04e7e3f6877609126b5d"
-                                target="_blank" class="ext-link">
+                                target="_blank" rel="noopener noreferrer" class="ext-link"
+                                aria-label="Verify Certificate">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
                         </div>
@@ -568,7 +600,8 @@
                             <img src="images/icons/docker.png" alt="Docker" class="cert-icon" loading="lazy"
                                 onerror="this.style.display='none'">
                             <a href="https://www.linkedin.com/learning/certificates/91fb87856a71c39ec5cf7ff073f38627b5bdb58cfc8a948c76dad50c69c6b766"
-                                target="_blank" class="ext-link">
+                                target="_blank" rel="noopener noreferrer" class="ext-link"
+                                aria-label="Verify Certificate">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
                         </div>
@@ -591,31 +624,6 @@
             </div>
         </section>
 
-        <!-- Education -->
-        <section id="education" class="scroll-mt">
-            <h2 class="section-title">
-                <i class="fas fa-graduation-cap"></i> Education
-            </h2>
-            <div class="grid-2">
-                <div class="edu-card glass">
-                    <div class="edu-header">
-                        <h3>M.S. in Computer Science</h3>
-                        <img src="images/icons/uqac.png" alt="UQAC" loading="lazy" onerror="this.style.display='none'">
-                    </div>
-                    <p class="edu-loc">UQAC, Chicoutimi, CA</p>
-                    <p class="edu-year">2021 - 2023</p>
-                </div>
-                <div class="edu-card glass">
-                    <div class="edu-header">
-                        <h3>M.Eng in Computer Science</h3>
-                        <img src="images/icons/esme.png" alt="ESME" loading="lazy" onerror="this.style.display='none'">
-                    </div>
-                    <p class="edu-loc">ESME, Bordeaux Paris, FR</p>
-                    <p class="edu-year">2017 - 2023</p>
-                </div>
-            </div>
-        </section>
-
         <!-- About Me -->
         <section id="about" class="scroll-mt">
             <div class="about-container glass">
@@ -624,6 +632,7 @@
                 <div class="about-content-wrapper">
                     <h2 class="section-title mb-8">About Me</h2>
                     <div class="about-grid">
+                        <!-- Work Philosophy -->
                         <div>
                             <h4 class="about-subtitle">
                                 <i class="fas fa-laptop-code"></i> Work Philosophy
@@ -631,29 +640,41 @@
                             <p class="about-text">
                                 I am committed to continuous improvement, regularly reviewing my work to identify and
                                 implement enhancements. I have a strong drive to investigate, whether through testing
-                                new tools or proactively identifying bugs. While adept at working autonomously, I highly
-                                value collaboration and insights from experienced colleagues.
+                                new tools or proactively identifying bugs, finding great satisfaction in
+                                problem-solving. While adept at working autonomously, I highly value collaboration and
+                                insights from experienced colleagues. I am eager to expand my technical expertise and
+                                integrate new technologies into my skillset.
                             </p>
                         </div>
-                        <div class="flex-col gap-6">
-                            <div>
-                                <h4 class="about-subtitle">
-                                    <i class="fas fa-drum"></i> Music
-                                </h4>
-                                <p class="about-text">
-                                    Drummer for years. It taught me rhythm and discipline. I can also play the cajon, a
-                                    Peruvian instrument.
-                                </p>
-                            </div>
-                            <div>
-                                <h4 class="about-subtitle">
-                                    <i class="fas fa-running"></i> Sport
-                                </h4>
-                                <p class="about-text">
-                                    Former club football player, now into bodybuilding and running. I enjoy the
-                                    discipline of early morning workouts before work.
-                                </p>
-                            </div>
+
+                        <!-- Music -->
+                        <div>
+                            <h4 class="about-subtitle">
+                                <i class="fas fa-drum"></i> Music
+                            </h4>
+                            <p class="about-text">
+                                I discovered percussion in music class at secondary school. It made me want to start
+                                drumming, because I was doing well compared to my classmates. I started learning drums
+                                with online lessons, then continued with a teacher for 3 years. I stopped taking lessons
+                                when I moved to another city to study, but I still practice every day. I can also play
+                                the cajon, a Peruvian instrument.
+                            </p>
+                        </div>
+
+                        <!-- Sport -->
+                        <div>
+                            <h4 class="about-subtitle">
+                                <i class="fas fa-running"></i> Sport
+                            </h4>
+                            <p class="about-text">
+                                I played club football from the age of six to seventeen. It was also at the age of 17
+                                that I started going to the gym with my friends. Combining the two activities was hard
+                                on the body, so I decided to stop playing football because bodybuilding suited me
+                                better. I appreciate that you can do it alone or with partners. Recently, I started
+                                running to complement bodybuilding with a cardio activity. I also enjoy these sports
+                                because I can practise them alone early in the morning, before work and without any
+                                constraints.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -678,12 +699,13 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="name" class="form-label">Name <span class="text-primary-500">*</span></label>
-                            <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required
+                                autocomplete="name">
                         </div>
                         <div class="form-group">
                             <label for="email" class="form-label">Email <span class="text-primary-500">*</span></label>
                             <input type="email" id="email" name="email" class="form-input"
-                                placeholder="john@example.com" required>
+                                placeholder="john@example.com" required autocomplete="email">
                         </div>
                     </div>
 
@@ -712,10 +734,12 @@
 
         <footer class="footer">
             <div class="footer-socials">
-                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener noreferrer"
+                    aria-label="LinkedIn Profile">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="https://github.com/RobinNogues" target="_blank" aria-label="GitHub">
+                <a href="https://github.com/RobinNogues" target="_blank" rel="noopener noreferrer"
+                    aria-label="GitHub Profile">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
