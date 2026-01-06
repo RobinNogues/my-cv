@@ -1,0 +1,6 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.py[oc]
+
+# Ignore the local virtual environment
+.venv

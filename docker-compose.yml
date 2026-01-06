@@ -1,0 +1,43 @@
+services:
+  frontend:
+    image: ghcr.io/robinnogues/my-cv-frontend:latest
+    container_name: cv_frontend
+    restart: unless-stopped
+
+  backend:
+    image: ghcr.io/robinnogues/my-cv-backend:latest
+    container_name: cv_backend
+    restart: unless-stopped
+    env_file:
+      - ./my-cv-backend/.env
+
+  reverse-proxy:
+    image: ghcr.io/robinnogues/my-cv-reverse-proxy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certbot_www:/var/www/certbot:ro           # challenge ACME
+      - letsencrypt_data:/etc/letsencrypt:ro      # certificats
+    depends_on:
+      - frontend
+      - backend
+    container_name: cv_reverse_proxy
+    restart: unless-stopped
+    environment:
+      - NGINX_HOST=robin-nogues.com
+      - SSL_CERTIFICATE_PATH=/etc/letsencrypt/live/robin-nogues.com/fullchain.pem
+      - SSL_CERTIFICATE_KEY_PATH=/etc/letsencrypt/live/robin-nogues.com/privkey.pem
+
+  certbot:
+    image: certbot/certbot
+    container_name: cv_certbot
+    volumes:
+      - certbot_www:/var/www/certbot:rw
+      - letsencrypt_data:/etc/letsencrypt:rw
+    depends_on:
+      - reverse-proxy
+
+volumes:
+  certbot_www:
+  letsencrypt_data:
