@@ -154,8 +154,8 @@ img {
 
 /* --- Utilities --- */
 .container {
-    max-width: 1152px;
-    /* max-w-6xl */
+    max-width: 1400px;
+    /* max-w-full-xl */
     margin: 0 auto;
     padding: 0 1rem;
     position: relative;
@@ -277,7 +277,7 @@ img {
     margin-top: 1rem;
     width: 100%;
     z-index: 50;
-    padding: 0 1rem;
+
     /* Transparent container for the pill */
     background: transparent;
     backdrop-filter: none;
