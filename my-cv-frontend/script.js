@@ -343,6 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     skillCards.forEach(card => {
                         card.style.transition = '';
                         card.style.transform = '';
+                        card.style.animation = '';
                     });
                 }, 400);
             });
