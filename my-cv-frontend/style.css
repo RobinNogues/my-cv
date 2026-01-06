@@ -1314,7 +1314,6 @@ details[open] .summary-chevron {
 
 .btn-submit:hover {
     background-color: var(--primary-700);
-    transform: translateY(-1px);
 }
 
 .btn-submit:disabled {
