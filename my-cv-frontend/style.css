@@ -1423,7 +1423,7 @@ details[open] .summary-chevron {
     /* Animation */
     opacity: 0;
     transform: translateX(-50%) translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     pointer-events: none;
 }
 
@@ -1439,10 +1439,22 @@ details[open] .summary-chevron {
     border: 1px solid #bbf7d0;
 }
 
+[data-theme="dark"] .toast-success {
+    background-color: var(--slate-800);
+    color: #4ade80;
+    border-color: #22c55e;
+}
+
 .toast-error {
     background-color: #fee2e2;
     color: #991b1b;
     border: 1px solid #fecaca;
+}
+
+[data-theme="dark"] .toast-error {
+    background-color: var(--slate-800);
+    color: #f87171;
+    border-color: #ef4444;
 }
 
 /* --- Footer --- */
@@ -1560,7 +1572,7 @@ details[open] .summary-chevron {
 
 /* --- Brand Icons --- */
 .fa-aws {
-    color: #C2410C;
+    color: var(--primary-700);
 }
 
 /* Primary-700 */
@@ -1577,7 +1589,7 @@ details[open] .summary-chevron {
 
 /* Original/Bright Brand Colors (Dark Mode) */
 [data-theme="dark"] .fa-aws {
-    color: #FF9900;
+    color: var(--primary-400);
 }
 
 [data-theme="dark"] .fa-docker {
