@@ -125,6 +125,14 @@
   --fa: "\f19d";
 }
 
+.fa-aws {
+  --fa: "\f375";
+}
+
+.fa-docker {
+  --fa: "\f395";
+}
+
 @font-face {
   font-family: 'Font Awesome 6 Brands';
   font-style: normal;
