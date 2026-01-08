@@ -73,7 +73,12 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </noscript>
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
@@ -130,7 +135,7 @@
                         <i class="fas fa-sun"></i>
                         <i class="fas fa-moon"></i>
                     </button>
-                    <button id="mobile-menu-btn" class="menu-toggle-btn">
+                    <button id="mobile-menu-btn" class="menu-toggle-btn" aria-label="Toggle menu">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
@@ -635,9 +640,9 @@
                     <div class="about-grid">
                         <!-- Work Philosophy -->
                         <div>
-                            <h4 class="about-subtitle">
+                            <h3 class="about-subtitle">
                                 <i class="fas fa-laptop-code"></i> Work Philosophy
-                            </h4>
+                            </h3>
                             <p class="about-text">
                                 I am committed to continuous improvement, regularly reviewing my work to identify and
                                 implement enhancements. I have a strong drive to investigate, whether through testing
@@ -650,9 +655,9 @@
 
                         <!-- Music -->
                         <div>
-                            <h4 class="about-subtitle">
+                            <h3 class="about-subtitle">
                                 <i class="fas fa-drum"></i> Music
-                            </h4>
+                            </h3>
                             <p class="about-text">
                                 I discovered percussion in music class at secondary school. It made me want to start
                                 drumming, because I was doing well compared to my classmates. I started learning drums
@@ -664,9 +669,9 @@
 
                         <!-- Sport -->
                         <div>
-                            <h4 class="about-subtitle">
+                            <h3 class="about-subtitle">
                                 <i class="fas fa-running"></i> Sport
-                            </h4>
+                            </h3>
                             <p class="about-text">
                                 I played club football from the age of six to seventeen. It was also at the age of 17
                                 that I started going to the gym with my friends. Combining the two activities was hard
