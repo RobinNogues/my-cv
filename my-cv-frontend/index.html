@@ -80,6 +80,9 @@
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     </noscript>
 
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="images/robin-nogues.webp">
+
     <!-- Styles -->
     <link rel="stylesheet" href="style.css?v=1.0">
 
@@ -183,7 +186,8 @@
 
             <div class="hero-img-container">
                 <div class="hero-glow"></div>
-                <img src="images/robin-nogues.jpg" alt="Robin Nogues" class="hero-img" fetchpriority="high">
+                <img src="images/robin-nogues.webp" alt="Robin Nogues" class="hero-img" width="300" height="400"
+                    fetchpriority="high">
             </div>
         </section>
 

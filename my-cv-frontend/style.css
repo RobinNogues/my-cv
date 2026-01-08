@@ -30,7 +30,7 @@
     --bg-card: rgba(255, 255, 255, 0.85);
     --bg-glass-border: rgba(255, 255, 255, 0.3);
     --text-main: var(--slate-800);
-    --text-muted: var(--slate-600);
+    --text-muted: var(--slate-700);
     --text-inverted: #ffffff;
 
     /* Decoration Colors */
@@ -303,11 +303,11 @@ img {
 }
 
 .nav-logo span {
-    color: var(--primary-500);
+    color: var(--primary-600);
 }
 
 .nav-logo:hover span {
-    color: var(--primary-600);
+    color: var(--primary-700);
 }
 
 .nav-desktop {
@@ -323,7 +323,7 @@ img {
 }
 
 .nav-link:hover {
-    color: var(--primary-500);
+    color: var(--primary-600);
 }
 
 .btn-contact {
