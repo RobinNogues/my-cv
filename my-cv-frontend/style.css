@@ -1,3 +1,51 @@
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('fonts/PlusJakartaSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('fonts/PlusJakartaSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('fonts/PlusJakartaSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('fonts/PlusJakartaSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('fonts/PlusJakartaSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('fonts/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* --- Fonts & Variables --- */
 
 :root {
@@ -30,7 +78,7 @@
     --bg-card: rgba(255, 255, 255, 0.85);
     --bg-glass-border: rgba(255, 255, 255, 0.3);
     --text-main: var(--slate-800);
-    --text-muted: var(--slate-600);
+    --text-muted: var(--slate-700);
     --text-inverted: #ffffff;
 
     /* Decoration Colors */
@@ -303,11 +351,11 @@ img {
 }
 
 .nav-logo span {
-    color: var(--primary-500);
+    color: var(--primary-600);
 }
 
 .nav-logo:hover span {
-    color: var(--primary-600);
+    color: var(--primary-700);
 }
 
 .nav-desktop {
@@ -323,7 +371,7 @@ img {
 }
 
 .nav-link:hover {
-    color: var(--primary-500);
+    color: var(--primary-600);
 }
 
 .btn-contact {
@@ -574,6 +622,30 @@ img {
     50% {
         opacity: 0.4;
     }
+}
+
+.tech-icon img,
+.tech-icon i {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    /* Equivalent to 40px */
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.tech-icon i {
+    width: auto;
+    /* Let font size control width */
+}
+
+.tech-icon:hover i {
+    color: var(--primary-500);
 }
 
 .hero-img {
@@ -1053,6 +1125,13 @@ img {
     width: 2.5rem;
     height: 2.5rem;
     object-fit: contain;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    /* For FA icons */
+    font-size: 2rem;
+    /* For FA icons */
 }
 
 .ext-link {
@@ -1344,7 +1423,7 @@ details[open] .summary-chevron {
     /* Animation */
     opacity: 0;
     transform: translateX(-50%) translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     pointer-events: none;
 }
 
@@ -1360,10 +1439,22 @@ details[open] .summary-chevron {
     border: 1px solid #bbf7d0;
 }
 
+[data-theme="dark"] .toast-success {
+    background-color: var(--slate-800);
+    color: #4ade80;
+    border-color: #22c55e;
+}
+
 .toast-error {
     background-color: #fee2e2;
     color: #991b1b;
     border: 1px solid #fecaca;
+}
+
+[data-theme="dark"] .toast-error {
+    background-color: var(--slate-800);
+    color: #f87171;
+    border-color: #ef4444;
 }
 
 /* --- Footer --- */
@@ -1478,6 +1569,38 @@ details[open] .summary-chevron {
 .hp-field {
     display: none;
 }
+
+/* --- Brand Icons --- */
+.fa-aws {
+    color: var(--primary-700);
+}
+
+/* Primary-700 */
+.fa-docker {
+    color: #0369A1;
+}
+
+/* Darker Blue */
+.fa-linkedin {
+    color: #0077B5;
+}
+
+/* Original (4.66:1) */
+
+/* Original/Bright Brand Colors (Dark Mode) */
+[data-theme="dark"] .fa-aws {
+    color: var(--primary-400);
+}
+
+[data-theme="dark"] .fa-docker {
+    color: #2496ED;
+}
+
+[data-theme="dark"] .fa-linkedin {
+    color: #38BDF8;
+}
+
+/* Lighter Blue */
 
 /* --- UNIFIED MEDIA QUERIES (Desktop Switch at 1024px) --- */
 @media (min-width: 1024px) {

@@ -1,0 +1,185 @@
+/*!
+ * Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Copyright 2024 Fonticons, Inc.
+ */
+
+.fas,
+.far,
+.fab,
+.fa-solid,
+.fa-regular,
+.fa-brands,
+.fa {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: var(--fa-display, inline-block);
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+}
+
+.fas::before,
+.far::before,
+.fab::before,
+.fa-solid::before,
+.fa-regular::before,
+.fa-brands::before,
+.fa::before {
+  content: var(--fa);
+}
+
+.fa-classic,
+.fas,
+.fa-solid,
+.far,
+.fa-regular {
+  font-family: 'Font Awesome 6 Free';
+}
+
+.fa-brands,
+.fab {
+  font-family: 'Font Awesome 6 Brands';
+}
+
+
+
+.fa-laptop-code {
+  --fa: "\f5fc";
+}
+
+.fa-bars {
+  --fa: "\f0c9";
+}
+
+.fa-futbol {
+  --fa: "\f1e3";
+}
+
+.fa-hand-paper {
+  --fa: "\f256";
+}
+
+.fa-globe {
+  --fa: "\f0ac";
+}
+
+.fa-running {
+  --fa: "\f70c";
+}
+
+.fa-certificate {
+  --fa: "\f0a3";
+}
+
+.fa-layer-group {
+  --fa: "\f5fd";
+}
+
+.fa-chart-line {
+  --fa: "\f201";
+}
+
+.fa-code-branch {
+  --fa: "\f126";
+}
+
+.fa-external-link-alt {
+  --fa: "\f35d";
+}
+
+.fa-sun {
+  --fa: "\f185";
+}
+
+.fa-arrow-down {
+  --fa: "\f063";
+}
+
+.fa-drum {
+  --fa: "\f569";
+}
+
+.fa-chevron-down {
+  --fa: "\f078";
+}
+
+.fa-arrow-up {
+  --fa: "\f062";
+}
+
+.fa-moon {
+  --fa: "\f186";
+}
+
+.fa-briefcase {
+  --fa: "\f0b1";
+}
+
+.fa-paper-plane {
+  --fa: "\f1d8";
+}
+
+.fa-graduation-cap {
+  --fa: "\f19d";
+}
+
+.fa-aws {
+  --fa: "\f375";
+}
+
+.fa-docker {
+  --fa: "\f395";
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("webfonts/fa-brands-400.woff2") format("woff2");
+}
+
+.fab,
+.fa-brands {
+  font-weight: 400;
+}
+
+.fa-linkedin-in {
+  --fa: "\f0e1";
+}
+
+.fa-linkedin {
+  --fa: "\f08c";
+}
+
+.fa-github {
+  --fa: "\f09b";
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("webfonts/fa-regular-400.woff2") format("woff2");
+}
+
+.far,
+.fa-regular {
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("webfonts/fa-solid-900.woff2") format("woff2");
+}
+
+.fas,
+.fa-solid {
+  font-weight: 900;
+}
