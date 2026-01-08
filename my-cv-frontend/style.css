@@ -1336,13 +1336,22 @@ details[open] .summary-chevron {
     gap: 0.75rem;
     font-weight: 500;
     font-size: 0.875rem;
-    white-space: nowrap;
+    white-space: normal;
+    width: 90%;
+    max-width: 450px;
     z-index: 20;
+
+    /* Animation */
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .toast.visible {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
+    pointer-events: auto;
 }
 
 .toast-success {
