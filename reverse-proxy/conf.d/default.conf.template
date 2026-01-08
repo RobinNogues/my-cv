@@ -41,6 +41,7 @@ server {
 # Handles traffic for the non-www version (domain.com)
 server {
     listen 443 ssl;
+    http2 on;
     server_name ${NGINX_HOST};
 
     # Hide Nginx version for security reasons (obfuscation)
@@ -62,6 +63,14 @@ server {
     resolver 8.8.8.8 8.8.4.4 valid=300s;
     resolver_timeout 5s;
 
+    # Gzip Compression
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css text/xml application/json application/javascript application/rss+xml application/atom+xml image/svg+xml;
+    gzip_min_length 1000;
+
     # Security Headers
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header X-Content-Type-Options "nosniff" always;
@@ -69,6 +78,20 @@ server {
     add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';" always;
     # Once your HTTPS is stable, uncomment the following line for enhanced security.
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    # Static Assets Caching
+    # We must duplicate proxy_pass here because Nginx location blocks are exclusive.
+    # Without it, Nginx would look for files locally in the proxy container instead of forwarding to frontend.
+    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
+        expires 365d;
+        add_header Cache-Control "public, no-transform";
+
+        proxy_pass http://frontend:80;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
 
     location / {
         proxy_pass http://frontend:80;

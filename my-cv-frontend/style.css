@@ -27,7 +27,7 @@
 
     /* Semantic Mapping (Light) */
     --bg-body: var(--slate-50);
-    --bg-card: rgba(255, 255, 255, 0.7);
+    --bg-card: rgba(255, 255, 255, 0.85);
     --bg-glass-border: rgba(255, 255, 255, 0.3);
     --text-main: var(--slate-800);
     --text-muted: var(--slate-600);
@@ -45,7 +45,7 @@
 [data-theme="dark"] {
     /* Semantic Mapping (Dark) */
     --bg-body: var(--slate-900);
-    --bg-card: rgba(30, 41, 59, 0.7);
+    --bg-card: rgba(30, 41, 59, 0.85);
     /* slate-800 / 70% */
     --bg-glass-border: rgba(255, 255, 255, 0.05);
     --text-main: var(--slate-200);
@@ -696,7 +696,7 @@ img {
 }
 
 .exp-company {
-    color: var(--primary-400);
+    color: var(--primary-500);
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -1336,13 +1336,22 @@ details[open] .summary-chevron {
     gap: 0.75rem;
     font-weight: 500;
     font-size: 0.875rem;
-    white-space: nowrap;
+    white-space: normal;
+    width: 90%;
+    max-width: 450px;
     z-index: 20;
+
+    /* Animation */
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .toast.visible {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
+    pointer-events: auto;
 }
 
 .toast-success {

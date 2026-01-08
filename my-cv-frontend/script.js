@@ -210,7 +210,7 @@ function handleFormError(errorData) {
                 const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'Field';
                 return `${field}: ${err.msg}`;
             }).join('. ');
-            errorMessage = `Validation Error: ${fieldErrors}`;
+            errorMessage = `Validation Error, ${fieldErrors}`;
         }
     }
     showToast('error', errorMessage);
