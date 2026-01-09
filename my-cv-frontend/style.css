@@ -146,6 +146,8 @@ body {
 .btn-primary,
 .btn-glass,
 .btn-contact,
+.btn-icon-glass,
+.btn-submit,
 .hero-img,
 .exp-date,
 .timeline::before,
@@ -222,6 +224,14 @@ img {
 
 .block {
     display: block !important;
+}
+
+.text-primary-500 {
+    color: var(--primary-500) !important;
+}
+
+.text-bold {
+    font-weight: 700 !important;
 }
 
 /* Glassmorphism */
@@ -375,15 +385,15 @@ img {
 }
 
 .btn-contact {
-    background-color: var(--primary-600);
+    background-color: var(--primary-700);
     color: white;
     padding: 0.5rem 1.25rem;
     border-radius: 9999px;
-    box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.2);
+    box-shadow: 0 4px 6px -1px rgba(194, 65, 12, 0.2);
 }
 
 .btn-contact:hover {
-    background-color: var(--primary-700);
+    background-color: var(--primary-800);
 }
 
 .nav-mobile-btn {
@@ -1379,7 +1389,7 @@ details[open] .summary-chevron {
 .btn-submit {
     width: fit-content;
     margin: 1rem auto 0;
-    background-color: var(--primary-600);
+    background-color: var(--primary-700);
     color: white;
     font-weight: 700;
     padding: 1rem;
@@ -1388,11 +1398,11 @@ details[open] .summary-chevron {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.2);
+    box-shadow: 0 10px 15px -3px rgba(194, 65, 12, 0.2);
 }
 
 .btn-submit:hover {
-    background-color: var(--primary-700);
+    background-color: var(--primary-800);
 }
 
 .btn-submit:disabled {
