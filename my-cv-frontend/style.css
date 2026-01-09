@@ -1023,17 +1023,6 @@ img {
     gap: 1.5rem;
 }
 
-.cert-masonry {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.cert-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
 
 .cert-card {
     /* Padding/radius moved to grouped rule */
@@ -1626,13 +1615,6 @@ details[open] .summary-chevron {
         padding: 3rem;
     }
 
-    .cert-masonry {
-        flex-direction: row;
-    }
-
-    .cert-col {
-        flex: 1;
-    }
 }
 
 /* --- Skill Card Animations --- */
