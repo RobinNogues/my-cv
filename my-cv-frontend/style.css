@@ -136,41 +136,12 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Unified transition for themeable elements */
-.theme-transition,
-.skill-card,
-.timeline-card,
-.glass,
-.navbar,
-.mobile-menu,
-.btn-primary,
-.btn-glass,
-.btn-contact,
-.btn-icon-glass,
-.btn-submit,
-.hero-img,
-.exp-date,
-.timeline::before,
-.timeline-dot,
-.project-tag,
-.project-link,
-.project-link i,
-.skill-pill,
-.nav-logo,
-.nav-logo span,
-.icon-box,
-.badge,
-.back-to-top,
-.form-input,
-.hero p,
-.project-desc,
-.exp-list,
-.about-text,
-.cert-issuer,
-.edu-loc,
-.contact-intro p,
-.mobile-link,
-.menu-toggle-btn,
+.theme-transition, .skill-card, .timeline-card, .glass, .navbar, .mobile-menu,
+.btn-primary, .btn-glass, .btn-contact, .btn-icon-glass, .btn-submit, .hero-img,
+.exp-date, .timeline::before, .timeline-dot, .project-tag, .project-link,
+.project-link i, .skill-pill, .nav-logo, .nav-logo span, .icon-box, .badge,
+.back-to-top, .form-input, .hero p, .project-desc, .exp-list, .about-text,
+.cert-issuer, .edu-loc, .contact-intro p, .mobile-link, .menu-toggle-btn,
 .skill-title {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -203,6 +174,33 @@ img {
 }
 
 /* --- Utilities --- */
+
+.btn-contact, .theme-toggle, .badge, .btn-primary, .btn-glass,
+.btn-icon-glass, .exp-date, .filter-btn, .back-to-top, .toast {
+    border-radius: 9999px;
+}
+
+.nav-content, .nav-desktop, .nav-mobile-btn, .theme-toggle, .hero-actions,
+.btn-glass, .btn-icon-glass, .tech-icon i, .section-title, .exp-company,
+.github-link, .icon-box, .cert-icon, .summary-content, .edu-header,
+.about-subtitle, .btn-submit, .toast, .back-to-top, .footer-socials {
+    display: flex;
+    align-items: center;
+}
+
+.timeline-card, .project-card, .skill-card, .cert-card,
+.edu-card, .form-card, .about-container {
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.project-card,
+.about-container,
+.form-card {
+    padding: 2rem;
+    border-radius: 1.5rem;
+}
+
 .container {
     max-width: 1400px;
     /* max-w-full-xl */
@@ -224,14 +222,6 @@ img {
 
 .block {
     display: block !important;
-}
-
-.text-primary-500 {
-    color: var(--primary-500) !important;
-}
-
-.text-bold {
-    font-weight: 700 !important;
 }
 
 /* Glassmorphism */
@@ -308,8 +298,6 @@ img {
     mix-blend-mode: screen;
 }
 
-
-
 .blob-1 {
     top: 0;
     left: 25%;
@@ -345,9 +333,7 @@ img {
 }
 
 .nav-content {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 0.75rem 1.5rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -370,7 +356,6 @@ img {
 
 .nav-desktop {
     display: none;
-    align-items: center;
     gap: 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -388,7 +373,6 @@ img {
     background-color: var(--primary-700);
     color: white;
     padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
     box-shadow: 0 4px 6px -1px rgba(194, 65, 12, 0.2);
 }
 
@@ -397,18 +381,13 @@ img {
 }
 
 .nav-mobile-btn {
-    display: flex;
-    align-items: center;
     gap: 1rem;
 }
 
 .theme-toggle {
     width: 2.5rem;
     height: 2.5rem;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 9999px;
     cursor: pointer;
 }
 
@@ -439,8 +418,6 @@ img {
 [data-theme="dark"] .theme-toggle .fa-moon {
     display: none;
 }
-
-
 
 .menu-toggle-btn {
     font-size: 1.25rem;
@@ -515,7 +492,6 @@ img {
     text-transform: uppercase;
     color: var(--primary-500);
     background-color: var(--primary-100);
-    border-radius: 9999px;
     margin-bottom: 1.5rem;
 }
 
@@ -539,7 +515,6 @@ img {
 }
 
 .hero-actions {
-    display: flex;
     justify-content: center;
     gap: 0.5rem;
     flex-wrap: nowrap;
@@ -549,7 +524,6 @@ img {
     background-color: var(--slate-900);
     color: white;
     padding: 0.625rem 1rem;
-    border-radius: 9999px;
     font-weight: 600;
     font-size: 0.875rem;
 }
@@ -573,11 +547,8 @@ img {
 .btn-glass,
 .btn-icon-glass {
     padding: 0.625rem 1rem;
-    border-radius: 9999px;
     font-weight: 600;
     font-size: 0.875rem;
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
     background: transparent;
     color: var(--text-main);
@@ -643,8 +614,6 @@ img {
     font-size: 2.5rem;
     /* Equivalent to 40px */
     color: var(--text-main);
-    display: flex;
-    align-items: center;
     justify-content: center;
     transition: color 0.3s ease;
 }
@@ -673,15 +642,11 @@ img {
     border-color: var(--slate-800);
 }
 
-
-
 /* --- Section Headers --- */
 .section-title {
     font-size: 1.875rem;
     font-weight: 700;
     margin-bottom: 3rem;
-    display: flex;
-    align-items: center;
     gap: 0.75rem;
 }
 
@@ -713,8 +678,6 @@ img {
 [data-theme="dark"] .timeline::before {
     background: var(--slate-700);
 }
-
-
 
 .timeline-item {
     position: relative;
@@ -751,19 +714,9 @@ img {
     border-color: var(--slate-600);
 }
 
-
-
 .timeline-item:hover .timeline-dot.alt {
     border-color: var(--primary-500);
 }
-
-.timeline-card {
-    padding: 1.5rem;
-    border-radius: 1rem;
-
-}
-
-
 
 .exp-header {
     display: flex;
@@ -780,8 +733,6 @@ img {
 .exp-company {
     color: var(--primary-500);
     font-weight: 500;
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
 }
 
@@ -797,7 +748,6 @@ img {
     color: var(--slate-500);
     background-color: var(--slate-100);
     padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
     width: fit-content;
     margin-top: 0.5rem;
 }
@@ -805,8 +755,6 @@ img {
 [data-theme="dark"] .exp-date {
     background-color: rgba(51, 65, 85, 0.5);
 }
-
-
 
 .exp-list {
     list-style: disc;
@@ -820,8 +768,6 @@ img {
     color: var(--primary-500);
 }
 
-
-
 /* --- Projects Grid (Base Mobile) --- */
 .grid-2 {
     display: grid;
@@ -833,15 +779,11 @@ img {
 }
 
 .project-card {
-    padding: 2rem;
-    border-radius: 1.5rem;
-
+    /* padding/radius moved to grouped rule */
     display: flex;
     flex-direction: column;
     height: 100%;
 }
-
-
 
 .project-header {
     display: flex;
@@ -854,8 +796,6 @@ img {
     width: 3rem;
     height: 3rem;
     border-radius: 1rem;
-    display: flex;
-    align-items: center;
     justify-content: center;
     font-size: 1.25rem;
 }
@@ -881,8 +821,6 @@ img {
     color: #4ade80;
 }
 
-
-
 .purple-icon {
     background: #f3e8ff;
     color: #9333ea;
@@ -892,8 +830,6 @@ img {
     background: rgba(88, 28, 135, 0.3);
     color: #c084fc;
 }
-
-
 
 .yellow-icon {
     background: #fef9c3;
@@ -909,8 +845,6 @@ img {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
     justify-content: center;
     color: var(--slate-400);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -950,11 +884,11 @@ img {
 }
 
 .text-primary-500 {
-    color: var(--primary-500);
+    color: var(--primary-500) !important;
 }
 
 .text-bold {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
 .text-muted {
@@ -1031,7 +965,6 @@ img {
 
 .filter-btn {
     padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--slate-500);
@@ -1061,12 +994,6 @@ img {
     box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3);
 }
 
-.skill-card {
-    padding: 1.5rem;
-    border-radius: 1rem;
-    /* transition: handled by auto-animate */
-}
-
 /* Completely remove from flow */
 .skill-card.hidden {
     display: none;
@@ -1087,8 +1014,6 @@ img {
     color: var(--slate-400);
     border-color: var(--slate-700);
 }
-
-
 
 /* --- Certifications (Base Mobile) --- */
 .grid-3 {
@@ -1111,8 +1036,7 @@ img {
 }
 
 .cert-card {
-    padding: 1.5rem;
-    border-radius: 1rem;
+    /* Padding/radius moved to grouped rule */
     display: flex;
     flex-direction: column;
     height: auto;
@@ -1136,7 +1060,6 @@ img {
     height: 2.5rem;
     object-fit: contain;
     display: inline-flex;
-    align-items: center;
     justify-content: center;
     color: var(--text-main);
     /* For FA icons */
@@ -1187,8 +1110,6 @@ details>summary::-webkit-details-marker {
 }
 
 .summary-content {
-    display: flex;
-    align-items: center;
     gap: 0.25rem;
     font-size: 0.75rem;
     font-weight: 600;
@@ -1216,8 +1137,6 @@ details[open] .summary-chevron {
     list-style-position: inside;
 }
 
-
-
 .details-content-wrapper {
     overflow: hidden;
     transition: height 0.4s ease-out, opacity 0.4s ease-out;
@@ -1237,15 +1156,12 @@ details[open] .summary-chevron {
 
 /* --- Education --- */
 .edu-card {
-    padding: 1.5rem;
-    border-radius: 1rem;
+    /* Padding/radius moved to grouped rule */
     border-left: 4px solid var(--primary-500);
 }
 
 .edu-header {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 0.5rem;
 }
 
@@ -1273,8 +1189,7 @@ details[open] .summary-chevron {
 
 /* --- About Me --- */
 .about-container {
-    padding: 2rem;
-    border-radius: 1.5rem;
+    /* Padding/radius moved to grouped rule */
     position: relative;
     overflow: hidden;
 }
@@ -1305,8 +1220,6 @@ details[open] .summary-chevron {
     font-weight: 600;
     font-size: 1.125rem;
     margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
 }
 
@@ -1336,8 +1249,7 @@ details[open] .summary-chevron {
 }
 
 .form-card {
-    padding: 2rem;
-    border-radius: 1.5rem;
+    /* Padding/radius moved to grouped rule */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     position: relative;
 }
@@ -1394,8 +1306,6 @@ details[open] .summary-chevron {
     font-weight: 700;
     padding: 1rem;
     border-radius: 0.75rem;
-    display: flex;
-    align-items: center;
     justify-content: center;
     gap: 0.5rem;
     box-shadow: 0 10px 15px -3px rgba(194, 65, 12, 0.2);
@@ -1418,10 +1328,8 @@ details[open] .summary-chevron {
     transform: translateX(-50%) translateY(-5rem);
     opacity: 0;
     padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
+    /* radius handled by group */
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
     gap: 0.75rem;
     font-weight: 500;
     font-size: 0.875rem;
@@ -1477,7 +1385,6 @@ details[open] .summary-chevron {
 }
 
 .footer-socials {
-    display: flex;
     justify-content: center;
     gap: 1.5rem;
     margin-bottom: 1rem;
@@ -1495,13 +1402,8 @@ details[open] .summary-chevron {
 }
 
 /* --- Card Hover Effects Consistency --- */
-.timeline-card,
-.project-card,
-.skill-card,
-.cert-card,
-.edu-card,
-.about-container,
-.form-card {
+.timeline-card, .project-card, .skill-card, .cert-card,
+.edu-card, .about-container, .form-card {
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: transform;
@@ -1513,13 +1415,8 @@ details[open] .summary-chevron {
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-.timeline-card:hover,
-.project-card:hover,
-.skill-card:hover,
-.cert-card:hover,
-.edu-card:hover,
-.about-container:hover,
-.form-card:hover {
+.timeline-card:hover, .project-card:hover, .skill-card:hover, .cert-card:hover,
+.edu-card:hover, .about-container:hover, .form-card:hover {
     transform: translateY(-0.5rem);
     border-color: var(--primary-500);
     box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
@@ -1527,12 +1424,9 @@ details[open] .summary-chevron {
 }
 
 /* Dark Mode Hover Override */
-[data-theme="dark"] .timeline-card:hover,
-[data-theme="dark"] .project-card:hover,
-[data-theme="dark"] .skill-card:hover,
-[data-theme="dark"] .cert-card:hover,
-[data-theme="dark"] .edu-card:hover,
-[data-theme="dark"] .about-container:hover,
+[data-theme="dark"] .timeline-card:hover, [data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .skill-card:hover, [data-theme="dark"] .cert-card:hover,
+[data-theme="dark"] .edu-card:hover, [data-theme="dark"] .about-container:hover,
 [data-theme="dark"] .form-card:hover {
     box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
     /* Orange shadow for dark mode */
@@ -1547,10 +1441,8 @@ details[open] .summary-chevron {
     height: 3rem;
     background-color: var(--primary-500);
     color: white;
-    border-radius: 50%;
+    /* radius handled by group */
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    display: flex;
-    align-items: center;
     justify-content: center;
     transform: translateY(5rem);
     opacity: 0;
@@ -1558,7 +1450,6 @@ details[open] .summary-chevron {
     z-index: 40;
     cursor: pointer;
 }
-
 
 [data-theme="dark"] .back-to-top {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
@@ -1688,7 +1579,6 @@ details[open] .summary-chevron {
     .exp-date {
         margin-top: 0;
     }
-
 
     .timeline::before {
         left: 20px;
