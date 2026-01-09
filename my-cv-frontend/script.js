@@ -57,11 +57,11 @@ function initMobileMenu() {
         isMenuOpen = open;
         if (open) {
             mobileMenu.classList.add('open');
-            menuBtn.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+            menuBtn.classList.add('active');
             menuBtn.setAttribute('aria-expanded', 'true');
         } else {
             mobileMenu.classList.remove('open');
-            menuBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+            menuBtn.classList.remove('active');
             menuBtn.setAttribute('aria-expanded', 'false');
         }
     };

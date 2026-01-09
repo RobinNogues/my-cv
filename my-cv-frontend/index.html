@@ -70,9 +70,9 @@
 
 
     <!-- Icons (Async) -->
-    <link rel="stylesheet" href="fontawesome.css?v=1.0" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="fontawesome.css?v=1.1" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="fontawesome.css?v=1.0">
+        <link rel="stylesheet" href="fontawesome.css?v=1.1">
     </noscript>
 
 
@@ -81,8 +81,8 @@
     <link rel="preload" href="fonts/PlusJakartaSans-Bold.ttf" as="font" type="font/ttf" crossorigin>
 
     <!-- Styles (Preload + Blocking) -->
-    <link rel="preload" href="style.css?v=1.1" as="style">
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="preload" href="style.css?v=1.2" as="style">
+    <link rel="stylesheet" href="style.css?v=1.2">
 
     <!-- Theme Initialization -->
     <script>
@@ -94,7 +94,7 @@
             }
         })();
     </script>
-    <script type="module" src="script.js?v=1.0"></script>
+    <script type="module" src="script.js?v=1.1"></script>
 </head>
 
 <body>
@@ -138,7 +138,8 @@
                         <i class="fas fa-moon"></i>
                     </button>
                     <button id="mobile-menu-btn" class="menu-toggle-btn" aria-label="Toggle menu">
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars icon-bars"></i>
+                        <i class="fas fa-times icon-close"></i>
                     </button>
                 </div>
             </div>
@@ -151,7 +152,7 @@
                 <a href="#education" class="mobile-link">Education</a>
                 <a href="#certifications" class="mobile-link">Certifications</a>
                 <a href="#about" class="mobile-link">About</a>
-                <a href="#contact" class="mobile-link text-primary-500 text-bold">Contact Me</a>
+                <a href="#contact" class="mobile-link mobile-link-contact">Contact Me</a>
             </div>
         </div>
     </nav>

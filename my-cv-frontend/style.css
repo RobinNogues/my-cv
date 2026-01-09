@@ -119,8 +119,6 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
-    /* Adjust based on navbar height */
 }
 
 body {
@@ -346,11 +344,14 @@ img {
     color: var(--text-main);
 }
 
-.nav-logo span {
+.nav-logo span,
+.mobile-link.mobile-link-contact {
     color: var(--primary-600);
+    font-weight: 700;
 }
 
-.nav-logo:hover span {
+.nav-logo:hover span,
+.mobile-link.mobile-link-contact:hover {
     color: var(--primary-700);
 }
 
@@ -422,6 +423,39 @@ img {
 .menu-toggle-btn {
     font-size: 1.25rem;
     color: var(--text-main);
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-toggle-btn i {
+    grid-area: 1 / 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Default state: Bars visible, Close hidden */
+.icon-bars {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.icon-close {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0);
+}
+
+/* Active state: Bars hidden, Close visible */
+.menu-toggle-btn.active .icon-bars {
+    opacity: 0;
+    transform: rotate(180deg) scale(0);
+}
+
+.menu-toggle-btn.active .icon-close {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
 }
 
 /* Mobile Menu Drawer */
