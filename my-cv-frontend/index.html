@@ -69,15 +69,19 @@
     <!-- Preconnect for Fonts -->
 
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="fontawesome.css">
+    <!-- Icons (Async) -->
+    <link rel="stylesheet" href="fontawesome.css?v=1.0" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="fontawesome.css?v=1.0">
+    </noscript>
 
 
     <!-- Preload Critical Fonts -->
     <link rel="preload" href="fonts/PlusJakartaSans-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/PlusJakartaSans-Bold.ttf" as="font" type="font/ttf" crossorigin>
 
-    <!-- Styles -->
+    <!-- Styles (Preload + Blocking) -->
+    <link rel="preload" href="style.css?v=1.1" as="style">
     <link rel="stylesheet" href="style.css?v=1.1">
 
     <!-- Theme Initialization -->
