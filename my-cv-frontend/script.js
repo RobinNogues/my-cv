@@ -126,11 +126,17 @@ function initScrollAnimations() {
         });
     }, observerOptions);
 
-    document.querySelectorAll('section:not(#hero)').forEach(section => {
-        // Check if section is already possibly visible
+    const sections = document.querySelectorAll('section:not(#hero)');
+
+    // 1. Batch Read: Calculate positions without touching DOM
+    const sectionsState = Array.from(sections).map(section => {
         const rect = section.getBoundingClientRect();
         const alreadyVisible = rect.top < window.innerHeight;
+        return { section, alreadyVisible };
+    });
 
+    // 2. Batch Write: Apply classes and observers
+    sectionsState.forEach(({ section, alreadyVisible }) => {
         section.classList.add('reveal');
 
         if (alreadyVisible) {
