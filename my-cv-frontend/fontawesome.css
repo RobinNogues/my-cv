@@ -133,6 +133,10 @@
   --fa: "\f395";
 }
 
+.fa-times {
+  --fa: "\f00d";
+}
+
 @font-face {
   font-family: 'Font Awesome 6 Brands';
   font-style: normal;

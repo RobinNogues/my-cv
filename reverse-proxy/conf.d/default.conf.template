@@ -82,7 +82,7 @@ server {
     # Static Assets Caching
     # We must duplicate proxy_pass here because Nginx location blocks are exclusive.
     # Without it, Nginx would look for files locally in the proxy container instead of forwarding to frontend.
-    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
+    location ~* \.(?:ico|webp|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
         expires 365d;
         add_header Cache-Control "public, no-transform";
 
