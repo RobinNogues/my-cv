@@ -9,7 +9,8 @@ It is designed to showcase my skills, experience, and projects in a clean, moder
 -   **Fully Responsive:** Optimized for desktops, tablets, and mobile devices.
 -   **Comprehensive Sections:** Includes Professional Experience, Personal Projects, Skills, Education, and Certifications.
 -   **Interactive UI:** Dark mode, smooth animations, active navigation link highlighting, animated burger menu and a "Back to Top" button.
--   **Contact Form:** A secure contact form with backend processing, input validation, and anti-spam (honeypot, API Rate Limiting) protection.
+-   **Combats Spam:** A secure contact form with backend processing, input validation, and anti-spam (honeypot, API Rate Limiting) protection.
+-   **Privacy-Focused Analytics:** Self-hosted analytics with GoAccess, providing real-time traffic statistics without tracking cookies or sharing data with third parties (GDPR compliant).
 -   **Automated Deployment:** CI/CD pipeline for automated builds and deployments to a live server.
 
 ## 🏗️ Architecture & Tech Stack
@@ -72,7 +73,18 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 You will be prompted for some information. You can leave most fields blank by pressing Enter. For the "Common Name", it's important to use `localhost`.
 
-### 4. Build and Run
+### 4. Configure Analytics Access
+
+The analytics dashboard is protected by a password. You need to create a `.htpasswd` file in the `reverse-proxy` directory.
+
+1.  Copy the example file:
+    ```bash
+    cp reverse-proxy/.htpasswd.example reverse-proxy/.htpasswd
+    ```
+2.  (Optional) To change the password, you can generate a new hash (e.g., using an online htpasswd generator or the `htpasswd` command) and replace the content of the file.
+    *   Default credentials in example: `admin` / `password` (check file content to be sure).
+
+### 5. Build and Run
 
 From the **root directory** of the project (`my-cv/`), run the following command to build the images and start the services:
 
@@ -85,6 +97,9 @@ The docker-compose.override.yml needs to be used for the local installation.
 ### 5. Access the Website
 
 The website should now be running and accessible at https://localhost. Nginx will serve the frontend and proxy API requests to the backend.
+
+-   **Website:** https://localhost
+-   **Analytics:** https://localhost/stats (User: `admin`, Pass: see step 4)
 
 The front will also be accessible at http://localhost:8081 if you don't want to use HTTPS, but the form won't work.
 

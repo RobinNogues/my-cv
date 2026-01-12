@@ -17,8 +17,10 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - certbot_www:/var/www/certbot:ro           # challenge ACME
-      - letsencrypt_data:/etc/letsencrypt:ro      # certificats
+      - certbot_www:/var/www/certbot:ro # challenge ACME
+      - letsencrypt_data:/etc/letsencrypt:ro # certificats
+      - nginx_logs:/var/log/nginx
+      - goaccess_report:/var/www/goaccess:ro
     depends_on:
       - frontend
       - backend
@@ -38,6 +40,19 @@ services:
     depends_on:
       - reverse-proxy
 
+  goaccess:
+    image: allinurl/goaccess
+    container_name: cv_goaccess
+    restart: unless-stopped
+    depends_on:
+      - reverse-proxy
+    volumes:
+      - nginx_logs:/srv/logs:ro
+      - goaccess_report:/srv/report
+    command: /srv/logs/access_file.log -o /srv/report/index.html --log-format=COMBINED --real-time-html --ws-url=wss://robin-nogues.com:443/goaccess-ws --origin=https://robin-nogues.com --anonymize-ip
+
 volumes:
   certbot_www:
   letsencrypt_data:
+  nginx_logs:
+  goaccess_report:

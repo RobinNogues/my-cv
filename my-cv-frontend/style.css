@@ -1403,8 +1403,10 @@ details[open] .summary-chevron {
     text-align: center;
     color: var(--slate-500);
     font-size: 0.875rem;
-    padding: 1rem 0 1rem 0;
+    padding: 2rem 1.5rem;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
     margin-top: 0;
+    width: 100%;
 }
 
 .footer-socials {
@@ -1413,10 +1415,25 @@ details[open] .summary-chevron {
     margin-bottom: 1rem;
 }
 
+.footer-legal {
+    font-size: 0.75rem;
+    color: var(--slate-600);
+    margin-top: 0.75rem;
+}
+
+[data-theme="dark"] .footer-legal {
+    color: var(--slate-400);
+}
+
 .footer-socials a {
     color: var(--slate-500);
     font-size: 1.5rem;
     transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-socials a i,
+[data-theme="dark"] .footer-socials a i {
+    color: inherit;
 }
 
 .footer-socials a:hover {
@@ -1648,6 +1665,8 @@ details[open] .summary-chevron {
     .about-container {
         padding: 3rem;
     }
+
+
 
 }
 

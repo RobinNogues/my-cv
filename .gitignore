@@ -14,3 +14,5 @@ prod.env
 
 reverse-proxy/local_certs/*
 !reverse-proxy/local_certs/.gitkeep
+
+.htpasswd

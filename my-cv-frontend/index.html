@@ -85,15 +85,7 @@
     <link rel="stylesheet" href="style.css?v=1.2">
 
     <!-- Theme Initialization -->
-    <script>
-        (function () {
-            const theme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (theme === 'dark' || (!theme && systemPrefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
-    </script>
+    <script src="theme.js?v=1.1"></script>
     <script type="module" src="script.js?v=1.1"></script>
 </head>
 
@@ -152,7 +144,7 @@
                 <a href="#education" class="mobile-link">Education</a>
                 <a href="#certifications" class="mobile-link">Certifications</a>
                 <a href="#about" class="mobile-link">About</a>
-                <a href="#contact" class="mobile-link mobile-link-contact">Contact Me</a>
+                <a href="#contact" class="mobile-link mobile-link-contact">Contact</a>
             </div>
         </div>
     </nav>
@@ -725,21 +717,24 @@
             </div>
         </section>
 
-        <footer class="footer">
-            <div class="footer-socials">
-                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener noreferrer"
-                    aria-label="LinkedIn Profile">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/RobinNogues" target="_blank" rel="noopener noreferrer"
-                    aria-label="GitHub Profile">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-            <p>&copy; 2026 Robin Nogues.</p>
-        </footer>
-
     </main>
+
+    <footer class="footer">
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener noreferrer"
+                aria-label="LinkedIn Profile">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/RobinNogues" target="_blank" rel="noopener noreferrer"
+                aria-label="GitHub Profile">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="footer-legal">
+            &copy; 2026 Robin Nogues &bull; Hosted by Ionos &bull; Privacy-focused analytics (GoAccess) &bull; No
+            cookies
+        </div>
+    </footer>
 
     <!-- Scroll To Top -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to Top">

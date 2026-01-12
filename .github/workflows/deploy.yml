@@ -44,6 +44,9 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
 
+      - name: Create .htpasswd for reverse-proxy
+        run: echo "${{ secrets.HTPASSWD_CONTENT }}" > reverse-proxy/.htpasswd
+
       - name: Build and push reverse-proxy image
         uses: docker/build-push-action@v6
         with:
