@@ -987,6 +987,10 @@ img {
     margin-top: auto;
 }
 
+.ml-2 {
+    margin-left: 0.5rem;
+}
+
 /* --- Skills --- */
 /* --- Skills & Filters --- */
 .filter-container {
