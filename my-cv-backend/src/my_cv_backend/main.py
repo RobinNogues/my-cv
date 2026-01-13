@@ -1,7 +1,5 @@
 from fastapi import FastAPI, HTTPException, status
 
-import re
-
 from .credentials import EMAIL
 from .email_sender import EMAIL_SENDER, format_content
 from .logger import logger
@@ -14,6 +12,23 @@ app = FastAPI(
     version="1.0.0"
 )
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://robin-nogues.com",
+        "https://www.robin-nogues.com",
+        "http://localhost",
+        "http://localhost:8080",
+        "http://127.0.0.1",
+        "http://127.0.0.1:8080"
+    ],
+    allow_credentials=True,
+    allow_methods=["POST"],
+    allow_headers=["*"],
+)
+
 
 @app.post("/api/contact", status_code=status.HTTP_200_OK)
 async def submit_contact_form(form_data: ContactForm):
@@ -24,10 +39,12 @@ async def submit_contact_form(form_data: ContactForm):
             status_code=status.HTTP_200_OK,
             detail="Invalid request."
         )
-    name = sanitize_input(form_data.name)
-    email = sanitize_input(form_data.email)
-    subject = sanitize_input(form_data.subject)
-    message = sanitize_input(form_data.message)
+
+    name = form_data.name.strip()
+    email = form_data.email.strip()
+    subject = form_data.subject.strip()
+    message = form_data.message.strip()
+    
     content = format_content(message, name, email)
 
     try:
@@ -42,13 +59,3 @@ async def submit_contact_form(form_data: ContactForm):
 
     logger.info(f"Email sent successfully from {email} with subject '{subject}'")
     return {"message": "Message sent successfully."}
-
-
-def sanitize_input(text: str) -> str:
-    """
-    Sanitizes a string to reduce injection risks.
-    Removes potentially dangerous characters.
-    """
-    text = re.sub(r'<[^>]*>', '', text)
-    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]', '', text)
-    return text.strip()

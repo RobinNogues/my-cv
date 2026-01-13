@@ -34,3 +34,6 @@ services:
 
   certbot:
     entrypoint: "true"
+
+  goaccess:
+    command: /srv/logs/access_file.log -o /srv/report/index.html --log-format=COMBINED --real-time-html --ws-url=wss://localhost:443/goaccess-ws --origin=https://localhost --anonymize-ip

@@ -70,7 +70,7 @@
 
 
     <!-- Icons (Async) -->
-    <link rel="stylesheet" href="fontawesome.css?v=1.1" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="fontawesome.css?v=1.1" media="print" id="fa-css">
     <noscript>
         <link rel="stylesheet" href="fontawesome.css?v=1.1">
     </noscript>
@@ -85,15 +85,7 @@
     <link rel="stylesheet" href="style.css?v=1.2">
 
     <!-- Theme Initialization -->
-    <script>
-        (function () {
-            const theme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (theme === 'dark' || (!theme && systemPrefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
-    </script>
+    <script src="theme.js?v=1.1"></script>
     <script type="module" src="script.js?v=1.1"></script>
 </head>
 
@@ -152,7 +144,7 @@
                 <a href="#education" class="mobile-link">Education</a>
                 <a href="#certifications" class="mobile-link">Certifications</a>
                 <a href="#about" class="mobile-link">About</a>
-                <a href="#contact" class="mobile-link mobile-link-contact">Contact Me</a>
+                <a href="#contact" class="mobile-link mobile-link-contact">Contact</a>
             </div>
         </div>
     </nav>
@@ -171,7 +163,7 @@
                 </p>
                 <div class="hero-actions">
                     <a href="#contact" class="btn-primary">
-                        Get in touch <i class="fas fa-arrow-down" style="margin-left: 0.5rem;"></i>
+                        Get in touch <i class="fas fa-arrow-down ml-2"></i>
                     </a>
                     <a href="https://github.com/RobinNogues" target="_blank" rel="noopener noreferrer" class="btn-glass"
                         aria-label="GitHub Profile">
@@ -206,8 +198,7 @@
                             <div>
                                 <h3 class="exp-title">Data Engineer</h3>
                                 <div class="exp-company">
-                                    <img src="images/icons/sancare.png" alt="Sancare" loading="lazy"
-                                        onerror="this.style.display='none'">
+                                    <img src="images/icons/sancare.png" alt="Sancare" loading="lazy">
                                     Sancare, Paris
                                 </div>
                             </div>
@@ -241,8 +232,7 @@
                             <div>
                                 <h3 class="exp-title">Data Science Intern - Computer Vision</h3>
                                 <div class="exp-company">
-                                    <img src="images/icons/alten.png" alt="Alten" loading="lazy"
-                                        onerror="this.style.display='none'">
+                                    <img src="images/icons/alten.png" alt="Alten" loading="lazy">
                                     Alten, Toulouse
                                 </div>
                             </div>
@@ -493,7 +483,7 @@
                 <div class="edu-card glass">
                     <div class="edu-header">
                         <h3>M.S. in Computer Science</h3>
-                        <img src="images/icons/uqac.png" alt="UQAC" loading="lazy" onerror="this.style.display='none'">
+                        <img src="images/icons/uqac.png" alt="UQAC" loading="lazy">
                     </div>
                     <p class="edu-loc">UQAC, Chicoutimi, CA</p>
                     <p class="edu-year">2021 - 2023</p>
@@ -501,7 +491,7 @@
                 <div class="edu-card glass">
                     <div class="edu-header">
                         <h3>M.Eng in Computer Science</h3>
-                        <img src="images/icons/esme.png" alt="ESME" loading="lazy" onerror="this.style.display='none'">
+                        <img src="images/icons/esme.png" alt="ESME" loading="lazy">
                     </div>
                     <p class="edu-loc">ESME, Bordeaux Paris, FR</p>
                     <p class="edu-year">2017 - 2023</p>
@@ -532,8 +522,7 @@
                 <!-- 2. Scala FP EPFL - Sep 2025 -->
                 <article class="cert-card glass">
                     <div class="cert-header">
-                        <img src="images/icons/epfl.png" alt="EPFL" class="cert-icon" loading="lazy"
-                            onerror="this.style.display='none'">
+                        <img src="images/icons/epfl.png" alt="EPFL" class="cert-icon" loading="lazy">
                         <a href="https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE"
                             target="_blank" rel="noopener noreferrer" class="ext-link"
                             aria-label="Verify Specialization">
@@ -607,8 +596,7 @@
                 <!-- 6. TOEIC - May 2021 -->
                 <article class="cert-card glass">
                     <div class="cert-header">
-                        <img src="images/icons/ets.png" alt="ETS" class="cert-icon" loading="lazy"
-                            onerror="this.style.display='none'">
+                        <img src="images/icons/ets.png" alt="ETS" class="cert-icon" loading="lazy">
                     </div>
                     <h3 class="cert-title">TOEIC Exam (Score: 890)</h3>
                     <p class="cert-issuer">ETS Global</p>
@@ -725,21 +713,24 @@
             </div>
         </section>
 
-        <footer class="footer">
-            <div class="footer-socials">
-                <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener noreferrer"
-                    aria-label="LinkedIn Profile">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/RobinNogues" target="_blank" rel="noopener noreferrer"
-                    aria-label="GitHub Profile">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-            <p>&copy; 2026 Robin Nogues.</p>
-        </footer>
-
     </main>
+
+    <footer class="footer">
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/robin-nogues/" target="_blank" rel="noopener noreferrer"
+                aria-label="LinkedIn Profile">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/RobinNogues" target="_blank" rel="noopener noreferrer"
+                aria-label="GitHub Profile">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="footer-legal">
+            &copy; 2026 Robin Nogues &bull; Hosted by Ionos &bull; Privacy-focused analytics (GoAccess) &bull; No
+            cookies
+        </div>
+    </footer>
 
     <!-- Scroll To Top -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to Top">

@@ -3,6 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initResources();
     initTheme();
     initMobileMenu();
     initScrollToTop();
@@ -11,6 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
     initAccordion();
     initSkillFilters();
 });
+/**
+ * 0. Resources & Error Handling
+ * - Loads non-critical CSS (Font Awesome)
+ * - Global handler for broken images
+ */
+function initResources() {
+    const fa = document.getElementById('fa-css');
+    if (fa) fa.media = 'all';
+
+    window.addEventListener('error', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.target.style.display = 'none';
+        }
+    }, true);
+}
+
 
 /**
  * 1. Theme Toggling

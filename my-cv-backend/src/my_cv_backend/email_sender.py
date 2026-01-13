@@ -1,11 +1,9 @@
 from email.mime.text import MIMEText
 from email.header import Header
-from typing import Optional
 
 from aiosmtplib import SMTP
 
 from .credentials import EMAIL, EMAIL_PASSWORD
-from .logger import logger
 
 
 class EmailSender:
@@ -16,6 +14,11 @@ class EmailSender:
     including the ability to set a 'Reply-To' header for contact forms.
 
     """
+
+    smtp_server: str
+    smtp_port: int
+    email_address: str
+    app_password: str
 
     def __init__(
             self,
@@ -34,7 +37,7 @@ class EmailSender:
             to: str,
             subject: str,
             text: str,
-            reply_to: Optional[str] = None,
+            reply_to: str | None = None,
     ) -> None:
         """
         Sends an email asynchronously using the initialized SMTP configuration.
@@ -53,20 +56,20 @@ class EmailSender:
         """
         reply_to = reply_to or to
         msg = MIMEText(text, "plain", "utf-8")
-        msg["From"] = Header(self.email_address, "utf-8")
-        msg["To"] = Header(to, "utf-8")
-        msg["Subject"] = Header(subject, "utf-8")
-        msg["Reply-To"] = Header(reply_to, "utf-8")
+        msg["From"] = self.email_address
+        msg["To"] = to
+        msg["Subject"] = Header(subject, "utf-8").encode()
+        msg["Reply-To"] = reply_to
         
         async with SMTP(
             hostname=self.smtp_server,
             port=self.smtp_port,
             use_tls=True,
         ) as client:
-            await client.login(self.email_address, self.app_password)
-            await client.send_message(msg)
+            _ = await client.login(self.email_address, self.app_password)
+            _ = await client.send_message(msg)
 
-        logger.info("Email sent successfully.")
+
 
 
 def format_content(text: str, form_visitor_name: str, form_visitor_email: str) -> str:
