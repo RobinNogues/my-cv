@@ -49,7 +49,8 @@ services:
     volumes:
       - nginx_logs:/srv/logs:ro
       - goaccess_report:/srv/report
-    command: /srv/logs/access_file.log -o /srv/report/index.html --log-format=COMBINED --real-time-html --ws-url=wss://robin-nogues.com:443/goaccess-ws --origin=https://robin-nogues.com --anonymize-ip
+      - ./goaccess/goaccess.conf:/srv/data/goaccess.conf:ro
+    command: /srv/logs/access_file.log -o /srv/report/index.html --config-file=/srv/data/goaccess.conf --ws-url=wss://robin-nogues.com:443/goaccess-ws --origin=https://robin-nogues.com
 
 volumes:
   certbot_www:
