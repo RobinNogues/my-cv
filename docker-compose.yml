@@ -20,10 +20,10 @@ services:
       - certbot_www:/var/www/certbot:ro # challenge ACME
       - letsencrypt_data:/etc/letsencrypt:ro # certificats
       - nginx_logs:/var/log/nginx
-      - goaccess_report:/var/www/goaccess:ro
     depends_on:
       - frontend
       - backend
+      - goatcounter
     container_name: cv_reverse_proxy
     restart: unless-stopped
     environment:
@@ -40,20 +40,18 @@ services:
     depends_on:
       - reverse-proxy
 
-  goaccess:
-    image: allinurl/goaccess
-    container_name: cv_goaccess
+  goatcounter:
+    image: arp242/goatcounter
+    container_name: cv_goatcounter
     restart: unless-stopped
-    depends_on:
-      - reverse-proxy
     volumes:
-      - nginx_logs:/srv/logs:ro
-      - goaccess_report:/srv/report
-      - ./goaccess/goaccess.conf:/srv/data/goaccess.conf:ro
-    command: /srv/logs/access_file.log -o /srv/report/index.html --config-file=/srv/data/goaccess.conf --ws-url=wss://robin-nogues.com:443/goaccess-ws --origin=https://robin-nogues.com
+      - goatcounter_data:/home/goatcounter/goatcounter-data
+    environment:
+      - GOATCOUNTER_LISTEN=:8080
+      - GOATCOUNTER_AUTOMIGRATE=true
 
 volumes:
   certbot_www:
   letsencrypt_data:
   nginx_logs:
-  goaccess_report:
+  goatcounter_data:

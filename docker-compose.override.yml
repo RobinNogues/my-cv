@@ -35,7 +35,6 @@ services:
   certbot:
     entrypoint: "true"
 
-  goaccess:
-    volumes:
-      - ./goaccess/goaccess.conf:/srv/data/goaccess.conf:ro
-    command: /srv/logs/access_file.log -o /srv/report/index.html --config-file=/srv/data/goaccess.conf --ws-url=wss://localhost:443/goaccess-ws --origin=https://localhost
+  goatcounter:
+    ports:
+      - "8082:8080"
