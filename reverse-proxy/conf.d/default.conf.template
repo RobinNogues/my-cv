@@ -5,17 +5,17 @@ limit_req_zone $binary_remote_addr zone=api_limit:1m rate=10r/m; # Limits to 10 
 # Redirect all HTTP traffic to HTTPS
 server {
     listen 80;
-    # Listen for both www and non-www versions
-    server_name ${NGINX_HOST} www.${NGINX_HOST};
+    # Listen for main domain, www, and stats subdomain
+    server_name ${NGINX_HOST} www.${NGINX_HOST} stats.${NGINX_HOST};
 
     # Allows Certbot to validate the domain
     location /.well-known/acme-challenge/ {
         root /var/www/certbot;
     }
 
-    # Redirect everything else to HTTPS
+    # Redirect everything else to HTTPS (preserving the host)
     location / {
-        return 301 https://${NGINX_HOST}$request_uri;
+        return 301 https://$host$request_uri;
     }
 }
 
@@ -35,6 +35,52 @@ server {
 
     # Permanent redirect to the non-www version
     return 301 https://${NGINX_HOST}$request_uri;
+}
+
+# --- GOATCOUNTER SUBDOMAIN (stats.domain.com) ---
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name stats.${NGINX_HOST};
+
+    server_tokens off;
+
+    ssl_certificate ${SSL_CERTIFICATE_PATH};
+    ssl_certificate_key ${SSL_CERTIFICATE_KEY_PATH};
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-CHACHA20-POLY1305';
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1h;
+    ssl_session_tickets off;
+
+    # Security header
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    # Proxy all requests to GoatCounter
+    location / {
+        # CORS headers for cross-origin tracking requests
+        add_header Access-Control-Allow-Origin "https://${NGINX_HOST}" always;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Content-Type" always;
+
+        # Handle preflight requests
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin "https://${NGINX_HOST}";
+            add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+            add_header Access-Control-Allow-Headers "Content-Type";
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+
+        proxy_pass http://goatcounter:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
 }
 
 # --- MAIN HTTPS SERVER (port 443) ---
@@ -75,7 +121,7 @@ server {
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-    add_header Content-Security-Policy "default-src 'self'; connect-src 'self' wss:; script-src 'self'; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';" always;
+    add_header Content-Security-Policy "default-src 'self'; connect-src 'self' wss: https://stats.${NGINX_HOST}; script-src 'self' https://stats.${NGINX_HOST}; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';" always;
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
     # Static Assets Caching
@@ -84,6 +130,12 @@ server {
     location ~* \.(?:ico|webp|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
         expires 365d;
         add_header Cache-Control "public, no-transform";
+
+        # Security headers (must be repeated here as add_header in location overrides server-level)
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
         proxy_pass http://frontend:80;
         proxy_set_header Host $host;
@@ -105,37 +157,6 @@ server {
         limit_req zone=api_limit burst=5 nodelay;
 
         proxy_pass http://backend:8000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # GoAccess Stats
-    location /stats {
-        alias /var/www/goaccess;
-        index index.html;
-        auth_basic "Restricted Access";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-        
-        # Security Headers (explicitly repeated because add_header disables inheritance)
-        add_header X-Frame-Options "SAMEORIGIN" always;
-        add_header X-Content-Type-Options "nosniff" always;
-        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-        # CSP relaxed for GoAccess:
-        # - script-src: needs 'unsafe-inline' for UI, 'unsafe-eval' (sometimes used), and 'blob:' for Web Workers
-        # - connect-src: needs wss: for WebSocket and blob: for internal connections
-        add_header Content-Security-Policy "default-src 'self'; connect-src 'self' wss: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';" always;
-        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-        add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
-    }
-
-    # GoAccess WebSocket
-    location /goaccess-ws {
-        proxy_pass http://goaccess:7890;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
