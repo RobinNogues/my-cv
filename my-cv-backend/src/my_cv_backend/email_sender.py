@@ -3,7 +3,7 @@ from email.header import Header
 
 from aiosmtplib import SMTP
 
-from .credentials import EMAIL, EMAIL_PASSWORD
+from .credentials import EMAIL, EMAIL_PASSWORD, SMTP_SERVER, SMTP_PORT
 
 
 class EmailSender:
@@ -21,11 +21,11 @@ class EmailSender:
     app_password: str
 
     def __init__(
-            self,
-            email_address: str,
-            app_password: str,
-            smtp_server: str = "smtp.gmail.com",
-            smtp_port: int = 465,
+        self,
+        email_address: str,
+        app_password: str,
+        smtp_server: str = SMTP_SERVER,
+        smtp_port: int = SMTP_PORT,
     ) -> None:
         self.smtp_server = smtp_server
         self.smtp_port = smtp_port
@@ -33,11 +33,11 @@ class EmailSender:
         self.app_password = app_password
 
     async def send(
-            self,
-            to: str,
-            subject: str,
-            text: str,
-            reply_to: str | None = None,
+        self,
+        to: str,
+        subject: str,
+        text: str,
+        reply_to: str | None = None,
     ) -> None:
         """
         Sends an email asynchronously using the initialized SMTP configuration.
@@ -60,7 +60,7 @@ class EmailSender:
         msg["To"] = to
         msg["Subject"] = Header(subject, "utf-8").encode()
         msg["Reply-To"] = reply_to
-        
+
         async with SMTP(
             hostname=self.smtp_server,
             port=self.smtp_port,
@@ -68,8 +68,6 @@ class EmailSender:
         ) as client:
             _ = await client.login(self.email_address, self.app_password)
             _ = await client.send_message(msg)
-
-
 
 
 def format_content(text: str, form_visitor_name: str, form_visitor_email: str) -> str:
@@ -84,7 +82,7 @@ def format_content(text: str, form_visitor_name: str, form_visitor_email: str) -
         The name of the form visitor.
     form_visitor_email : str
         The email of the form visitor.
-    
+
     Returns
     -------
     str
