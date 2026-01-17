@@ -3,7 +3,7 @@ name: Build and Deploy to Production VPS
 on:
   push:
     branches:
-      - use_goatcounter
+      - main
   workflow_dispatch:
 
 env:

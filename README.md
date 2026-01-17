@@ -68,7 +68,9 @@ Generate the certificate and private key using OpenSSL:
 ```bash
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout reverse-proxy/local_certs/nginx.key \
-    -out reverse-proxy/local_certs/nginx.crt
+    -out reverse-proxy/local_certs/nginx.crt \
+    -subj "/CN=localhost" \
+    -addext "subjectAltName=DNS:localhost,DNS:stats.localhost"
 ```
 
 You will be prompted for some information. You can leave most fields blank by pressing Enter. For the "Common Name", it's important to use `localhost`.
@@ -79,7 +81,7 @@ After building and running the services, you need to create the GoatCounter site
 
 ```bash
 docker exec -it cv_goatcounter goatcounter db create site \
-  -vhost=localhost \
+  -vhost=stats.localhost \
   -user.email=your@email.com \
   -password=yourpassword
 ```
@@ -101,7 +103,7 @@ The docker-compose.override.yml needs to be used for the local installation.
 The website should now be running and accessible at https://localhost. Nginx will serve the frontend and proxy API requests to the backend.
 
 -   **Website:** https://localhost
--   **Analytics:** https://localhost/stats (login with email/password from step 4)
+-   **Analytics:** https://stats.localhost (login with email/password from step 4)
 
 The front will also be accessible at http://localhost:8081 if you don't want to use HTTPS, but the form won't work.
 
