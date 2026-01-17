@@ -57,6 +57,21 @@ server {
 
     # Proxy all requests to GoatCounter
     location / {
+        # CORS headers for cross-origin tracking requests
+        add_header Access-Control-Allow-Origin "https://${NGINX_HOST}" always;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Content-Type" always;
+
+        # Handle preflight requests
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin "https://${NGINX_HOST}";
+            add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+            add_header Access-Control-Allow-Headers "Content-Type";
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+
         proxy_pass http://goatcounter:8080;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
