@@ -1,6 +1,36 @@
-# Ignore Python cache and compiled files
+# Python cache and compiled files
 __pycache__/
-*.py[oc]
+*.py[cod]
+*.pyo
 
-# Ignore the local virtual environment
-.venv
+# Virtual environment
+.venv/
+
+# Environment files (secrets)
+.env
+.env.*
+!.env.template
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Documentation
+*.md
+!README.md
+
+# Git
+.git/
+.gitignore

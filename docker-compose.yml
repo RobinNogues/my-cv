@@ -8,37 +8,31 @@ services:
     image: ghcr.io/robinnogues/my-cv-backend:latest
     container_name: cv_backend
     restart: unless-stopped
-    env_file:
-      - ./my-cv-backend/.env
+    environment:
+      - EMAIL=${EMAIL}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - DOMAIN=${DOMAIN}
+      - SMTP_SERVER=${SMTP_SERVER:-smtp.gmail.com}
+      - SMTP_PORT=${SMTP_PORT:-465}
 
-  reverse-proxy:
-    image: ghcr.io/robinnogues/my-cv-reverse-proxy:latest
+  caddy:
+    image: caddy:alpine
+    container_name: cv_caddy
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - certbot_www:/var/www/certbot:ro # challenge ACME
-      - letsencrypt_data:/etc/letsencrypt:ro # certificats
-      - nginx_logs:/var/log/nginx
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - CADDY_DOMAIN=${DOMAIN}
+      - CADDY_EMAIL=${EMAIL}
     depends_on:
       - frontend
       - backend
       - goatcounter
-    container_name: cv_reverse_proxy
-    restart: unless-stopped
-    environment:
-      - NGINX_HOST=robin-nogues.com
-      - SSL_CERTIFICATE_PATH=/etc/letsencrypt/live/robin-nogues.com/fullchain.pem
-      - SSL_CERTIFICATE_KEY_PATH=/etc/letsencrypt/live/robin-nogues.com/privkey.pem
-
-  certbot:
-    image: certbot/certbot
-    container_name: cv_certbot
-    volumes:
-      - certbot_www:/var/www/certbot:rw
-      - letsencrypt_data:/etc/letsencrypt:rw
-    depends_on:
-      - reverse-proxy
 
   goatcounter:
     image: arp242/goatcounter
@@ -51,7 +45,6 @@ services:
       - GOATCOUNTER_AUTOMIGRATE=true
 
 volumes:
-  certbot_www:
-  letsencrypt_data:
-  nginx_logs:
+  caddy_data:
+  caddy_config:
   goatcounter_data:
