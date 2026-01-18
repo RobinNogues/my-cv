@@ -21,20 +21,24 @@ www.{$CADDY_DOMAIN} {
         Content-Security-Policy "default-src 'self'; connect-src 'self' wss: https://stats.{$CADDY_DOMAIN}; script-src 'self' https://stats.{$CADDY_DOMAIN}; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
     }
 
-    # API routes
     handle /api/* {
-        reverse_proxy backend:8000
+        reverse_proxy backend:8000 {
+            header_down -Server
+        }
     }
 
     # Static assets with caching
     @static path *.ico *.webp *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.ttf *.eot
     handle @static {
         header Cache-Control "public, max-age=31536000, no-transform"
-        reverse_proxy frontend:80
+        reverse_proxy frontend:80 {
+            header_down -Server
+        }
     }
 
-    # Default: serve frontend
-    reverse_proxy frontend:80
+    reverse_proxy frontend:80 {
+        header_down -Server
+    }
 }
 
 # GoatCounter subdomain
@@ -52,5 +56,7 @@ stats.{$CADDY_DOMAIN} {
         respond 204
     }
 
-    reverse_proxy goatcounter:8080
+    reverse_proxy goatcounter:8080 {
+        header_down -Server
+    }
 }
