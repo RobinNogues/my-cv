@@ -17,24 +17,27 @@ services:
     ports:
       - "8000:8000"
 
-  reverse-proxy:
-    image: ""
-    build:
-      context: ./reverse-proxy
-      dockerfile: Dockerfile
+  caddy:
+    image: caddy:alpine
     ports:
-      - "8080:80"
+      - "80:80"
       - "443:443"
     volumes:
-      - ./reverse-proxy/local_certs:/etc/nginx/certs:ro
+      - ./caddy/Caddyfile.local:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
     environment:
-      - NGINX_HOST=localhost
-      - SSL_CERTIFICATE_PATH=/etc/nginx/certs/nginx.crt
-      - SSL_CERTIFICATE_KEY_PATH=/etc/nginx/certs/nginx.key
-
-  certbot:
-    entrypoint: "true"
+      - CADDY_DOMAIN=localhost
+      - CADDY_EMAIL=dev@localhost
+    depends_on:
+      - frontend
+      - backend
+      - goatcounter
 
   goatcounter:
     ports:
       - "8082:8080"
+
+volumes:
+  caddy_data:
+  caddy_config:

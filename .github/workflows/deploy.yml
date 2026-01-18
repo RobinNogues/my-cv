@@ -10,7 +10,6 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME_FRONTEND: robinnogues/my-cv-frontend
   IMAGE_NAME_BACKEND: robinnogues/my-cv-backend
-  IMAGE_NAME_REVERSE_PROXY: robinnogues/my-cv-reverse-proxy
 
 jobs:
   build-and-push:
@@ -45,13 +44,6 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
 
-      - name: Build and push reverse-proxy image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./reverse-proxy
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_REVERSE_PROXY }}:latest
-
   deploy:
     name: Deploy to VPS
     needs: build-and-push
@@ -60,20 +52,22 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-      - name: Create deployment directories on VPS
+
+      - name: Create deployment directory on VPS
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          script: mkdir -p ${{ secrets.VPS_DIR }}/my-cv-backend ${{ secrets.VPS_DIR }}/scripts ${{ secrets.VPS_DIR }}/goaccess
+          script: mkdir -p ${{ secrets.VPS_DIR }}/caddy
+
       - name: Copy deployment files to VPS
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml,scripts/renew-certs.sh,goaccess/goaccess.conf"
+          source: "docker-compose.yml,caddy/Caddyfile"
           target: "${{ secrets.VPS_DIR }}"
 
       - name: Deploy via SSH
@@ -85,9 +79,13 @@ jobs:
           script: |
             cd ${{ secrets.VPS_DIR }}
 
-            cat <<EOF > my-cv-backend/.env
+            # Create centralized environment file
+            cat <<EOF > .env
+            DOMAIN=${{ secrets.DOMAIN }}
             EMAIL=${{ secrets.EMAIL }}
             EMAIL_PASS=${{ secrets.EMAIL_PASS }}
+            SMTP_SERVER=smtp.gmail.com
+            SMTP_PORT=465
             EOF
 
             printf "%s" "${{ secrets.GHCR_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
