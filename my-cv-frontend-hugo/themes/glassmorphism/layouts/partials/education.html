@@ -1,0 +1,18 @@
+<!-- Education -->
+<section id="education" class="scroll-mt">
+    <h2 class="section-title">
+        <i class="fas fa-graduation-cap"></i> Education
+    </h2>
+    <div class="grid-2">
+        {{- range .Site.Data.content.education }}
+        <div class="edu-card glass">
+            <div class="edu-header">
+                <h3>{{ .degree }}</h3>
+                <img src="{{ .logo | relURL }}" alt="{{ .school }}" loading="lazy">
+            </div>
+            <p class="edu-loc">{{ .school }}, {{ .location }}</p>
+            <p class="edu-year">{{ .years }}</p>
+        </div>
+        {{- end }}
+    </div>
+</section>

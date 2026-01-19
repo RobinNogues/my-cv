@@ -1,0 +1,211 @@
+// =============================================================================
+// HERO SECTION
+// =============================================================================
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: center; // Old: usually implied or standard? Yes, old had text-align: center on mobile
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        justify-content: space-between; // Old had justify-between
+        text-align: left;
+    }
+}
+
+.hero-text {
+    flex: 1;
+    // text-align? Old: text-align: center (mobile) -> left (desktop)
+
+    h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        letter-spacing: -0.025em; // Old had this
+
+        // Intermediate breakpoint removed for strict matching
+        /*
+        @media (min-width: 640px) {
+            font-size: 3rem;
+        }
+        */
+
+        @media (min-width: 1024px) {
+            font-size: 4.5rem;
+        }
+
+        strong {
+            // Old was .text-gradient span. The HTML might use <strong> or <span class="text-gradient">.
+            // Assuming HTML uses class="text-gradient" OR <strong> tag with these styles.
+            // Old CSS has .text-gradient class.
+            // If strict match, we should keep the gradient on the text as it WAS in the old site (confirmed with .text-gradient in old_style.css.beautified:181)
+            background: linear-gradient(to right, var(--primary-500), #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    }
+
+    p {
+        font-size: 1rem; // Old: 1rem
+        color: var(--text-muted);
+        max-width: 36rem; // Old: 36rem (New was 40rem)
+        margin: 0 auto 1.5rem;
+
+        // Old: No intermediate breakpoint
+        @media (min-width: 1024px) {
+            // Old: margin: 0 0 2rem; font-size: 1.25rem;
+            margin: 0 0 2rem;
+            font-size: 1.25rem;
+        }
+
+        /* 
+        @media (min-width: 640px) {
+            font-size: 1.25rem;
+        }
+        */
+    }
+}
+
+.hero-actions {
+    display: flex;
+    // flex-wrap? Old: flex-wrap: nowrap (step 242 line 470)
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.5rem;
+
+    @media (min-width: 1024px) {
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+}
+
+// Buttons
+.btn-primary {
+    display: inline-flex; // Old was usually inline-flex or block? Old: padding etc.
+    // Old: background-color: var(--slate-900);
+    align-items: center;
+    gap: 0.5rem; // Old had gap? Not strictly in snippet 472, but likely fine.
+
+    background-color: var(--slate-900); // Old
+    background-image: none; // Override gradient
+    color: white;
+    font-weight: 600;
+    padding: 0.625rem 1rem; // Old: 0.625rem 1rem (Mobile)
+    font-size: 0.875rem;
+
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+
+    @media (min-width: 1024px) {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+
+    [data-theme="dark"] & {
+        background-color: white;
+        color: var(--slate-900);
+    }
+
+    &:hover {
+        background-color: var(--primary-700);
+        color: white;
+        // Old didn't have transform/shadow in the snippet? 
+        // Snippet line 480: background-color: var(--primary-700); color: white;
+    }
+}
+
+.btn-glass,
+.btn-icon-glass {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent; // Old: transparent. Not var(--bg-card)
+    color: var(--text-main);
+    font-weight: 600;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 9999px;
+    border: 1px solid transparent; // Explicit border for layout stability
+    backdrop-filter: none;
+    transition: all 0.3s ease;
+    // Old snippet line 492: btn-glass { ... background: transparent ... }
+
+    @media (min-width: 1024px) {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.5); // Old
+        color: var(--primary-500);
+
+        [data-theme="dark"] & {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+    }
+
+    // i {
+    //     // font-size? Old let it inherit or be specific
+    // }
+}
+
+.btn-icon-glass {
+    padding: 0.625rem 1rem; // Same as base? Old snippet had overrides?
+    // Old snippet 513: width: auto; height: auto; justify-content: center;
+}
+
+// Hero Image
+.hero-img-container {
+    position: relative;
+    width: 12rem;
+    height: 12rem;
+    flex-shrink: 0;
+
+    @media (min-width: 1024px) {
+        width: 20rem;
+        height: 20rem;
+    }
+}
+
+.hero-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top right, var(--primary-500), #a855f7);
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.2;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.hero-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 30%;
+    border: 4px solid white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+    [data-theme="dark"] & {
+        border-color: var(--slate-800);
+    }
+}

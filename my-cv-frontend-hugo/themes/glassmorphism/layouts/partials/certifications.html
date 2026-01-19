@@ -1,0 +1,45 @@
+<!-- Certifications -->
+<section id="certifications" class="scroll-mt">
+    <h2 class="section-title">
+        <i class="fas fa-certificate"></i> Certifications and Courses
+    </h2>
+    <div class="cert-grid">
+        {{- range .Site.Data.content.certifications }}
+        <article class="cert-card glass">
+            <div class="cert-header">
+                {{- if eq .icon_type "image" }}
+                <img src="{{ .icon | relURL }}" alt="{{ .issuer }}" class="cert-icon" loading="lazy">
+                {{- else }}
+                <i class="{{ .icon }} cert-icon"></i>
+                {{- end }}
+                {{- if .link }}
+                <a href="{{ .link }}" target="_blank" rel="noopener noreferrer" class="ext-link"
+                    aria-label="Verify Certificate">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                {{- end }}
+            </div>
+            <h3 class="cert-title">{{ .title }}</h3>
+            <p class="cert-issuer">{{ .issuer }}</p>
+
+            {{- if .courses }}
+            <details>
+                <summary class="summary-content">
+                    <span>Show Courses</span>
+                    <i class="fas fa-chevron-down summary-chevron"></i>
+                </summary>
+                <div class="details-content-wrapper">
+                    <ul class="course-list">
+                        {{- range .courses }}
+                        <li>{{ . }}</li>
+                        {{- end }}
+                    </ul>
+                </div>
+            </details>
+            {{- end }}
+
+            <span class="cert-date mt-auto pt-4">{{ .date }}</span>
+        </article>
+        {{- end }}
+    </div>
+</section>

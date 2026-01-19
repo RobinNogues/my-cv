@@ -1,0 +1,256 @@
+// =============================================================================
+// BASE STYLES & RESET
+// =============================================================================
+
+// Reset
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+// Container
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+}
+
+// Glassmorphism
+.glass {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--bg-glass-border);
+}
+
+// Text utilities
+.text-gradient {
+    background: linear-gradient(to right, var(--primary-500), #f59e0b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.text-primary-500 {
+    color: var(--primary-500) !important;
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+// Spacing utilities
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
+.pt-4 {
+    padding-top: 1rem;
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}
+
+// Display utilities
+.hidden {
+    display: none !important;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+// Section utilities
+.section-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    gap: 0.75rem;
+    display: flex;
+    align-items: center;
+
+    @media (min-width: 640px) {
+        font-size: 1.875rem;
+    }
+
+    i {
+        color: var(--primary-500);
+    }
+}
+
+.scroll-mt {
+    scroll-margin-top: 7rem;
+}
+
+// Main content container
+.main-content {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    @media (min-width: 1024px) {
+        padding-top: 6rem;
+        gap: 6rem;
+    }
+}
+
+// Background decoration
+.bg-decoration {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 50%;
+    filter: blur(64px);
+    opacity: 0.7;
+    mix-blend-mode: multiply;
+
+    [data-theme="dark"] & {
+        mix-blend-mode: screen;
+    }
+}
+
+.blob-1 {
+    top: 0;
+    left: 25%;
+    background-color: var(--blob-1);
+}
+
+.blob-2 {
+    top: 0;
+    right: 25%;
+    background-color: var(--blob-2);
+}
+
+.blob-3 {
+    bottom: -2rem;
+    left: 33%;
+    background-color: var(--blob-3);
+}
+
+// Animations
+@keyframes blob {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.delay-2000 {
+    animation-delay: 2s;
+}
+
+.delay-4000 {
+    animation-delay: 4s;
+}
+
+// Theme transition classes
+.theme-transition {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+}
+
+// Scroll reveal animation
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Honeypot field
+.hp-field {
+    display: none;
+}

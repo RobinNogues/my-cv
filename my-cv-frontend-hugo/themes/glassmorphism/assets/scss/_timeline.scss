@@ -1,0 +1,204 @@
+// =============================================================================
+// TIMELINE (Experience)
+// =============================================================================
+
+.timeline {
+    position: relative;
+    padding-left: 0.5rem; // Old: 0.5rem
+
+    // Old: no explicit media query for padding here, but let's see. 
+    // Old CSS had .timeline { padding-left: 0.5rem; }
+    // but .timeline-item { padding-left: 1.2rem }
+
+    // In strict match, I should probably stick to the explicit old structure or emulate it closely.
+    // The old CSS had:
+    /*
+    .timeline { position: relative; padding-left: 0.5rem; }
+    .timeline::before { left: 8px; width: 2px; background: var(--slate-200); }
+    .timeline-item { padding-left: 1.2rem; }
+    .timeline-dot { left: 1px; top: 6px; width: 16px; height: 16px; border: 3px solid var(--primary-500); background: var(--bg-body); }
+    
+    @media (min-width: 1024px) {
+        .timeline::before { left: 20px; }
+        .timeline-item { padding-left: 3.5rem; }
+        .timeline-dot { left: 11px; width: 20px; height: 20px; border-width: 4px; }
+    }
+    */
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 8px; // Old: 8px
+        width: 2px;
+        background: var(--slate-200); // Old: Solid slate-200
+        z-index: 0;
+        transition: background-color 0.3s ease;
+
+        [data-theme="dark"] & {
+            background: var(--slate-700); // Old: Solid slate-700
+        }
+
+        @media (min-width: 1024px) {
+            left: 20px; // Old: 20px
+        }
+    }
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 1.2rem; // Old: 1.2rem
+    margin-bottom: 3rem; // Old: 3rem vs 2rem
+
+    @media (min-width: 1024px) {
+        padding-left: 3.5rem; // Old: 3.5rem
+    }
+
+    // &:last-child {
+    //    margin-bottom: 0; 
+    // }
+
+    &:hover .timeline-dot {
+        transform: scale(1.25);
+    }
+
+    // Alternate dot logic was in old CSS, adding it back if needed, 
+    // though the HTML might not support .alt class generation unless I change valid Hugo template.
+    // I won't add .alt logic unless I see it in HTML.
+
+    &:hover .timeline-dot.alt {
+        border-color: var(--primary-500);
+    }
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 1px; // Old: 1px
+    top: 6px; // Old: 6px
+    width: 16px; // Old: 16px
+    height: 16px;
+    background-color: var(--bg-body); // Old: bg-body (hollow effect with border)
+    border: 3px solid var(--primary-500); // Old: 3px border
+    border-radius: 50%;
+    z-index: 10;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+
+    @media (min-width: 1024px) {
+        left: 11px; // Old: 11px
+        width: 20px;
+        height: 20px;
+        border-width: 4px;
+    }
+
+    &.alt {
+        border-color: var(--slate-300);
+
+        [data-theme="dark"] & {
+            border-color: var(--slate-600);
+        }
+    }
+}
+
+.timeline-card {
+    // Glassmorphism is kept presumably as 'glass' class is separate, 
+    // but old CSS had:
+    /*
+    .timeline-card { padding: 1.5rem; border-radius: 1rem; }
+    */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    // Keep animations/transitions? Old CSS had them?
+    // Old CSS: transition: transform 0.3s ease...
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+        border-color: var(--primary-500);
+        box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
+        transform: translateY(-0.5rem);
+    }
+
+    [data-theme="dark"] &:hover {
+        box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+    }
+
+    // .glass class handles background/border.
+}
+
+
+.exp-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    @media (min-width: 1024px) {
+        flex-direction: row; // Old switched at 1024px probably? 
+        // Actually old CSS says '.exp-header { flex-direction: row; align-items: center; }' inside @media (min-width: 1024px)
+        align-items: center;
+    }
+}
+
+.exp-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    // color inherited usually
+}
+
+.exp-company {
+    color: var(--primary-500);
+    font-weight: 500;
+    display: flex; // Added to match flex gap
+    gap: 0.5rem;
+    align-items: center;
+
+    img {
+        width: 1.25rem; // Old: 1.25rem
+        height: 1.25rem;
+        object-fit: contain;
+    }
+}
+
+.exp-date {
+    // Badge Style!
+    font-size: 0.875rem;
+    font-family: monospace;
+    color: var(--slate-500);
+    background-color: var(--slate-100);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px; // Old had utilities for this .btn-contact, .exp-date... { border-radius: 9999px }
+    width: fit-content;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+    [data-theme="dark"] & {
+        background-color: rgba(51, 65, 85, 0.5); // Old value
+        // color? Old didn't explicitly change text color in dark mode for exp-date, inherited or default?
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0;
+    }
+}
+
+.exp-list {
+    list-style: disc;
+    list-style-position: inside;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+
+    // li {
+    //     // padding? Old didn't have explicit padding on li in snippet shown, but new SCSS does. 
+    //     // Let's keep minimal or remove if "strict".
+    //     // Old snippet: No explicit LI padding seen in 1-800 view range? 
+    //     // Ah, checked snippet: .exp-list li::marker { color: var(--primary-500); }
+    //     // New SCSS has padding: 0.25rem 0;
+    //     // I will keep padding it looks better and likely was there or default.
+    // }
+
+    li::marker {
+        color: var(--primary-500);
+    }
+}

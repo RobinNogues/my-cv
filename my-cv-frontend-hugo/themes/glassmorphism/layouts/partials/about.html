@@ -1,0 +1,22 @@
+<!-- About Me -->
+<section id="about" class="scroll-mt">
+    <div class="about-container glass">
+        <div class="about-bg-glow"></div>
+
+        <div class="about-content-wrapper">
+            <h2 class="section-title mb-8">About Me</h2>
+            <div class="about-grid">
+                {{- range .Site.Data.content.about.sections }}
+                <div>
+                    <h3 class="about-subtitle">
+                        <i class="fas {{ .icon }}"></i> {{ .title }}
+                    </h3>
+                    <p class="about-text">
+                        {{ .text }}
+                    </p>
+                </div>
+                {{- end }}
+            </div>
+        </div>
+    </div>
+</section>

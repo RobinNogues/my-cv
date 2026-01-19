@@ -1,0 +1,75 @@
+{{- $site := .Site.Data.content.site -}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ $site.name }} - {{ $site.title }}</title>
+<link rel="icon" type="image/svg+xml" href="{{ "images/favicon.svg" | relURL }}">
+<meta name="description" content="{{ $site.name }} - {{ $site.title }} Portfolio. {{ $site.description }}">
+
+<!-- Preload LCP Image -->
+<link rel="preload" as="image" href="{{ $site.image | relURL }}" fetchpriority="high">
+
+<meta name="keywords" content="{{ $site.keywords }}">
+<meta name="robots" content="index, follow">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ $site.url }}/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ $site.url }}/">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="{{ $site.name }} - {{ $site.title }}">
+<meta property="og:description" content="Portfolio of {{ $site.name }}. {{ $site.description }}">
+<meta property="og:image" content="{{ $site.url }}/{{ $site.image }}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="{{ $site.url }}/">
+<meta property="twitter:title" content="{{ $site.name }} - {{ $site.title }}">
+<meta property="twitter:description" content="Portfolio of {{ $site.name }}. {{ $site.description }}">
+<meta property="twitter:image" content="{{ $site.url }}/{{ $site.image }}">
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ $site.name }}",
+  "url": "{{ $site.url }}",
+  "image": "{{ $site.url }}/{{ $site.image }}",
+  "sameAs": [
+    "{{ $site.linkedin }}",
+    "{{ $site.github }}"
+  ],
+  "jobTitle": "{{ $site.title }}"
+}
+</script>
+
+<!-- Preload Critical Fonts -->
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-Regular.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-Bold.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
+
+<!-- Icons (Async Load) -->
+<link rel="stylesheet" href="{{ "fontawesome.css" | relURL }}?v=1.2" media="print" id="fa-css">
+<noscript>
+  <link rel="stylesheet" href="{{ "fontawesome.css" | relURL }}?v=1.2">
+</noscript>
+<script>
+  // Switch Font Awesome from print to all media once loaded
+  document.getElementById('fa-css').addEventListener('load', function () {
+    this.media = 'all';
+  });
+  // Fallback for already loaded
+  if (document.getElementById('fa-css').sheet) {
+    document.getElementById('fa-css').media = 'all';
+  }
+</script>
+
+<!-- Styles -->
+{{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}
+<link rel="preload" href="{{ $style.Permalink }}" as="style">
+<link rel="stylesheet" href="{{ $style.Permalink }}">
+
+<!-- Theme Initialization -->
+<script src="{{ "theme.js" | relURL }}?v=1.2"></script>
+<script type="module" src="{{ "script.js" | relURL }}?v=1.2"></script>

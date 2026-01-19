@@ -1,0 +1,19 @@
+baseURL: "/"
+languageCode: "en"
+title: "CV Portfolio"
+theme: glassmorphism
+
+# Disable unnecessary features for a single-page site
+disableKinds:
+  - taxonomy
+  - term
+  - RSS
+  - sitemap
+
+# Build settings
+buildDrafts: false
+buildFuture: false
+
+# Minify output in production
+minify:
+  minifyOutput: true
