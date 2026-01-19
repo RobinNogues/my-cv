@@ -82,7 +82,7 @@
     --bg-card: rgba(255, 255, 255, 0.85);
     --bg-glass-border: rgba(255, 255, 255, 0.3);
     --text-main: var(--slate-800);
-    --text-muted: var(--slate-700);
+    --text-muted: var(--slate-600); // Darkened for WCAG AA contrast on glass
     --text-inverted: #ffffff;
 
     // Decoration Colors

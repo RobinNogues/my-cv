@@ -12,6 +12,7 @@ www.{$CADDY_DOMAIN} {
 
 # Main site
 {$CADDY_DOMAIN} {
+    encode zstd gzip
     # Security headers
     header {
         X-Frame-Options "SAMEORIGIN"

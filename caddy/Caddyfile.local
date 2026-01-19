@@ -10,6 +10,7 @@
 # Main site (localhost)
 localhost {
     tls internal
+    encode zstd gzip
 
     # Security headers
     header {

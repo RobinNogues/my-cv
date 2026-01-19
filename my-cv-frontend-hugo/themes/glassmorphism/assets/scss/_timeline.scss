@@ -147,14 +147,18 @@
 }
 
 .exp-company {
-    color: var(--primary-500);
+    color: var(--primary-700); // Darker for WCAG AA contrast
     font-weight: 500;
-    display: flex; // Added to match flex gap
+    display: flex;
     gap: 0.5rem;
     align-items: center;
 
+    [data-theme="dark"] & {
+        color: var(--primary-400); // Lighter for dark mode contrast
+    }
+
     img {
-        width: 1.25rem; // Old: 1.25rem
+        width: 1.25rem;
         height: 1.25rem;
         object-fit: contain;
     }
@@ -164,7 +168,7 @@
     // Badge Style!
     font-size: 0.875rem;
     font-family: monospace;
-    color: var(--slate-500);
+    color: var(--slate-600); // Darker for WCAG AA contrast
     background-color: var(--slate-100);
     padding: 0.25rem 0.75rem;
     border-radius: 9999px; // Old had utilities for this .btn-contact, .exp-date... { border-radius: 9999px }
@@ -174,7 +178,7 @@
 
     [data-theme="dark"] & {
         background-color: rgba(51, 65, 85, 0.5); // Old value
-        // color? Old didn't explicitly change text color in dark mode for exp-date, inherited or default?
+        color: var(--slate-300); // Lighter color for better contrast
     }
 
     @media (min-width: 1024px) {
