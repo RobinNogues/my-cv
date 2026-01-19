@@ -3,7 +3,7 @@ name: Build and Deploy to Production VPS
 on:
   push:
     branches:
-      - main
+      - use_hugo
   workflow_dispatch:
 
 env:
