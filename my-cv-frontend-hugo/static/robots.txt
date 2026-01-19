@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://robinnogues.github.io/sitemap.xml

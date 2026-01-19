@@ -12,23 +12,23 @@
 }
 
 .filter-btn {
-    padding: 0.5rem 1.25rem;
+    padding: 0.75rem 1.5rem; // Increased from 0.5rem 1.25rem for 48px touch target
     font-size: 0.875rem;
-    font-weight: 600; // Old: 600 vs 500
+    font-weight: 600;
     border-radius: 9999px;
-    color: var(--slate-500); // Old: slate-500
-    background-color: var(--slate-100); // Old: slate-100
-    border: 1px solid transparent; // Old: transparent
-    transition: all 0.3s ease; // Old: 0.3s
+    color: var(--slate-600); // Darkened from slate-500 for contrast
+    background-color: var(--slate-100);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
 
     [data-theme="dark"] & {
         background-color: rgba(30, 41, 59, 0.5);
-        color: var(--slate-400);
+        color: var(--slate-300); // Lightened from slate-400 for contrast
     }
 
     &:hover {
         background-color: var(--primary-100);
-        color: var(--primary-600);
+        color: var(--primary-700); // Darkened from primary-600
 
         [data-theme="dark"] & {
             background-color: rgba(249, 115, 22, 0.2);
@@ -37,10 +37,9 @@
     }
 
     &.active {
-        background-color: var(--primary-500); // Old: Solid
+        background-color: var(--primary-600); // Darkened from primary-500 for contrast
         color: white;
-        box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3); // Old shadow
-        // border-color? Old: kept transparent or default
+        box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3); // Adjusted shadow color to match
     }
 }
 

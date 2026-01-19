@@ -3,7 +3,7 @@
 <nav class="navbar">
     <div class="container">
         <div class="nav-content glass">
-            <a href="#" class="nav-logo">
+            <a href="{{ .Site.BaseURL }}" class="nav-logo">
                 {{ index (split $site.name " ") 0 }}<span>.{{ index (split $site.name " ") 1 }}</span>
             </a>
 

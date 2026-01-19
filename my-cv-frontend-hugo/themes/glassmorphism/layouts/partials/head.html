@@ -54,22 +54,13 @@
 <noscript>
   <link rel="stylesheet" href="{{ "fontawesome.css" | relURL }}?v=1.2">
 </noscript>
-<script>
-  // Switch Font Awesome from print to all media once loaded
-  document.getElementById('fa-css').addEventListener('load', function () {
-    this.media = 'all';
-  });
-  // Fallback for already loaded
-  if (document.getElementById('fa-css').sheet) {
-    document.getElementById('fa-css').media = 'all';
-  }
-</script>
+<script src="{{ "fa-init.js" | relURL }}"></script>
 
 <!-- Styles -->
 {{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}
 <link rel="preload" href="{{ $style.Permalink }}" as="style">
 <link rel="stylesheet" href="{{ $style.Permalink }}">
 
-<!-- Theme Initialization -->
-<script src="{{ "theme.js" | relURL }}?v=1.2"></script>
-<script type="module" src="{{ "script.js" | relURL }}?v=1.2"></script>
+<!-- Theme Initialization (must run before render) -->
+<script src="{{ "theme-init.js" | relURL }}"></script>
+<script src="{{ "script.js" | relURL }}?v=1.2" defer></script>

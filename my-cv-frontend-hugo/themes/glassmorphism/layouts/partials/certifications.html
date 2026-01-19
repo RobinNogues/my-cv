@@ -8,7 +8,8 @@
         <article class="cert-card glass">
             <div class="cert-header">
                 {{- if eq .icon_type "image" }}
-                <img src="{{ .icon | relURL }}" alt="{{ .issuer }}" class="cert-icon" loading="lazy">
+                <img src="{{ .icon | relURL }}" alt="{{ .issuer }}" class="cert-icon" loading="lazy" width="40"
+                    height="40">
                 {{- else }}
                 <i class="{{ .icon }} cert-icon"></i>
                 {{- end }}

@@ -8,7 +8,7 @@
         <div class="edu-card glass">
             <div class="edu-header">
                 <h3>{{ .degree }}</h3>
-                <img src="{{ .logo | relURL }}" alt="{{ .school }}" loading="lazy">
+                <img src="{{ .logo | relURL }}" alt="{{ .school }}" loading="lazy" width="40" height="40">
             </div>
             <p class="edu-loc">{{ .school }}, {{ .location }}</p>
             <p class="edu-year">{{ .years }}</p>
