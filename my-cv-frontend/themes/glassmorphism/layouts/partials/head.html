@@ -45,9 +45,12 @@
 }
 </script>
 
-<!-- Preload Critical Fonts -->
-<link rel="preload" href="{{ "fonts/PlusJakartaSans-Regular.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
-<link rel="preload" href="{{ "fonts/PlusJakartaSans-Bold.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
+<!-- Preload Critical Fonts (WOFF2) - ExtraBold is used by H1/LCP -->
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-Regular.woff2" | relURL }}" as="font" type="font/woff2"
+  crossorigin>
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-Bold.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-ExtraBold.woff2" | relURL }}" as="font" type="font/woff2"
+  crossorigin>
 
 <!-- Icons (Async Load) -->
 <link rel="stylesheet" href="{{ "fontawesome.css" | relURL }}?v=1.2" media="print" id="fa-css">
