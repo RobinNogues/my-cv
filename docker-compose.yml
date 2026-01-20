@@ -1,7 +1,6 @@
 services:
   frontend:
-    build: ./my-cv-frontend-hugo
-    image: my-cv-frontend-hugo:local
+    image: ghcr.io/robinnogues/my-cv-frontend:latest
     container_name: cv_frontend
     restart: unless-stopped
 

@@ -1,6 +1,18 @@
+# Build stage with Hugo Extended (for SCSS support)
+FROM hugomods/hugo:exts AS builder
+
+WORKDIR /src
+COPY . .
+
+# Build the site
+RUN hugo --minify
+
+# Production stage
 FROM nginx:alpine
 
-COPY . /usr/share/nginx/html
+# Copy built site from builder
+# Copy built site from builder
+COPY --from=builder /src/public /usr/share/nginx/html
 
 EXPOSE 80
 
