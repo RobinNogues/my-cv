@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
     initDetailsAnimation();
     initSkillFilters();
+    initContactForm();
 });
 
 
@@ -478,3 +479,105 @@ function initSkillFilters() {
         });
     });
 }
+
+/**
+ * 8. Contact Form Handling
+ * Submits form data to the backend API.
+ */
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Honeypot check
+        const honeypot = document.getElementById('address');
+        if (honeypot && honeypot.value) {
+            // Silently fail for bots
+            return;
+        }
+
+        // UI Loading State
+        const originalBtnContent = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i> Sending...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        delete data.address; // Remove honeypot
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                showToast('success', result.message || 'Message sent successfully!');
+                form.reset();
+            } else {
+                const errorData = await response.json();
+                handleFormError(errorData);
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+            showToast('error', 'Network error. Please try again later.');
+        } finally {
+            submitBtn.innerHTML = originalBtnContent;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+/**
+ * Helper: Handle Form Errors
+ */
+function handleFormError(errorData) {
+    let errorMessage = 'Failed to send message.';
+
+    if (errorData?.detail) {
+        if (typeof errorData.detail === 'string') {
+            errorMessage = errorData.detail;
+        } else if (Array.isArray(errorData.detail)) {
+            // Handle FastAPI validation errors
+            const fieldErrors = errorData.detail.map(err => {
+                const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'Field';
+                return `${field}: ${err.msg}`;
+            }).join('. ');
+            errorMessage = `Validation Error, ${fieldErrors}`;
+        }
+    }
+    showToast('error', errorMessage);
+}
+
+/**
+ * Helper: Show Toast Notification
+ */
+function showToast(type, message) {
+    const toast = document.getElementById('form-toast');
+    const toastMsg = document.getElementById('toast-message');
+    const toastIcon = document.getElementById('toast-icon');
+
+    if (!toast || !toastMsg || !toastIcon) return;
+
+    // Reset and Set Type
+    toast.className = `toast ${type === 'success' ? 'toast-success' : 'toast-error'}`;
+    toastIcon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    toastMsg.textContent = message;
+
+    // Show
+    requestAnimationFrame(() => {
+        toast.classList.add('visible');
+    });
+
+    // Auto Hide
+    setTimeout(() => {
+        toast.classList.remove('visible');
+    }, 5000);
+}
+
