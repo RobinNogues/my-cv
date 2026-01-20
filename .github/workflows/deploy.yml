@@ -36,6 +36,8 @@ jobs:
           context: ./my-cv-frontend
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
+          build-args: |
+            HUGO_BASEURL=https://${{ secrets.DOMAIN }}
 
       - name: Build and push backend image
         uses: docker/build-push-action@v6

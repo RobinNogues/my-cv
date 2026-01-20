@@ -4,8 +4,9 @@ FROM hugomods/hugo:exts AS builder
 WORKDIR /src
 COPY . .
 
+ARG HUGO_BASEURL=/
 # Build the site
-RUN hugo --minify
+RUN hugo --minify --baseURL ${HUGO_BASEURL}
 
 # Production stage
 FROM nginx:alpine

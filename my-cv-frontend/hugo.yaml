@@ -2,6 +2,7 @@ baseURL: "/"
 languageCode: "en"
 title: "CV Portfolio"
 theme: glassmorphism
+enableRobotsTXT: true
 
 # Disable unnecessary features for a single-page site
 disableKinds:

@@ -61,8 +61,8 @@
 
 <!-- Styles -->
 {{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}
-<link rel="preload" href="{{ $style.Permalink }}" as="style">
-<link rel="stylesheet" href="{{ $style.Permalink }}">
+<link rel="preload" href="{{ $style.RelPermalink }}" as="style">
+<link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
 <!-- Theme Initialization (must run before render) -->
 <script src="{{ "theme-init.js" | relURL }}"></script>
