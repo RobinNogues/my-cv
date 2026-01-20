@@ -36,12 +36,25 @@
   "@type": "Person",
   "name": "{{ $site.name }}",
   "url": "{{ $site.url }}",
-  "image": "{{ $site.url }}/{{ $site.image }}",
+  "image": "{{ $site.url | safeURL }}/{{ $site.image }}",
   "sameAs": [
     "{{ $site.linkedin }}",
     "{{ $site.github }}"
   ],
-  "jobTitle": "{{ $site.title }}"
+  "jobTitle": "{{ $site.title }}",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "{{ (index .Site.Data.content.experience 0).company }}"
+  },
+  "alumniOf": [
+    {{- range $index, $edu := .Site.Data.content.education }}
+    {{- if $index }},{{ end }}
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "{{ $edu.school }}"
+    }
+    {{- end }}
+  ]
 }
 </script>
 

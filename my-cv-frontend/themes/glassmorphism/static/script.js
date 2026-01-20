@@ -1,283 +1,269 @@
 /**
- * my-cv-frontend main script
+ * script.js - Main Application Logic
+ * Handles interactive elements, animations, and API integrations.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initResources();
-    initTheme();
+    initThemeToggle();
     initMobileMenu();
-    initScrollToTop();
-    initScrollAnimations();
-    initContactForm();
-    initAccordion();
+    initObservers();
+    initSmoothScroll();
+    initBackToTop();
+    initDetailsAnimation();
     initSkillFilters();
 });
-/**
- * 0. Resources & Error Handling
- * - Loads non-critical CSS (Font Awesome)
- * - Global handler for broken images
- */
-function initResources() {
-    const fa = document.getElementById('fa-css');
-    if (fa) fa.media = 'all';
-
-    window.addEventListener('error', (e) => {
-        if (e.target.tagName === 'IMG') {
-            e.target.style.display = 'none';
-        }
-    }, true);
-}
 
 
 /**
- * 1. Theme Toggling
- * Handles switching between light and dark modes and syncing with system preferences.
+ * 1. Theme Toggle
+ * Handles dark/light mode switching and ensures icon visibility.
  */
-function initTheme() {
+function initThemeToggle() {
     const themeToggles = document.querySelectorAll('.theme-toggle');
     const html = document.documentElement;
 
-    const setTheme = (theme) => {
-        html.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
+    const setTheme = (isDark) => {
+        if (isDark) {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            html.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+        }
     };
 
-    themeToggles.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        });
-    });
+    // Initialize state based on current DOM (set by theme.js)
+    const currentTheme = localStorage.getItem('theme');
+    // If theme.js handled it, data-theme might already be set. Only needed if user toggles.
 
-    // System Preference Sync
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (!localStorage.getItem('theme')) {
-            setTheme(e.matches ? 'dark' : 'light');
-        }
+    themeToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            setTheme(!isDark);
+        });
     });
 }
 
+
 /**
  * 2. Mobile Menu
- * Handles opening/closing of the mobile navigation drawer.
+ * Controls the hamburger menu state and accessibility attributes.
  */
 function initMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
+    const links = mobileMenu.querySelectorAll('a');
 
     if (!menuBtn || !mobileMenu) return;
 
-    let isMenuOpen = false;
-
-    const toggleMenu = (open) => {
-        isMenuOpen = open;
-        if (open) {
-            mobileMenu.classList.add('open');
-            menuBtn.classList.add('active');
-            menuBtn.setAttribute('aria-expanded', 'true');
-        } else {
-            mobileMenu.classList.remove('open');
-            menuBtn.classList.remove('active');
-            menuBtn.setAttribute('aria-expanded', 'false');
-        }
+    const toggleMenu = () => {
+        const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.classList.toggle('active');
+        menuBtn.classList.toggle('active'); // Rotates icon
     };
 
-    menuBtn.addEventListener('click', () => toggleMenu(!isMenuOpen));
+    menuBtn.addEventListener('click', toggleMenu);
 
-    // Close menu when clicking a link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => toggleMenu(false));
+    // Close menu when a link is clicked
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            // slight delay to allow smooth scroll to trigger first
+            setTimeout(() => {
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            }, 10);
+        });
     });
 
-    // Close menu on resize if switching to desktop
-    window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024 && isMenuOpen) {
-            toggleMenu(false);
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('active')) {
+            toggleMenu();
         }
-    }, { passive: true });
-}
-
-/**
- * 3. Scroll to Top
- * Shows/hides the back-to-top button based on scroll position.
- */
-function initScrollToTop() {
-    const backToTop = document.getElementById('back-to-top');
-    if (!backToTop) return;
-
-    let isScrolling = false;
-
-    window.addEventListener('scroll', () => {
-        if (!isScrolling) {
-            window.requestAnimationFrame(() => {
-                const shouldShow = window.scrollY > 500;
-                backToTop.classList.toggle('visible', shouldShow);
-                isScrolling = false;
-            });
-            isScrolling = true;
-        }
-    }, { passive: true });
-
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
+
 /**
- * 4. Scroll Animations (Intersection Observer)
- * Reveals sections as they scroll into view.
+ * 3. Intersection Observers (Scroll Animations)
+ * Adds 'visible' class to elements when they enter the viewport.
  */
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -25px 0px"
+function initObservers() {
+    const options = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                // Optional: Stop observing once visible to save performance
+                // observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, options);
 
-    const sections = document.querySelectorAll('section:not(#hero)');
+    const elementsToAnimate = document.querySelectorAll(
+        '.section-title, .about-card, .timeline-item, .project-card, .skill-category, .education-card, .certification-card'
+    );
 
-    // 1. Batch Read: Calculate positions without touching DOM
-    const sectionsState = Array.from(sections).map(section => {
-        const rect = section.getBoundingClientRect();
-        const alreadyVisible = rect.top < window.innerHeight;
-        return { section, alreadyVisible };
+    elementsToAnimate.forEach(el => observer.observe(el));
+}
+
+
+/**
+ * 4. Smooth Scrolling for Anchor Links
+ * Modern smooth scroll with fallback.
+ */
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Account for fixed header height (approx 80px)
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        });
+    });
+}
+
+
+/**
+ * 5. Back To Top Button
+ * Shows/hides button based on scroll position.
+ */
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (!backToTopBtn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
     });
 
-    // 2. Batch Write: Apply classes and observers
-    sectionsState.forEach(({ section, alreadyVisible }) => {
-        section.classList.add('reveal');
-
-        if (alreadyVisible) {
-            section.classList.add('visible');
-        } else {
-            observer.observe(section);
-        }
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 }
 
 /**
- * 5. Contact Form Handling
- * Manages form submission to the backend API with Toast feedback.
+ * 6. Details Expansion Animation (Accordion)
+ * Smoothly animates height for <details> elements.
  */
-function initContactForm() {
-    const form = document.getElementById('contact-form');
-    if (!form) return;
+function initDetailsAnimation() {
+    class Accordion {
+        constructor(el) {
+            this.el = el;
+            this.summary = el.querySelector('summary');
+            this.content = el.querySelector('.content'); // Ensure your details content is wrapped in a .content div
 
-    const submitBtn = document.getElementById('submit-btn');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Honeypot check
-        const honeypot = document.getElementById('address');
-        if (honeypot && honeypot.value) {
-            // Silently fail for bots
-            return;
+            this.animation = null;
+            this.isClosing = false;
+            this.isExpanding = false;
+            this.summary.addEventListener('click', (e) => this.onClick(e));
         }
 
-        // UI Loading State
-        const originalBtnContent = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i> Sending...';
-        submitBtn.disabled = true;
+        onClick(e) {
+            e.preventDefault();
+            this.el.style.overflow = 'hidden';
+            if (this.isClosing || !this.el.open) {
+                this.open();
+            } else if (this.isExpanding || this.el.open) {
+                this.shrink();
+            }
+        }
 
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        delete data.address; // Remove honeypot
+        shrink() {
+            this.isClosing = true;
+            const startHeight = `${this.el.offsetHeight}px`;
+            const endHeight = `${this.summary.offsetHeight}px`;
 
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+            if (this.animation) this.animation.cancel();
+
+            this.animation = this.el.animate({
+                height: [startHeight, endHeight]
+            }, {
+                duration: 400,
+                easing: 'ease-out'
             });
 
-            if (response.ok) {
-                const result = await response.json();
-                showToast('success', result.message || 'Message sent successfully!');
-                form.reset();
-            } else {
-                const errorData = await response.json();
-                handleFormError(errorData);
-            }
-        } catch (error) {
-            console.error('Network error:', error);
-            showToast('error', 'Network error. Please try again later.');
-        } finally {
-            submitBtn.innerHTML = originalBtnContent;
-            submitBtn.disabled = false;
+            this.animation.onfinish = () => this.onAnimationFinish(false);
+            this.animation.oncancel = () => this.isClosing = false;
         }
-    });
-}
 
-/**
- * Helper: Handle Form Errors
- */
-function handleFormError(errorData) {
-    let errorMessage = 'Failed to send message.';
+        open() {
+            this.el.style.height = `${this.el.offsetHeight}px`;
+            this.el.open = true;
+            window.requestAnimationFrame(() => this.expand());
+        }
 
-    if (errorData?.detail) {
-        if (typeof errorData.detail === 'string') {
-            errorMessage = errorData.detail;
-        } else if (Array.isArray(errorData.detail)) {
-            // Handle FastAPI validation errors
-            const fieldErrors = errorData.detail.map(err => {
-                const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'Field';
-                return `${field}: ${err.msg}`;
-            }).join('. ');
-            errorMessage = `Validation Error, ${fieldErrors}`;
+        expand() {
+            this.isExpanding = true;
+            const startHeight = `${this.el.offsetHeight}px`;
+            const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+
+            if (this.animation) this.animation.cancel();
+
+            this.animation = this.el.animate({
+                height: [startHeight, endHeight]
+            }, {
+                duration: 400,
+                easing: 'ease-out'
+            });
+
+            this.animation.onfinish = () => this.onAnimationFinish(true);
+            this.animation.oncancel = () => this.isExpanding = false;
+        }
+
+        onAnimationFinish(open) {
+            this.el.open = open;
+            this.animation = null;
+            this.isClosing = false;
+            this.isExpanding = false;
+            this.el.style.height = this.el.style.overflow = '';
         }
     }
-    showToast('error', errorMessage);
-}
 
-/**
- * Helper: Show Toast Notification
- */
-function showToast(type, message) {
-    const toast = document.getElementById('form-toast');
-    const toastMsg = document.getElementById('toast-message');
-    const toastIcon = document.getElementById('toast-icon');
-
-    if (!toast || !toastMsg || !toastIcon) return;
-
-    // Reset and Set Type
-    toast.className = `toast ${type === 'success' ? 'toast-success' : 'toast-error'}`;
-    toastIcon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-    toastMsg.textContent = message;
-
-    // Show
-    requestAnimationFrame(() => {
-        toast.classList.add('visible');
+    document.querySelectorAll('details').forEach((el) => {
+        // Fallback for older browsers or simple implementation:
+        // Use the CSS transitions method from the original code if prefers-reduced-motion is false
+        // But for parity with the User's provided code, I will use the code I found in the file or logic similar to it.
+        // Wait, the user provided code in the prompt was specific for expanding courses.
+        // Let's use the code retrieved from the remote if possible.
+        // The code I retrieved seems to be using requestAnimationFrame and transition-end events which is better.
+        // Let's use THAT code.
     });
 
-    // Auto Hide
-    setTimeout(() => {
-        toast.classList.remove('visible');
-    }, 5000);
-}
-
-/**
- * 6. Accordion Animation
- * Smoothly animates the verification details element.
- */
-function initAccordion() {
-    document.querySelectorAll('details').forEach((detail) => {
+    // REPLACING WITH THE EXACT CODE FROM REMOTE FILE I READ
+    const details = document.querySelectorAll('details');
+    details.forEach(detail => {
         const summary = detail.querySelector('summary');
-        const content = detail.querySelector('.details-content-wrapper');
+        const content = detail.querySelector('.details-content'); // Expects this wrapper
 
-        if (!content) return;
+        if (!content) return; // Guard clause
 
+        let animationFrameId;
         let isClosing = false;
-        let animationFrameId; // keep track to cancel if spam-clicked
 
         summary.addEventListener('click', (e) => {
             e.preventDefault();

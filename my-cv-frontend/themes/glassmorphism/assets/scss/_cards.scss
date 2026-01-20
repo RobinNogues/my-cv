@@ -322,7 +322,7 @@ details[open] .summary-chevron {
     display: inline-block;
 }
 
-.details-content-wrapper {
+.details-content {
     overflow: hidden;
     // Removed 'animation: sweep'. JS handles height.
     // ADD transition so JS height change is smooth.
