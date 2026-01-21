@@ -105,9 +105,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--slate-400);
+    color: var(--slate-500);
     font-size: 1.25rem;
     transition: background-color 0.3s ease, color 0.3s ease;
+
+    [data-theme="dark"] & {
+        color: var(--slate-300);
+    }
 
     &:hover {
         background-color: var(--slate-900);
@@ -198,7 +202,7 @@
 }
 
 .edu-year {
-    color: var(--slate-400);
+    color: var(--slate-500);
     font-size: 0.75rem;
     margin-top: 0.25rem;
 }
@@ -234,8 +238,12 @@
 }
 
 .ext-link {
-    color: var(--slate-400);
+    color: var(--slate-500);
     transition: color 0.2s ease;
+
+    [data-theme="dark"] & {
+        color: var(--slate-300);
+    }
 
     &:hover {
         color: var(--primary-500);
@@ -256,7 +264,7 @@
 
 .cert-date {
     font-size: 0.75rem;
-    color: var(--slate-400);
+    color: var(--slate-500);
     margin-top: auto;
 }
 
@@ -302,11 +310,19 @@ details>summary {
     gap: 0.25rem;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--primary-400);
+    color: var(--primary-600);
     transition: color 0.3s ease;
 
+    [data-theme="dark"] & {
+        color: var(--primary-300);
+    }
+
     &:hover {
-        color: var(--primary-500);
+        color: var(--primary-700);
+
+        [data-theme="dark"] & {
+            color: var(--primary-400);
+        }
     }
 }
 
@@ -388,6 +404,12 @@ details[open] .summary-chevron {
     }
 }
 
+.about-text {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    text-align: justify;
+}
 .about-text {
     color: var(--text-muted);
     font-size: 0.875rem;
