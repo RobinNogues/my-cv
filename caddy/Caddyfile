@@ -12,7 +12,6 @@ www.{$CADDY_DOMAIN} {
 
 # Main site
 {$CADDY_DOMAIN} {
-    encode zstd gzip
     # Security headers
     header {
         X-Frame-Options "SAMEORIGIN"
@@ -22,23 +21,33 @@ www.{$CADDY_DOMAIN} {
         Content-Security-Policy "default-src 'self'; connect-src 'self' wss: https://stats.{$CADDY_DOMAIN}; script-src 'self' https://stats.{$CADDY_DOMAIN}; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
     }
 
-    handle /api/* {
-        reverse_proxy backend:8000 {
-            header_down -Server
-        }
-    }
+    route {
+        # Compression (applies to all responses in this route)
+        encode zstd gzip
 
-    # Static assets with caching
-    @static path *.ico *.webp *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.ttf *.eot
-    handle @static {
-        header Cache-Control "public, max-age=31536000, no-transform"
-        reverse_proxy frontend:80 {
-            header_down -Server
+        # API requests
+        @api path /api/*
+        handle @api {
+            reverse_proxy backend:8000 {
+                header_down -Server
+            }
         }
-    }
 
-    reverse_proxy frontend:80 {
-        header_down -Server
+        # Static assets with caching
+        @static path *.ico *.webp *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.ttf *.eot
+        handle @static {
+            header Cache-Control "public, max-age=31536000, no-transform"
+            reverse_proxy frontend:80 {
+                header_down -Server
+            }
+        }
+
+        # Default handler
+        handle {
+            reverse_proxy frontend:80 {
+                header_down -Server
+            }
+        }
     }
 }
 
