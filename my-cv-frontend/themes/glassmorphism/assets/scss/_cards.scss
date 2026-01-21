@@ -205,6 +205,10 @@
     color: var(--slate-500);
     font-size: 0.75rem;
     margin-top: 0.25rem;
+
+    [data-theme="dark"] & {
+        color: var(--slate-300);
+    }
 }
 
 // Certification Cards
@@ -266,6 +270,10 @@
     font-size: 0.75rem;
     color: var(--slate-500);
     margin-top: auto;
+
+    [data-theme="dark"] & {
+        color: var(--slate-300);
+    }
 }
 
 // Brand icon colors for certifications
@@ -310,7 +318,7 @@ details>summary {
     gap: 0.25rem;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--primary-600);
+    color: var(--primary-700);
     transition: color 0.3s ease;
 
     [data-theme="dark"] & {
@@ -318,7 +326,7 @@ details>summary {
     }
 
     &:hover {
-        color: var(--primary-700);
+        color: var(--primary-800);
 
         [data-theme="dark"] & {
             color: var(--primary-400);
