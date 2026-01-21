@@ -79,4 +79,5 @@
 
 <!-- Theme Initialization (must run before render) -->
 <script src="{{ "theme-init.js" | relURL }}"></script>
-<script src="{{ "script.js" | relURL }}?v=1.2" defer></script>
+{{- $script := resources.Get "js/script.js" | minify | fingerprint -}}
+<script src="{{ $script.RelPermalink }}" defer></script>

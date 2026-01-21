@@ -12,7 +12,6 @@ RUN hugo --minify --baseURL ${HUGO_BASEURL}
 FROM nginx:alpine
 
 # Copy built site from builder
-# Copy built site from builder
 COPY --from=builder /src/public /usr/share/nginx/html
 
 EXPOSE 80

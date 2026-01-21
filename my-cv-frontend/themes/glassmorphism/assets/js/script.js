@@ -33,10 +33,6 @@ function initThemeToggle() {
         }
     };
 
-    // Initialize state based on current DOM (set by theme.js)
-    const currentTheme = localStorage.getItem('theme');
-    // If theme.js handled it, data-theme might already be set. Only needed if user toggles.
-
     themeToggles.forEach(toggle => {
         toggle.addEventListener('click', () => {
             const isDark = html.getAttribute('data-theme') === 'dark';
@@ -60,8 +56,8 @@ function initMobileMenu() {
     const toggleMenu = () => {
         const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
         menuBtn.setAttribute('aria-expanded', !isExpanded);
-        mobileMenu.classList.toggle('active');
-        menuBtn.classList.toggle('active'); // Rotates icon
+        mobileMenu.classList.toggle('open');
+        menuBtn.classList.toggle('menu-open');
     };
 
     menuBtn.addEventListener('click', toggleMenu);
@@ -69,18 +65,16 @@ function initMobileMenu() {
     // Close menu when a link is clicked
     links.forEach(link => {
         link.addEventListener('click', () => {
-            // slight delay to allow smooth scroll to trigger first
             setTimeout(() => {
-                if (mobileMenu.classList.contains('active')) {
+                if (mobileMenu.classList.contains('open')) {
                     toggleMenu();
                 }
             }, 10);
         });
     });
 
-    // Close when clicking outside
     document.addEventListener('click', (e) => {
-        if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('active')) {
+        if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('open')) {
             toggleMenu();
         }
     });
@@ -172,90 +166,6 @@ function initBackToTop() {
  * Smoothly animates height for <details> elements.
  */
 function initDetailsAnimation() {
-    class Accordion {
-        constructor(el) {
-            this.el = el;
-            this.summary = el.querySelector('summary');
-            this.content = el.querySelector('.content'); // Ensure your details content is wrapped in a .content div
-
-            this.animation = null;
-            this.isClosing = false;
-            this.isExpanding = false;
-            this.summary.addEventListener('click', (e) => this.onClick(e));
-        }
-
-        onClick(e) {
-            e.preventDefault();
-            this.el.style.overflow = 'hidden';
-            if (this.isClosing || !this.el.open) {
-                this.open();
-            } else if (this.isExpanding || this.el.open) {
-                this.shrink();
-            }
-        }
-
-        shrink() {
-            this.isClosing = true;
-            const startHeight = `${this.el.offsetHeight}px`;
-            const endHeight = `${this.summary.offsetHeight}px`;
-
-            if (this.animation) this.animation.cancel();
-
-            this.animation = this.el.animate({
-                height: [startHeight, endHeight]
-            }, {
-                duration: 400,
-                easing: 'ease-out'
-            });
-
-            this.animation.onfinish = () => this.onAnimationFinish(false);
-            this.animation.oncancel = () => this.isClosing = false;
-        }
-
-        open() {
-            this.el.style.height = `${this.el.offsetHeight}px`;
-            this.el.open = true;
-            window.requestAnimationFrame(() => this.expand());
-        }
-
-        expand() {
-            this.isExpanding = true;
-            const startHeight = `${this.el.offsetHeight}px`;
-            const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
-
-            if (this.animation) this.animation.cancel();
-
-            this.animation = this.el.animate({
-                height: [startHeight, endHeight]
-            }, {
-                duration: 400,
-                easing: 'ease-out'
-            });
-
-            this.animation.onfinish = () => this.onAnimationFinish(true);
-            this.animation.oncancel = () => this.isExpanding = false;
-        }
-
-        onAnimationFinish(open) {
-            this.el.open = open;
-            this.animation = null;
-            this.isClosing = false;
-            this.isExpanding = false;
-            this.el.style.height = this.el.style.overflow = '';
-        }
-    }
-
-    document.querySelectorAll('details').forEach((el) => {
-        // Fallback for older browsers or simple implementation:
-        // Use the CSS transitions method from the original code if prefers-reduced-motion is false
-        // But for parity with the User's provided code, I will use the code I found in the file or logic similar to it.
-        // Wait, the user provided code in the prompt was specific for expanding courses.
-        // Let's use the code retrieved from the remote if possible.
-        // The code I retrieved seems to be using requestAnimationFrame and transition-end events which is better.
-        // Let's use THAT code.
-    });
-
-    // REPLACING WITH THE EXACT CODE FROM REMOTE FILE I READ
     const details = document.querySelectorAll('details');
     details.forEach(detail => {
         const summary = detail.querySelector('summary');
