@@ -7,25 +7,24 @@
     flex-direction: column;
     align-items: center;
     gap: 3rem;
-    text-align: center; // Old: usually implied or standard? Yes, old had text-align: center on mobile
+    text-align: center;
 
     @media (min-width: 1024px) {
         flex-direction: row;
-        justify-content: space-between; // Old had justify-between
+        justify-content: space-between;
         text-align: left;
     }
 }
 
 .hero-text {
     flex: 1;
-    // text-align? Old: text-align: center (mobile) -> left (desktop)
 
     h1 {
         font-size: 2.25rem;
         font-weight: 800;
         line-height: 1.1;
         margin-bottom: 1rem;
-        letter-spacing: -0.025em; // Old had this
+        letter-spacing: -0.025em;
 
 
 
@@ -34,10 +33,6 @@
         }
 
         strong {
-            // Old was .text-gradient span. The HTML might use <strong> or <span class="text-gradient">.
-            // Assuming HTML uses class="text-gradient" OR <strong> tag with these styles.
-            // Old CSS has .text-gradient class.
-            // If strict match, we should keep the gradient on the text as it WAS in the old site (confirmed with .text-gradient in old_style.css.beautified:181)
             background: linear-gradient(to right, var(--primary-500), #f59e0b);
             -webkit-background-clip: text;
             background-clip: text;
@@ -60,7 +55,6 @@
 
 .hero-actions {
     display: flex;
-    // flex-wrap? Old: flex-wrap: nowrap (step 242 line 470)
     flex-wrap: nowrap;
     justify-content: center;
     gap: 0.5rem;
@@ -73,16 +67,14 @@
 
 // Buttons
 .btn-primary {
-    display: inline-flex; // Old was usually inline-flex or block? Old: padding etc.
-    // Old: background-color: var(--slate-900);
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem; // Old had gap? Not strictly in snippet 472, but likely fine.
-
-    background-color: var(--slate-900); // Old
-    background-image: none; // Override gradient
+    gap: 0.5rem;
+    background-color: var(--slate-900);
+    background-image: none;
     color: white;
     font-weight: 600;
-    padding: 0.625rem 1rem; // Old: 0.625rem 1rem (Mobile)
+    padding: 0.625rem 1rem;
     font-size: 0.875rem;
 
     border-radius: 9999px;
@@ -101,8 +93,6 @@
     &:hover {
         background-color: var(--primary-700);
         color: white;
-        // Old didn't have transform/shadow in the snippet? 
-        // Snippet line 480: background-color: var(--primary-700); color: white;
     }
 }
 
@@ -111,16 +101,15 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: transparent; // Old: transparent. Not var(--bg-card)
+    background: transparent;
     color: var(--text-main);
     font-weight: 600;
     padding: 0.625rem 1rem;
     font-size: 0.875rem;
     border-radius: 9999px;
-    border: 1px solid transparent; // Explicit border for layout stability
+    border: 1px solid transparent;
     backdrop-filter: none;
     transition: all 0.3s ease;
-    // Old snippet line 492: btn-glass { ... background: transparent ... }
 
     @media (min-width: 1024px) {
         padding: 0.875rem 2rem;
@@ -128,22 +117,13 @@
     }
 
     &:hover {
-        background-color: rgba(255, 255, 255, 0.5); // Old
+        background-color: rgba(255, 255, 255, 0.5);
         color: var(--primary-500);
 
         [data-theme="dark"] & {
             background-color: rgba(30, 41, 59, 0.5);
         }
     }
-
-    // i {
-    //     // font-size? Old let it inherit or be specific
-    // }
-}
-
-.btn-icon-glass {
-    padding: 0.625rem 1rem; // Same as base? Old snippet had overrides?
-    // Old snippet 513: width: auto; height: auto; justify-content: center;
 }
 
 // Hero Image

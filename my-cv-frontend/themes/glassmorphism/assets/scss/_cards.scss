@@ -17,13 +17,11 @@
 .cert-grid {
     display: grid;
     gap: 1.5rem;
-    align-items: start; // Prevent neighbors from stretching height
+    align-items: start;
 
     @media (min-width: 1024px) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
-
-
 }
 
 // Base card mixin
@@ -129,7 +127,6 @@
     line-height: 1.6;
     margin-bottom: 1.5rem;
     flex-grow: 1;
-    // strong tags inherit muted color for subtle emphasis
 }
 
 // Tags / Skill Pills
@@ -346,13 +343,8 @@ details[open] .summary-chevron {
 
 .details-content {
     overflow: hidden;
-    // Removed 'animation: sweep'. JS handles height.
-    // ADD transition so JS height change is smooth.
     transition: height 0.3s ease, opacity 0.3s ease;
-    // Note: opacity is controlled by JS via inline styles during animation
 }
-
-// @keyframes sweep removed as it conflicts with JS height transition
 
 .course-list {
     margin-top: 0.75rem;
@@ -410,12 +402,6 @@ details[open] .summary-chevron {
     }
 }
 
-.about-text {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    line-height: 1.7;
-    text-align: justify;
-}
 .about-text {
     color: var(--text-muted);
     font-size: 0.875rem;
