@@ -51,7 +51,8 @@ img {
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     position: relative;
 }
 
@@ -135,10 +136,6 @@ img {
     display: flex;
     align-items: center;
 
-    @media (min-width: 640px) {
-        font-size: 1.875rem;
-    }
-
     i {
         color: var(--primary-500);
     }
@@ -150,7 +147,7 @@ img {
 
 // Main content container
 .main-content {
-    padding-top: 2rem;
+    padding-top: 3rem;
     display: flex;
     flex-direction: column;
     gap: 4rem;

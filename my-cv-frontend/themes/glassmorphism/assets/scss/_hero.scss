@@ -27,12 +27,7 @@
         margin-bottom: 1rem;
         letter-spacing: -0.025em; // Old had this
 
-        // Intermediate breakpoint removed for strict matching
-        /*
-        @media (min-width: 640px) {
-            font-size: 3rem;
-        }
-        */
+
 
         @media (min-width: 1024px) {
             font-size: 4.5rem;
@@ -51,23 +46,15 @@
     }
 
     p {
-        font-size: 1rem; // Old: 1rem
+        font-size: 1rem;
         color: var(--text-muted);
-        max-width: 36rem; // Old: 36rem (New was 40rem)
+        max-width: 36rem;
         margin: 0 auto 1.5rem;
 
-        // Old: No intermediate breakpoint
         @media (min-width: 1024px) {
-            // Old: margin: 0 0 2rem; font-size: 1.25rem;
             margin: 0 0 2rem;
             font-size: 1.25rem;
         }
-
-        /* 
-        @media (min-width: 640px) {
-            font-size: 1.25rem;
-        }
-        */
     }
 }
 
@@ -162,15 +149,10 @@
 // Hero Image
 .hero-img-container {
     position: relative;
-    width: 12rem;
-    height: 12rem;
+    width: 16rem;
+    height: 16rem;
     flex-shrink: 0;
     aspect-ratio: 1;
-
-    @media (min-width: 640px) {
-        width: 16rem;
-        height: 16rem;
-    }
 
     @media (min-width: 1024px) {
         width: 20rem;
