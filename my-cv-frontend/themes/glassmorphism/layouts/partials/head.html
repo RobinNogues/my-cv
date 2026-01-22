@@ -8,6 +8,9 @@
 <!-- Preload LCP Image -->
 <link rel="preload" as="image" href="{{ $site.image | relURL }}" fetchpriority="high">
 
+<!-- Preconnect to analytics (GoatCounter) -->
+<link rel="preconnect" href="https://stats.{{ $site.url | replaceRE "https?://" "" }}">
+
 <meta name="keywords" content="{{ $site.keywords }}">
 <meta name="robots" content="index, follow">
 
@@ -70,7 +73,7 @@
 <noscript>
   <link rel="stylesheet" href="{{ "fontawesome.css" | relURL }}?v=1.2">
 </noscript>
-<script src="{{ "fa-init.js" | relURL }}"></script>
+<script src="{{ "fa-init.js" | relURL }}" defer></script>
 
 <!-- Styles -->
 {{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}

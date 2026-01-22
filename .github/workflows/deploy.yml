@@ -93,4 +93,4 @@ jobs:
             printf "%s" "${{ secrets.GHCR_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
             docker compose pull
-            docker compose up -d --remove-orphans
+            docker compose up -d --force-recreate --remove-orphans
