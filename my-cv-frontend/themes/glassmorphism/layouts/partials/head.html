@@ -11,6 +11,9 @@
 <!-- Preconnect to analytics (GoatCounter) -->
 <link rel="preconnect" href="https://stats.{{ $site.url | replaceRE "https?://" "" }}">
 
+<!-- Preload Theme Init Script -->
+<link rel="preload" href="{{ "theme-init.js" | relURL }}" as="script">
+
 <meta name="keywords" content="{{ $site.keywords }}">
 <meta name="robots" content="index, follow">
 
