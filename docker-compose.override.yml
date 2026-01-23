@@ -4,8 +4,10 @@ services:
     build:
       context: ./my-cv-frontend
       dockerfile: Dockerfile
-      args:
-        HUGO_BASEURL: https://${DOMAIN:-localhost}
+    volumes:
+      - ./content.yaml:/src/data/content.yaml:ro
+    environment:
+      - HUGO_BASEURL=https://${DOMAIN:-localhost}
     ports:
       - "8081:80"
 
