@@ -32,7 +32,7 @@ services:
       - caddy_config:/config
     environment:
       - DOMAIN=${DOMAIN}
-      - EMAIL=${EMAIL}
+      - EMAIL=${EMAIL}  # For Let's Encrypt
     depends_on:
       - frontend
       - backend
