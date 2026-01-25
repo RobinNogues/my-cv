@@ -8,6 +8,7 @@ services:
       - ./content.yaml:/src/data/content.yaml:ro
     environment:
       - DOMAIN=${DOMAIN:-localhost}
+      - HOT_RELOAD=${HOT_RELOAD:-false}
     ports:
       - "8081:80"
 

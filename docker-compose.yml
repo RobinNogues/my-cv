@@ -7,6 +7,7 @@ services:
       - ./content.yaml:/src/data/content.yaml:ro
     environment:
       - DOMAIN=${DOMAIN}
+      - HOT_RELOAD=${HOT_RELOAD:-false}
 
   backend:
     image: ghcr.io/robinnogues/my-cv-backend:latest
