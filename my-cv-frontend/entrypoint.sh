@@ -1,7 +1,12 @@
 #!/bin/sh
 set -e
 
-HUGO_BASEURL="${HUGO_BASEURL:-http://localhost}"
+if [ -z "$DOMAIN" ]; then
+    echo "ERROR: DOMAIN environment variable is not set."
+    exit 1
+fi
+
+HUGO_BASEURL="https://${DOMAIN}"
 
 echo "==> Building site with Hugo (baseURL: $HUGO_BASEURL)..."
 hugo --minify --baseURL "$HUGO_BASEURL"

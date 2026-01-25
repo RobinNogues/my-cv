@@ -86,8 +86,8 @@ jobs:
             DOMAIN=${{ secrets.DOMAIN }}
             EMAIL=${{ secrets.EMAIL }}
             EMAIL_PASS=${{ secrets.EMAIL_PASS }}
-            SMTP_SERVER=smtp.gmail.com
-            SMTP_PORT=465
+            SMTP_SERVER=${{ secrets.SMTP_SERVER }}
+            SMTP_PORT=${{ secrets.SMTP_PORT }}
             EOF
 
             printf "%s" "${{ secrets.GHCR_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
