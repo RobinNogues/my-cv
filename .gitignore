@@ -21,3 +21,4 @@ reverse-proxy/local_certs/*
 .claude/
 _bmad-output/
 _bmad/
+.content_backup_verification.yaml

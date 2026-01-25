@@ -3,6 +3,10 @@ services:
     image: ghcr.io/robinnogues/my-cv-frontend:latest
     container_name: cv_frontend
     restart: unless-stopped
+    volumes:
+      - ./content.yaml:/src/data/content.yaml:ro
+    environment:
+      - HUGO_BASEURL=https://${DOMAIN}
 
   backend:
     image: ghcr.io/robinnogues/my-cv-backend:latest
