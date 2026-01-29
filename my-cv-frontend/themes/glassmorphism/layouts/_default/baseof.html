@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{- partial "head.html" . -}}
+</head>
+
+<body>
+    <!-- Background Decoration -->
+    <div class="bg-decoration">
+        <div class="blob blob-1 animate-blob"></div>
+        <div class="blob blob-2 animate-blob delay-2000"></div>
+        <div class="blob blob-3 animate-blob delay-4000"></div>
+    </div>
+
+    {{- partial "navbar.html" . -}}
+
+    <main class="container main-content">
+        {{- block "main" . }}{{- end }}
+    </main>
+
+    {{- partial "footer.html" . -}}
+
+    <!-- Scroll To Top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- GoatCounter Analytics -->
+    {{ $domain := replace .Site.Data.content.site.url "https://" "" }}
+    <script data-goatcounter="https://stats.{{ $domain }}/count" async src="//stats.{{ $domain }}/count.js"></script>
+</body>
+
+</html>

@@ -3,6 +3,12 @@ services:
     image: ghcr.io/robinnogues/my-cv-frontend:latest
     container_name: cv_frontend
     restart: unless-stopped
+    volumes:
+      - ./content.yaml:/src/data/content.yaml:ro
+      - ./hugo.yaml:/src/hugo.yaml:ro
+    environment:
+      - DOMAIN=${DOMAIN}
+      - HOT_RELOAD=${HOT_RELOAD:-false}
 
   backend:
     image: ghcr.io/robinnogues/my-cv-backend:latest
@@ -12,8 +18,8 @@ services:
       - EMAIL=${EMAIL}
       - EMAIL_PASS=${EMAIL_PASS}
       - DOMAIN=${DOMAIN}
-      - SMTP_SERVER=${SMTP_SERVER:-smtp.gmail.com}
-      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_SERVER=${SMTP_SERVER}
+      - SMTP_PORT=${SMTP_PORT}
 
   caddy:
     image: caddy:alpine
@@ -27,8 +33,8 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     environment:
-      - CADDY_DOMAIN=${DOMAIN}
-      - CADDY_EMAIL=${EMAIL}
+      - DOMAIN=${DOMAIN}
+      - EMAIL=${EMAIL}  # For Let's Encrypt
     depends_on:
       - frontend
       - backend
@@ -43,6 +49,7 @@ services:
     environment:
       - GOATCOUNTER_LISTEN=:8080
       - GOATCOUNTER_AUTOMIGRATE=true
+      # Domain for goatcounter might be needed but keeping it minimal as per current setup
 
 volumes:
   caddy_data:

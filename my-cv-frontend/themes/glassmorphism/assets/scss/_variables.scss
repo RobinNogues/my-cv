@@ -1,0 +1,112 @@
+// =============================================================================
+// VARIABLES & THEME COLORS
+// =============================================================================
+
+// Fonts - WOFF2 for performance, TTF as fallback
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-Light.woff2') format('woff2'),
+        url('/fonts/PlusJakartaSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-Regular.woff2') format('woff2'),
+        url('/fonts/PlusJakartaSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-Medium.woff2') format('woff2'),
+        url('/fonts/PlusJakartaSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2'),
+        url('/fonts/PlusJakartaSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-Bold.woff2') format('woff2'),
+        url('/fonts/PlusJakartaSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-ExtraBold.woff2') format('woff2'),
+        url('/fonts/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+// CSS Custom Properties (for runtime theming)
+:root {
+    // Colors - Primary (Orange)
+    --primary-50: #fff7ed;
+    --primary-100: #ffedd5;
+    --primary-200: #fed7aa;
+    --primary-300: #fdba74;
+    --primary-400: #fb923c;
+    --primary-500: #f97316;
+    --primary-600: #ea580c;
+    --primary-700: #c2410c;
+    --primary-800: #9a3412;
+    --primary-900: #7c2d12;
+
+    // Colors - Slate (Light Mode)
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+
+    // Semantic Mapping (Light)
+    --bg-body: var(--slate-50);
+    --bg-card: rgba(255, 255, 255, 0.92);
+    --bg-glass-border: rgba(255, 255, 255, 0.3);
+    --text-main: var(--slate-800);
+    --text-muted: var(--slate-600);
+    --text-inverted: #ffffff;
+
+    // Decoration Colors
+    --blob-1: rgba(254, 215, 170, 0.3);
+    --blob-2: rgba(233, 213, 255, 0.3);
+    --blob-3: rgba(251, 207, 232, 0.3);
+}
+
+[data-theme="dark"] {
+    // Semantic Mapping (Dark)
+    --bg-body: var(--slate-900);
+    --bg-card: rgba(30, 41, 59, 0.92);
+    --bg-glass-border: rgba(255, 255, 255, 0.05);
+    --text-main: var(--slate-200);
+    --text-muted: var(--slate-300);
+
+    // Decoration Colors
+    --blob-1: rgba(124, 45, 18, 0.1);
+    --blob-2: rgba(49, 46, 129, 0.1);
+    --blob-3: rgba(131, 24, 67, 0.1);
+}

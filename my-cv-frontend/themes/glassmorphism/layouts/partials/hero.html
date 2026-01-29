@@ -1,0 +1,31 @@
+{{- $site := .Site.Data.content.site -}}
+<!-- Hero Section -->
+<section id="hero" class="hero">
+    <div class="hero-text">
+        <h1>
+            {{ $site.tagline | safeHTML }}
+        </h1>
+        <p>
+            {{ $site.description }}
+        </p>
+        <div class="hero-actions">
+            <a href="#contact" class="btn-primary">
+                Get in touch <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+            <a href="{{ $site.github }}" target="_blank" rel="noopener noreferrer" class="btn-glass"
+                aria-label="GitHub Profile">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="{{ $site.linkedin }}" target="_blank" rel="noopener noreferrer" class="btn-icon-glass"
+                aria-label="LinkedIn Profile">
+                <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-img-container">
+        <div class="hero-glow"></div>
+        <img src="{{ $site.image | relURL }}" alt="{{ $site.name }}" class="hero-img" width="300" height="400"
+            fetchpriority="high">
+    </div>
+</section>

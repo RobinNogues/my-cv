@@ -1,0 +1,15 @@
+{{- $site := .Site.Data.content.site -}}
+<footer class="footer">
+    <div class="footer-socials">
+        <a href="{{ $site.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="{{ $site.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+            <i class="fab fa-github"></i>
+        </a>
+    </div>
+    <div class="footer-legal">
+        &copy; {{ $site.copyright_year }} {{ $site.name }} &bull; Hosted by {{ $site.hosting }} &bull; Privacy-focused
+        analytics (GoatCounter) &bull; No cookies
+    </div>
+</footer>

@@ -1,0 +1,50 @@
+{{- $contact := .Site.Data.content.contact -}}
+<!-- Contact Form -->
+<section id="contact" class="scroll-mt contact-container">
+    <div class="contact-intro">
+        <h2 class="section-title justify-center">{{ $contact.title }}</h2>
+        <p>{{ $contact.subtitle }}</p>
+    </div>
+
+    <div class="form-card glass">
+        <!-- Status Toast -->
+        <div id="form-toast" class="toast">
+            <i id="toast-icon" class="fas"></i>
+            <span id="toast-message"></span>
+        </div>
+
+        <form id="contact-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name <span class="text-primary-500">*</span></label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required
+                        autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email <span class="text-primary-500">*</span></label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com"
+                        required autocomplete="email">
+                </div>
+            </div>
+
+            <!-- Honeypot -->
+            <input type="text" id="address" name="address" class="hp-field" autocomplete="off">
+
+            <div class="form-group mb-6">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-input" placeholder="Inquiry about...">
+            </div>
+
+            <div class="form-group mb-6">
+                <label for="message" class="form-label">Message <span class="text-primary-500">*</span></label>
+                <textarea id="message" name="message" rows="5" class="form-input resize-none"
+                    placeholder="Tell me about your project..." required></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-submit">
+                <span>Send Message</span>
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</section>

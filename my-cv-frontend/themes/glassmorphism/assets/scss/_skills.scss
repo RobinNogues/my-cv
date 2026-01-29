@@ -1,0 +1,117 @@
+// =============================================================================
+// SKILLS SECTION
+// =============================================================================
+
+// Filter Controls
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    color: var(--slate-600);
+    background-color: var(--slate-100);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+
+    [data-theme="dark"] & {
+        background-color: rgba(30, 41, 59, 0.5);
+        color: var(--slate-300);
+    }
+
+    &:hover {
+        background-color: var(--primary-100);
+        color: var(--primary-700);
+
+        [data-theme="dark"] & {
+            background-color: rgba(249, 115, 22, 0.2);
+            color: var(--primary-400);
+        }
+    }
+
+    &.active {
+        background-color: var(--primary-700);
+        color: white;
+        box-shadow: 0 4px 6px -1px rgba(194, 65, 12, 0.3);
+    }
+}
+
+// Skills Grid
+.skills-grid {
+    position: relative;
+
+    .skill-card {
+        padding: 1.5rem;
+        border-radius: 1rem;
+        height: 100%; // Ensure cards have equal height in grid
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+            transform: translateY(-0.5rem);
+            border-color: var(--primary-500);
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
+        }
+
+        [data-theme="dark"] &:hover {
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+        }
+
+        &.hidden {
+            display: none;
+        }
+
+        &.exiting {
+            pointer-events: none;
+            z-index: 0;
+        }
+    }
+}
+
+.skill-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--slate-200);
+    padding-bottom: 0.5rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+    [data-theme="dark"] & {
+        color: var(--slate-300);
+        border-color: var(--slate-700);
+    }
+}
+
+// Skill card animations
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOutCard {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}

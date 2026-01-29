@@ -5,7 +5,11 @@ services:
       context: ./my-cv-frontend
       dockerfile: Dockerfile
     volumes:
-      - ./my-cv-frontend:/usr/share/nginx/html
+      - ./content.yaml:/src/data/content.yaml:ro
+      - ./hugo.yaml:/src/hugo.yaml:ro
+    environment:
+      - DOMAIN=${DOMAIN:-localhost}
+      - HOT_RELOAD=${HOT_RELOAD:-true}
     ports:
       - "8081:80"
 
@@ -27,8 +31,8 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     environment:
-      - CADDY_DOMAIN=localhost
-      - CADDY_EMAIL=dev@localhost
+      - DOMAIN=localhost
+      - EMAIL=dev@localhost
     depends_on:
       - frontend
       - backend

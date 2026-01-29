@@ -1,0 +1,18 @@
+// =============================================================================
+// Main SCSS file - triggers rebuild v2ENTRY POINT
+// =============================================================================
+// This file imports all other SCSS modules.
+// Trigger recompile.
+// Order matters: variables first, then base, then components.
+// =============================================================================
+
+@import 'variables';
+@import 'base';
+@import 'navbar';
+@import 'hero';
+@import 'timeline';
+@import 'cards';
+@import 'skills';
+@import 'forms';
+@import 'footer';
+@import 'responsive';

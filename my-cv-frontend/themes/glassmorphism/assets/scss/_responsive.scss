@@ -1,0 +1,73 @@
+// =============================================================================
+// RESPONSIVE ADJUSTMENTS
+// =============================================================================
+
+// Mobile devices (under 1024px)
+@media (max-width: 1023px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Reduce motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .animate-blob {
+        animation: none;
+    }
+}
+
+// Print styles
+@media print {
+
+    .navbar,
+    .back-to-top,
+    .bg-decoration,
+    #contact {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .glass {
+        background: #fff;
+        border: 1px solid #ccc;
+        backdrop-filter: none;
+    }
+
+    .main-content {
+        padding-top: 0;
+    }
+
+    .hero {
+        padding-top: 2rem;
+    }
+}

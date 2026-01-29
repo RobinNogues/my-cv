@@ -1,0 +1,89 @@
+{{- $site := .Site.Data.content.site -}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ $site.name }} - {{ $site.title }}</title>
+<link rel="icon" type="image/svg+xml" href="{{ "images/favicon.svg" | relURL }}">
+<meta name="description" content="{{ $site.name }} - {{ $site.title }} Portfolio. {{ $site.description }}">
+
+<!-- Preload LCP Image -->
+<link rel="preload" as="image" href="{{ $site.image | relURL }}" fetchpriority="high">
+
+<!-- Preconnect to analytics (GoatCounter) -->
+<link rel="preconnect" href="https://stats.{{ $site.url | replaceRE "https?://" "" }}">
+
+<!-- Preload Theme Init Script -->
+<link rel="preload" href="{{ "theme-init.js" | relURL }}" as="script">
+
+<meta name="keywords" content="{{ $site.keywords }}">
+<meta name="robots" content="index, follow">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ $site.url }}/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ $site.url }}/">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="{{ $site.name }} - {{ $site.title }}">
+<meta property="og:description" content="Portfolio of {{ $site.name }}. {{ $site.description }}">
+<meta property="og:image" content="{{ $site.url }}/{{ $site.image }}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="{{ $site.url }}/">
+<meta property="twitter:title" content="{{ $site.name }} - {{ $site.title }}">
+<meta property="twitter:description" content="Portfolio of {{ $site.name }}. {{ $site.description }}">
+<meta property="twitter:image" content="{{ $site.url }}/{{ $site.image }}">
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ $site.name }}",
+  "url": "{{ $site.url }}",
+  "image": "{{ $site.url | safeURL }}/{{ $site.image }}",
+  "sameAs": [
+    "{{ $site.linkedin }}",
+    "{{ $site.github }}"
+  ],
+  "jobTitle": "{{ $site.title }}",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "{{ (index .Site.Data.content.experience 0).company }}"
+  },
+  "alumniOf": [
+    {{- range $index, $edu := .Site.Data.content.education }}
+    {{- if $index }},{{ end }}
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "{{ $edu.school }}"
+    }
+    {{- end }}
+  ]
+}
+</script>
+
+<!-- Preload Critical Fonts (WOFF2) - ExtraBold is used by H1/LCP -->
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-Regular.woff2" | relURL }}" as="font" type="font/woff2"
+  crossorigin>
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-Bold.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/PlusJakartaSans-ExtraBold.woff2" | relURL }}" as="font" type="font/woff2"
+  crossorigin>
+
+<!-- Icons (Async Load) -->
+<link rel="stylesheet" href="{{ "fontawesome.css" | relURL }}?v=1.2" media="print" id="fa-css">
+<noscript>
+  <link rel="stylesheet" href="{{ "fontawesome.css" | relURL }}?v=1.2">
+</noscript>
+<script src="{{ "fa-init.js" | relURL }}" defer></script>
+
+<!-- Styles -->
+{{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}
+<link rel="preload" href="{{ $style.RelPermalink }}" as="style">
+<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+
+<!-- Theme Initialization (must run before render) -->
+<script src="{{ "theme-init.js" | relURL }}"></script>
+{{- $script := resources.Get "js/script.js" | minify | fingerprint -}}
+<script src="{{ $script.RelPermalink }}" defer></script>

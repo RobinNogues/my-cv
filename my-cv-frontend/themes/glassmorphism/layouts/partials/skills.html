@@ -1,0 +1,27 @@
+{{- $skills := .Site.Data.content.skills -}}
+<!-- Skills Section -->
+<section id="skills" class="scroll-mt">
+    <h2 class="section-title">
+        <i class="fas fa-layer-group"></i> Skills & Stack
+    </h2>
+
+    <!-- Filter Controls -->
+    <div class="filter-container">
+        {{- range $skills.filters }}
+        <button class="filter-btn{{ if eq .id "all" }} active{{ end }}" data-filter="{{ .id }}">{{ .label }}</button>
+        {{- end }}
+    </div>
+
+    <div class="grid-2 skills-grid">
+        {{- range $skills.categories }}
+        <div class="skill-card glass" data-category="{{ .filter }}">
+            <h3 class="skill-title">{{ .name }}</h3>
+            <div class="tags-wrapper">
+                {{- range .items }}
+                <div class="skill-pill">{{ . }}</div>
+                {{- end }}
+            </div>
+        </div>
+        {{- end }}
+    </div>
+</section>

@@ -1,0 +1,32 @@
+<!-- Projects Grid -->
+<section id="projects" class="scroll-mt">
+    <h2 class="section-title">
+        <i class="fas fa-code-branch"></i> Projects
+    </h2>
+    <div class="grid-2">
+        {{- range .Site.Data.content.projects }}
+        <article class="project-card glass">
+            <div class="project-header">
+                <div class="icon-box {{ .icon_color }}-icon">
+                    <i class="fas {{ .icon }}"></i>
+                </div>
+                {{- if .github }}
+                <a href="{{ .github }}" target="_blank" rel="noopener noreferrer" class="github-link"
+                    aria-label="View Project on GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                {{- end }}
+            </div>
+            <h3 class="project-title">{{ .title }}</h3>
+            <p class="project-desc">
+                {{ .description | markdownify }}
+            </p>
+            <div class="tags-wrapper">
+                {{- range .tags }}
+                <span class="skill-pill">{{ . }}</span>
+                {{- end }}
+            </div>
+        </article>
+        {{- end }}
+    </div>
+</section>

@@ -1,0 +1,157 @@
+// =============================================================================
+// TIMELINE (Experience)
+// =============================================================================
+
+.timeline {
+    position: relative;
+    padding-left: 0.5rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 8px;
+        width: 2px;
+        background: var(--slate-200);
+        z-index: 0;
+        transition: background-color 0.3s ease;
+
+        [data-theme="dark"] & {
+            background: var(--slate-700);
+        }
+
+        @media (min-width: 1024px) {
+            left: 20px;
+        }
+    }
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 3rem;
+
+    @media (min-width: 1024px) {
+        padding-left: 3.5rem;
+    }
+
+    &:hover .timeline-dot {
+        transform: scale(1.25);
+    }
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 1px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--bg-body);
+    border: 3px solid var(--primary-500);
+    border-radius: 50%;
+    z-index: 10;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+
+    @media (min-width: 1024px) {
+        left: 11px;
+        width: 20px;
+        height: 20px;
+        border-width: 4px;
+    }
+
+    &.alt {
+        border-color: var(--slate-300);
+
+        [data-theme="dark"] & {
+            border-color: var(--slate-600);
+        }
+    }
+}
+
+.timeline-card {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+        border-color: var(--primary-500);
+        box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
+        transform: translateY(-0.5rem);
+    }
+
+    [data-theme="dark"] &:hover {
+        box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+    }
+}
+
+
+.exp-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.exp-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.exp-company {
+    color: var(--primary-700); // Darker for WCAG AA contrast
+    font-weight: 500;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    [data-theme="dark"] & {
+        color: var(--primary-400); // Lighter for dark mode contrast
+    }
+
+    img {
+        width: 1.25rem;
+        height: 1.25rem;
+        object-fit: contain;
+    }
+}
+
+.exp-date {
+    // Badge Style!
+    font-size: 0.875rem;
+    font-family: monospace;
+    color: var(--slate-600); // Darker for WCAG AA contrast
+    background-color: var(--slate-100);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    width: fit-content;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+    [data-theme="dark"] & {
+        background-color: rgba(51, 65, 85, 0.5);
+        color: var(--slate-300);
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0;
+    }
+}
+
+.exp-list {
+    list-style: disc;
+    list-style-position: inside;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+
+    li::marker {
+        color: var(--primary-500);
+    }
+}
