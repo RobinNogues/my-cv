@@ -11,8 +11,7 @@ COPY --from=hugo-base /usr/bin/hugo /usr/local/bin/hugo
 
 WORKDIR /src
 
-# Copy theme and configuration (but NOT the data/content.yaml)
-COPY hugo.yaml .
+# Copy theme and configuration (but NOT the data/content.yaml or hugo.yaml)
 COPY themes/ themes/
 COPY static/ static/
 

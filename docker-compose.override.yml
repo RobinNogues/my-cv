@@ -6,9 +6,10 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./content.yaml:/src/data/content.yaml:ro
+      - ./hugo.yaml:/src/hugo.yaml:ro
     environment:
       - DOMAIN=${DOMAIN:-localhost}
-      - HOT_RELOAD=${HOT_RELOAD:-false}
+      - HOT_RELOAD=${HOT_RELOAD:-true}
     ports:
       - "8081:80"
 

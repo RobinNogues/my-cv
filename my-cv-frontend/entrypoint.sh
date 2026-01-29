@@ -22,7 +22,7 @@ if [ "$(echo "$HOT_RELOAD" | tr '[:upper:]' '[:lower:]')" = "true" ]; then
         --port 80 \
         --appendPort=false \
         --watch \
-        --poll 700ms 
+        --poll 1000ms 
 else
     echo "Starting in PRODUCTION mode (Static Build + Nginx)"
     hugo --minify --baseURL "$HUGO_BASEURL"

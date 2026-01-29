@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./content.yaml:/src/data/content.yaml:ro
+      - ./hugo.yaml:/src/hugo.yaml:ro
     environment:
       - DOMAIN=${DOMAIN}
       - HOT_RELOAD=${HOT_RELOAD:-false}
