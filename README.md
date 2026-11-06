@@ -172,6 +172,48 @@ docker exec -it cv_goatcounter goatcounter db create site \
 
 You will be prompted to set a password. The analytics dashboard will be available at `https://stats.my-website.com`.
 
+## 🛡️ VPS Hardening & Maintenance Runbook
+
+Operational best practices applied to ensure high availability and stability on resource-constrained environments (e.g., 1 vCPU, 1 GB RAM, 10 GB SSD).
+
+### 1. Memory Resilience (Swap Space)
+Low-memory VPS instances can experience kernel thrashing or Out-Of-Memory (OOM) lockups during bot scans or traffic spikes. A 1 GB swapfile ensures system daemons (`sshd`, `dockerd`) remain responsive:
+```bash
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
+### 2. Disk Space & Log Retention Policies
+To prevent the root partition from filling up on small disks:
+
+* **Systemd Journal Cap:** Enforce a strict 100 MB ceiling on journal logs:
+  ```bash
+  sudo sed -i 's/^#SystemMaxUse=.*/SystemMaxUse=100M/' /etc/systemd/journald.conf
+  sudo journalctl --vacuum-size=100M
+  sudo systemctl restart systemd-journald
+  ```
+
+* **SSH Auth Failure Logs (`btmp`):** Enforce rotation when reaching 10 MB to prevent brute-force attempts from bloating disk space:
+  ```bash
+  sudo sed -i '/\/var\/log\/btmp {/a \    maxsize 10M' /etc/logrotate.d/btmp
+  ```
+
+* **Docker Image Hygiene:** Orphaned dangling images are automatically purged after each deployment via `docker image prune -f` in the CI/CD workflow.
+
+### 3. SSH Security & Anti-Brute-Force (Fail2ban)
+Password authentication is strictly disabled (`PasswordAuthentication no`, SSH keys only). To mitigate connection exhaustion from automated scanners probing port 22:
+```bash
+# Install and enable Fail2ban
+sudo apt update && sudo apt install -y fail2ban
+sudo systemctl enable --now fail2ban
+
+# Inspect jailed IPs
+sudo fail2ban-client status sshd
+```
+
 ## 🤝 Contributions and Security
 
 I am always open to hearing suggestions for improvements or if you identify any potential security vulnerabilities. Please feel free to open an issue, submit a pull request on the GitHub repository or contact me directly. Your feedback is highly valued!
