@@ -18,6 +18,7 @@ www.{$DOMAIN} {
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
         Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
         Content-Security-Policy "default-src 'self'; connect-src 'self' wss: https://stats.{$DOMAIN}; script-src 'self' https://stats.{$DOMAIN}; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
     }
 
@@ -28,6 +29,9 @@ www.{$DOMAIN} {
         # API requests
         @api path /api/*
         handle @api {
+            request_body {
+                max_size 64KB
+            }
             reverse_proxy backend:8000 {
                 header_down -Server
             }
