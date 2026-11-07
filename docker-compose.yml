@@ -1,5 +1,15 @@
+x-common-config: &common-config
+  security_opt:
+    - no-new-privileges:true
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "3"
+
 services:
   frontend:
+    <<: *common-config
     image: ghcr.io/robinnogues/my-cv-frontend:latest
     container_name: cv_frontend
     restart: unless-stopped
@@ -11,6 +21,7 @@ services:
       - HOT_RELOAD=${HOT_RELOAD:-false}
 
   backend:
+    <<: *common-config
     image: ghcr.io/robinnogues/my-cv-backend:latest
     container_name: cv_backend
     restart: unless-stopped
@@ -22,6 +33,7 @@ services:
       - SMTP_PORT=${SMTP_PORT}
 
   caddy:
+    <<: *common-config
     image: caddy:alpine
     container_name: cv_caddy
     restart: unless-stopped
@@ -41,6 +53,7 @@ services:
       - goatcounter
 
   goatcounter:
+    <<: *common-config
     image: arp242/goatcounter
     container_name: cv_goatcounter
     restart: unless-stopped
