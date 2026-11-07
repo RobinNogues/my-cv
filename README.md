@@ -9,7 +9,7 @@ It is designed to showcase my skills, experience, and projects in a clean, moder
 -   **Fully Responsive:** Optimized for desktops, tablets, and mobile devices.
 -   **Comprehensive Sections:** Includes Professional Experience, Personal Projects, Skills, Education, and Certifications.
 -   **Interactive UI:** Dark mode, smooth animations, active navigation link highlighting, animated burger menu and a "Back to Top" button.
--   **Combats Spam:** A secure contact form with backend processing, input validation, and anti-spam (honeypot, API Rate Limiting) protection.
+-   **Combats Spam & Exploits:** A secure contact form featuring honeypot protection, API rate limiting, CRLF injection prevention, and strict 64 KB ingress payload capping.
 -   **Privacy-Focused Analytics:** Self-hosted analytics with GoatCounter, providing traffic statistics without tracking cookies or sharing data with third parties (GDPR compliant).
 -   **Automated Deployment:** CI/CD pipeline for automated builds and deployments to a live server.
 
@@ -38,9 +38,9 @@ flowchart TB
 
 | Service | Technology | Purpose |
 |---------|------------|---------|
-| **Frontend** | HTML, CSS, JavaScript, [Nginx](https://nginx.org/) | Static website content |
+| **Frontend** | [Hugo](https://gohugo.io/), [Nginx](https://nginx.org/) | Static site generation and content delivery |
 | **Backend** | Python, [FastAPI](https://fastapi.tiangolo.com/) | Contact form handling, validation, email sending |
-| **Reverse Proxy** | [Caddy](https://caddyserver.com/) | Automatic SSL, routing, security headers, rate limiting |
+| **Reverse Proxy** | [Caddy](https://caddyserver.com/) | Automatic SSL, routing, security headers, request body limits |
 | **Analytics** | [GoatCounter](https://www.goatcounter.com/) | Privacy-focused, cookie-free traffic analytics |
 
 ### Infrastructure & DevOps
@@ -103,7 +103,7 @@ This creates the analytics site with your login credentials.
 From the **root directory** of the project (`my-cv/`), run the following command to build the images and start the services:
 
 ```bash
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 The docker-compose.override.yml needs to be used for the local installation.
@@ -117,9 +117,9 @@ The website should now be running and accessible at https://localhost. Caddy wil
 
 The front will also be accessible at http://localhost:8081 if you don't want to use HTTPS, but the form won't work.
 
-## 📚 API Documentation
+## 📚 API Documentation (Local Development Only)
 
-The FastAPI backend provides automatic interactive API documentation. Once the services are running, you can access it directly:
+The FastAPI backend provides automatic interactive API documentation when running locally via port 8000 (kept isolated and unreachable in production):
 
 -   **Swagger UI:** http://localhost:8000/docs
 -   **ReDoc:** http://localhost:8000/redoc
@@ -130,11 +130,6 @@ These steps are for setting up the application on a production server with a liv
 
 **Prerequisites:**
 - Your domain's DNS A/AAAA records (`my-website.com`, `www.my-website.com`, `stats.my-website.com`) must point to your VPS IP address.
-
-**Deployment options:**
-- **Manual:** Copy project files to your VPS and run `docker compose up -d`
-- **Container registry:** Push images to a registry (GitHub, Docker Hub, etc.) and pull them on your VPS
-- **Automated CI/CD:** Set up a pipeline (like the included GitHub Actions workflow) for automatic deployments
 
 ### 1. Configure Environment
 
@@ -202,9 +197,12 @@ To prevent the root partition from filling up on small disks:
   ```
 
 * **Docker Image Hygiene:** Orphaned dangling images are automatically purged after each deployment via `docker image prune -f` in the CI/CD workflow.
+* **Docker Container Log Rotation:** Containers are configured in `docker-compose.yml` with a `json-file` log driver capped at 10 MB (max 3 files) to avoid unbounded container log growth.
 
 ### 3. SSH Security & Anti-Brute-Force (Fail2ban)
-Password authentication is strictly disabled (`PasswordAuthentication no`, SSH keys only). To mitigate connection exhaustion from automated scanners probing port 22:
+* **Perimeter Firewall:** Ingress traffic is strictly dropped at the cloud infrastructure level for all ports except `22` (SSH), `80` (HTTP), and `443` (HTTPS).
+* **Key-Only Authentication:** Password authentication is strictly disabled (`PasswordAuthentication no`, SSH keys only).
+* **Dynamic Brute-Force Banning:** Fail2ban monitors SSH connection attempts and bans offending IPs via kernel iptables:
 ```bash
 # Install and enable Fail2ban
 sudo apt update && sudo apt install -y fail2ban
@@ -213,6 +211,11 @@ sudo systemctl enable --now fail2ban
 # Inspect jailed IPs
 sudo fail2ban-client status sshd
 ```
+
+### 4. Application & Container Defense-in-Depth
+* **Reverse Proxy Ingress Limiting (Caddy):** Rejects any payload over 64 KB targeting `/api/*` at the web server level, preventing memory exhaustion attacks against Python. Enforces strict `Permissions-Policy`.
+* **Container Isolation:** Every service enforces `security_opt: [no-new-privileges:true]` to prevent container processes from gaining elevated host privileges.
+* **Backend Sanitization (FastAPI):** Strict Pydantic single-line input validation preventing CRLF email header injection, coupled with a 10-second SMTP socket timeout preventing async event loop starvation.
 
 ## 🤝 Contributions and Security
 
