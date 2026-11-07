@@ -48,6 +48,7 @@ flowchart TB
 - **Containerization:** Docker & Docker Compose
 - **CI/CD:** GitHub Actions (auto-deploy on push to `main`)
 - **Hosting:** Virtual Private Server (VPS)
+- **Content Decoupling:** Resume data maintained in `content.yaml` (no HTML editing required)
 
 ## 🚀 Getting Started
 
@@ -85,9 +86,23 @@ SMTP_PORT=465
 
 For local development, you can set `DOMAIN=localhost`. In production, set it to your actual domain (e.g., `robin-nogues.com`).
 
-### 3. Configure Analytics (First Time Only)
+### 3. Customize CV Content
 
-After building and running the services, you need to create the GoatCounter site:
+All resume data (experience, skills, projects, education) is decoupled from the codebase and defined in `content.yaml`. This allows you to easily update or extend your CV content without writing or modifying any HTML. The frontend container mounts this file and Hugo compiles it into static HTML upon container startup.
+
+### 4. Build and Run
+
+From the **root directory** of the project (`my-cv/`), run the following command to build the images and start the services:
+
+```bash
+docker compose up --build -d
+```
+
+The `docker-compose.override.yml` is automatically used for local development.
+
+### 5. Configure Analytics (First Time Only)
+
+After building and running the services, create the GoatCounter site:
 
 ```bash
 docker exec -it cv_goatcounter goatcounter db create site \
@@ -98,22 +113,12 @@ docker exec -it cv_goatcounter goatcounter db create site \
 
 This creates the analytics site with your login credentials.
 
-### 4. Build and Run
-
-From the **root directory** of the project (`my-cv/`), run the following command to build the images and start the services:
-
-```bash
-docker compose up --build -d
-```
-
-The docker-compose.override.yml needs to be used for the local installation.
-
-### 5. Access the Website
+### 6. Access the Website
 
 The website should now be running and accessible at https://localhost. Caddy will serve the frontend and proxy API requests to the backend.
 
 -   **Website:** https://localhost
--   **Analytics:** https://stats.localhost (login with email/password from step 3)
+-   **Analytics:** https://stats.localhost (login with email/password from step 5)
 
 The front will also be accessible at http://localhost:8081 if you don't want to use HTTPS, but the form won't work.
 
