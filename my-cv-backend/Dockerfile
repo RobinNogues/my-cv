@@ -5,7 +5,7 @@ WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 RUN pip install uv && \
-    uv sync --frozen
+    uv sync --frozen --no-dev
 
 FROM python:3.13-slim
 
