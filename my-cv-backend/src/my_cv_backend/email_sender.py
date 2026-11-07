@@ -65,6 +65,7 @@ class EmailSender:
             hostname=self.smtp_server,
             port=self.smtp_port,
             use_tls=True,
+            timeout=10.0,
         ) as client:
             _ = await client.login(self.email_address, self.app_password)
             _ = await client.send_message(msg)
