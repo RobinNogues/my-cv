@@ -9,7 +9,9 @@ class ContactForm(BaseModel):
     subject: str = Field(min_length=1, max_length=200, description="Email subject")
     message: str = Field(min_length=10, max_length=10000, description="Message content")
     address: str = Field(
-        "", exclude=True, description="Honeypot field (must be empty for humans)"
+        default="",
+        exclude=True,
+        description="Honeypot field (must be empty for humans)",
     )
 
     @field_validator("subject", "name")
