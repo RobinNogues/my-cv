@@ -6,6 +6,7 @@ wheels/
 *.egg-info
 .vscode/
 .pytest_cache/
+.coverage
 
 .venv
 

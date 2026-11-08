@@ -52,7 +52,7 @@ async def submit_contact_form(form_data: ContactForm):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred while trying to send the email.",
-        )
+        ) from e
 
     logger.info(f"Email sent successfully from {email} with subject '{subject}'")
     return {"message": "Message sent successfully."}

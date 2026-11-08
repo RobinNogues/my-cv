@@ -1,6 +1,5 @@
 from os import environ
 
-
 EMAIL = environ["EMAIL"]
 EMAIL_PASSWORD = environ["EMAIL_PASS"]
 SMTP_SERVER = environ.get("SMTP_SERVER", "smtp.gmail.com")

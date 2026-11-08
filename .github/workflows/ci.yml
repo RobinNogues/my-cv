@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  test-backend:
+    name: Backend Tests (pytest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: my-cv-backend
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run ruff linter
+        run: uv run ruff check
+
+      - name: Run ruff format check
+        run: uv run ruff format --check
+
+      - name: Run pytest
+        run: uv run pytest -v

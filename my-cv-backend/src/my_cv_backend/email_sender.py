@@ -1,9 +1,9 @@
-from email.mime.text import MIMEText
 from email.header import Header
+from email.mime.text import MIMEText
 
 from aiosmtplib import SMTP
 
-from .credentials import EMAIL, EMAIL_PASSWORD, SMTP_SERVER, SMTP_PORT
+from .credentials import EMAIL, EMAIL_PASSWORD, SMTP_PORT, SMTP_SERVER
 
 
 class EmailSender:
