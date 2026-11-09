@@ -95,3 +95,33 @@ jobs:
             docker compose pull
             docker compose up -d --force-recreate --remove-orphans
             docker image prune -f
+
+  cleanup-ghcr:
+    name: Cleanup Untagged GHCR Images
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Delete untagged backend images
+        uses: actions/delete-package-versions@v5
+        continue-on-error: true
+        with:
+          owner: ${{ github.repository_owner }}
+          package-name: my-cv-backend
+          package-type: container
+          min-versions-to-keep: 0
+          delete-only-untagged-versions: 'true'
+          token: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Delete untagged frontend images
+        uses: actions/delete-package-versions@v5
+        continue-on-error: true
+        with:
+          owner: ${{ github.repository_owner }}
+          package-name: my-cv-frontend
+          package-type: container
+          min-versions-to-keep: 0
+          delete-only-untagged-versions: 'true'
+          token: ${{ secrets.GHCR_TOKEN }}
+
