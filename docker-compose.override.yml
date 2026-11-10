@@ -2,14 +2,14 @@ services:
   frontend:
     image: ""
     build:
-      context: ./my-cv-frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: my-cv-frontend/Dockerfile
+      target: dev
     volumes:
       - ./content.yaml:/src/data/content.yaml:ro
       - ./hugo.yaml:/src/hugo.yaml:ro
-    environment:
-      - DOMAIN=${DOMAIN:-localhost}
-      - HOT_RELOAD=${HOT_RELOAD:-true}
+      - ./my-cv-frontend/themes:/src/themes:ro
+      - ./my-cv-frontend/static:/src/static:ro
     ports:
       - "8081:80"
 

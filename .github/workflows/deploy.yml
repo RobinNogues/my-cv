@@ -33,11 +33,10 @@ jobs:
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
-          context: ./my-cv-frontend
+          context: .
+          file: ./my-cv-frontend/Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
-          build-args: |
-             # HUGO_BASEURL is now handled at runtime
 
       - name: Build and push backend image
         uses: docker/build-push-action@v6
