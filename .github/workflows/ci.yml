@@ -9,8 +9,34 @@ on:
       - main
 
 jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check modified paths
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'my-cv-backend/**'
+              - '.github/workflows/ci.yml'
+            frontend:
+              - 'my-cv-frontend/**'
+              - 'content.yaml'
+              - 'hugo.yaml'
+              - '.github/workflows/ci.yml'
+
   test-backend:
     name: Backend Tests (pytest)
+    needs: changes
+    if: needs.changes.outputs.backend == 'true'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,3 +65,33 @@ jobs:
 
       - name: Run pytest
         run: uv run pytest -v
+
+  test-frontend:
+    name: Frontend Build (Hugo)
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build frontend Docker image
+        run: docker build -f my-cv-frontend/Dockerfile .
+
+  ci-gate:
+    name: CI Gate
+    needs: [changes, test-backend, test-frontend]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify statuses
+        run: |
+          if [[ "${{ needs.changes.result }}" == "failure" ]] || \
+             [[ "${{ needs.changes.result }}" == "cancelled" ]] || \
+             [[ "${{ needs.test-backend.result }}" == "failure" ]] || \
+             [[ "${{ needs.test-backend.result }}" == "cancelled" ]] || \
+             [[ "${{ needs.test-frontend.result }}" == "failure" ]] || \
+             [[ "${{ needs.test-frontend.result }}" == "cancelled" ]]; then
+            exit 1
+          fi
