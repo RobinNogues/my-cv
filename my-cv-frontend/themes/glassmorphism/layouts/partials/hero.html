@@ -25,7 +25,9 @@
 
     <div class="hero-img-container">
         <div class="hero-glow"></div>
-        <img src="{{ $site.image | relURL }}" alt="{{ $site.name }}" class="hero-img" width="300" height="400"
-            fetchpriority="high">
+        <div class="hero-img-wrapper">
+            <img src="{{ $site.image | relURL }}" alt="{{ $site.name }}" class="hero-img" width="400" height="400"
+                fetchpriority="high">
+        </div>
     </div>
 </section>
