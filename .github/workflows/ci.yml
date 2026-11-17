@@ -8,6 +8,13 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   changes:
     name: Detect Changes
@@ -15,6 +22,7 @@ jobs:
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
+      infra: ${{ steps.filter.outputs.infra }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -31,6 +39,10 @@ jobs:
               - 'my-cv-frontend/**'
               - 'content.yaml'
               - 'hugo.yaml'
+              - '.github/workflows/ci.yml'
+            infra:
+              - 'docker-compose*.yml'
+              - 'caddy/**'
               - '.github/workflows/ci.yml'
 
   test-backend:
@@ -79,19 +91,30 @@ jobs:
       - name: Build frontend Docker image
         run: docker build -f my-cv-frontend/Dockerfile .
 
+  test-infra:
+    name: Infra Validation (compose)
+    needs: changes
+    if: needs.changes.outputs.infra == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate Compose configuration
+        run: docker compose config --quiet
+
   ci-gate:
     name: CI Gate
-    needs: [changes, test-backend, test-frontend]
+    needs: [changes, test-backend, test-frontend, test-infra]
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Verify statuses
+      - name: Fail if any upstream job failed or was cancelled
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
         run: |
-          if [[ "${{ needs.changes.result }}" == "failure" ]] || \
-             [[ "${{ needs.changes.result }}" == "cancelled" ]] || \
-             [[ "${{ needs.test-backend.result }}" == "failure" ]] || \
-             [[ "${{ needs.test-backend.result }}" == "cancelled" ]] || \
-             [[ "${{ needs.test-frontend.result }}" == "failure" ]] || \
-             [[ "${{ needs.test-frontend.result }}" == "cancelled" ]]; then
-            exit 1
-          fi
+          echo "One or more required CI upstream jobs failed or were cancelled."
+          exit 1
+
+      - name: CI Gate Passed
+        run: echo "All required upstream jobs completed successfully or were skipped."
