@@ -20,51 +20,62 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME_FRONTEND: robinnogues/my-cv-frontend
-  IMAGE_NAME_BACKEND: robinnogues/my-cv-backend
 
 jobs:
   build-and-push:
-    name: Build and Push Images
+    name: Build & Push (${{ matrix.name }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    strategy:
+      matrix:
+        include:
+          - name: frontend
+            context: .
+            file: ./my-cv-frontend/Dockerfile
+            image: robinnogues/my-cv-frontend
+          - name: backend
+            context: ./my-cv-backend
+            file: ./my-cv-backend/Dockerfile
+            image: robinnogues/my-cv-backend
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
 
       - name: Log in to the Container registry (GitHub Actions Runner)
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Build and push frontend image
-        uses: docker/build-push-action@v6
+      - name: Build and push ${{ matrix.name }} image
+        uses: docker/build-push-action@v7
         with:
-          context: .
-          file: ./my-cv-frontend/Dockerfile
+          context: ${{ matrix.context }}
+          file: ${{ matrix.file }}
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
-
-      - name: Build and push backend image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./my-cv-backend
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
+          tags: |
+            ${{ env.REGISTRY }}/${{ matrix.image }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ matrix.image }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     name: Deploy to VPS
     needs: build-and-push
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Create deployment directory on VPS
         uses: appleboy/ssh-action@v1
@@ -108,31 +119,32 @@ jobs:
             docker image prune -f
 
   cleanup-ghcr:
-    name: Cleanup Untagged GHCR Images
+    name: Cleanup Old GHCR Images
     needs: deploy
     runs-on: ubuntu-latest
     permissions:
       packages: write
     steps:
-      - name: Delete untagged backend images
+      - name: Delete old backend images
         uses: actions/delete-package-versions@v5
         continue-on-error: true
         with:
           owner: ${{ github.repository_owner }}
           package-name: my-cv-backend
           package-type: container
-          min-versions-to-keep: 0
-          delete-only-untagged-versions: 'true'
+          min-versions-to-keep: 5
+          delete-only-untagged-versions: 'false'
+          ignore-versions: '^latest$'
           token: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Delete untagged frontend images
+      - name: Delete old frontend images
         uses: actions/delete-package-versions@v5
         continue-on-error: true
         with:
           owner: ${{ github.repository_owner }}
           package-name: my-cv-frontend
           package-type: container
-          min-versions-to-keep: 0
-          delete-only-untagged-versions: 'true'
+          min-versions-to-keep: 5
+          delete-only-untagged-versions: 'false'
+          ignore-versions: '^latest$'
           token: ${{ secrets.GHCR_TOKEN }}
-
