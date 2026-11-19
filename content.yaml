@@ -7,11 +7,11 @@
 
 site:
   name: Robin Nogues
-  title: Software Engineer
+  title: Financial Model Engineer
   tagline: 'Building <span class="text-gradient">Robust</span> Data Pipelines.'
   description: >
-    Passionate Software Engineer with a strong Python experience,
-    specialized in data pipelines and data analysis.
+    Software Engineer focused on Python and data pipelines,
+    with experience across healthcare and finance.
   
   # URLs
   url: https://robin-nogues.com
@@ -20,9 +20,8 @@ site:
   
   # SEO
   keywords: >
-    Robin Nogues, Software Engineer, Data Engineer, Python, Data Pipelines,
-    Data Analysis, Computer Vision, ETL, SQL, TensorFlow, OpenCV, CV, Résumé,
-    Portfolio, Java, Scala, Docker, FastAPI
+    Robin Nogues, Financial Model Engineer, Software Engineer, Data Engineer, Python,
+    Data Pipelines, ETL, SQL, Azure DevOps, Docker, FastAPI, Portfolio
   image: images/robin-nogues.webp
   
   # Footer
@@ -33,12 +32,23 @@ site:
 # Experience
 # =============================================================================
 experience:
+  - title: Financial Model Engineer
+    company: BlackRock
+    location: Budapest
+    logo: images/icons/blackrock.png
+    start_date: Jun 2026
+    end_date: Present
+    highlights:
+      - Scale and operate core data pipelines generating daily analytics and scenario metrics for a global suite of **~20 defined-outcome ETFs** across US and EMEA markets (**buffered, accelerated, and laddered**).
+      - Maintain and evolve the central **Python monorepo** hosting production quantitative financial models, streamlining automated testing and CI/CD via **Azure DevOps (ADO)**.
+      - Curate the engineering **knowledge base (Wiki)** to standardize technical documentation and accelerate cross-team onboarding across quantitative teams.
+
   - title: Data Engineer
     company: Sancare
     location: Paris
     logo: images/icons/sancare.png
     start_date: Jun 2023
-    end_date: Present
+    end_date: Jun 2026
     highlights:
       - Design and implement robust **ETL pipelines** for healthcare data with **Python** and **SQL**, ensuring data integrity and system scalability.
       - Data recovery from complex **hospital databases**.
