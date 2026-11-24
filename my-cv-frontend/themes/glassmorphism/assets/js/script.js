@@ -113,18 +113,26 @@ function initObservers() {
 
     elementsToAnimate.forEach(el => observer.observe(el));
 
-    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"], .mobile-link[href^="#"]:not(.mobile-link-contact)');
+    const sections = Array.from(document.querySelectorAll('section[id]'));
     if (navLinks.length && sections.length) {
+        const visibleSections = new Set();
         const spyObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-                    });
+                    visibleSections.add(entry.target);
+                } else {
+                    visibleSections.delete(entry.target);
                 }
             });
+
+            const activeSection = sections.find(section => visibleSections.has(section));
+            if (activeSection) {
+                const id = activeSection.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                });
+            }
         }, {
             rootMargin: '-30% 0px -60% 0px',
             threshold: 0
