@@ -236,6 +236,15 @@
     font-size: 2rem;
 }
 
+svg.cert-icon {
+    width: auto;
+    height: 2.25rem;
+}
+
+svg.fa-aws.cert-icon {
+    height: 2.5rem;
+}
+
 .ext-link {
     color: var(--slate-500);
     transition: color 0.2s ease;
