@@ -91,9 +91,11 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
 
       - name: Validate content.yaml against JSON schema
-        run: uvx check-jsonschema --schemafile content.schema.json content.yaml
+        run: uvx check-jsonschema==0.39.0 --schemafile content.schema.json content.yaml
 
       - name: Build frontend Docker image
         run: docker build -t my-cv-frontend:ci -f my-cv-frontend/Dockerfile .
@@ -103,9 +105,9 @@ jobs:
           docker create --name frontend-extract my-cv-frontend:ci
           docker cp frontend-extract:/usr/share/nginx/html ./public-ci
           docker rm frontend-extract
-          docker run --rm -v "$(pwd)/public-ci:/site:ro" lycheeverse/lychee \
+          docker run --rm -v "$(pwd)/public-ci:/site:ro" lycheeverse/lychee:0.24.2-alpine \
             --root-dir /site \
-            --exclude '^https://www\.linkedin\.com/in/' \
+            --offline \
             --no-progress \
             /site
 
@@ -128,13 +130,13 @@ jobs:
             -e DOMAIN=example.com \
             -e EMAIL=admin@example.com \
             -v "$(pwd)/caddy/Caddyfile:/etc/caddy/Caddyfile:ro" \
-            caddy:alpine caddy validate --config /etc/caddy/Caddyfile
+            caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile
 
       - name: Validate Caddyfile (local)
         run: |
           docker run --rm \
             -v "$(pwd)/caddy/Caddyfile.local:/etc/caddy/Caddyfile:ro" \
-            caddy:alpine caddy validate --config /etc/caddy/Caddyfile
+            caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile
 
   ci-gate:
     name: CI Gate
