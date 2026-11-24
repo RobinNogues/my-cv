@@ -292,8 +292,8 @@ source = { editable = "." }
 dependencies = [
     { name = "aiosmtplib" },
     { name = "fastapi" },
+    { name = "limits" },
     { name = "pydantic", extra = ["email"] },
-    { name = "slowapi" },
     { name = "uvicorn" },
 ]
 
@@ -310,8 +310,8 @@ dev = [
 requires-dist = [
     { name = "aiosmtplib", specifier = ">=4.0.1" },
     { name = "fastapi", specifier = ">=0.115.13" },
+    { name = "limits", specifier = ">=5.0.0" },
     { name = "pydantic", extras = ["email"], specifier = ">=2.11.7" },
-    { name = "slowapi", specifier = ">=0.1.9" },
     { name = "uvicorn", specifier = ">=0.34.3" },
 ]
 
@@ -535,18 +535,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/b9/ab/d8e407669ffe5014429baf780c2df47e001968a6e4c17f615e2e7b13a9ba/ruff-0.17.4-py3-none-win32.whl", hash = "sha256:3971a78cba76298b284c8321e6d40d93045ed348bec5c369d85099efc97fb7cf", size = 9931993 },
     { url = "https://files.pythonhosted.org/packages/bd/15/42af8a72d8946e3c9efd2bbf6641e462b6832783b0d043d63ef5b280ba7f/ruff-0.17.4-py3-none-win_amd64.whl", hash = "sha256:67c5a894fc054cf41f75f7afa24815de5a74329d97634126c2a1015740ff4e8c", size = 10292922 },
     { url = "https://files.pythonhosted.org/packages/68/9e/f1dbffcfb8ff25dadbc21f87a8b73c3848abe4abada9d4b08ccef8bec40c/ruff-0.17.4-py3-none-win_arm64.whl", hash = "sha256:181ae38a9a8fb94925bf7d0794327b48d7fd7f4b50cfd84c0e999cc09ef8d131", size = 9889396 },
-]
-
-[[package]]
-name = "slowapi"
-version = "0.1.10"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "limits" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/b9/52/24527cf25a8b508926aff53350b0136561dfe86c7125f61526653666e1b2/slowapi-0.1.10.tar.gz", hash = "sha256:d320d5bc04d9f171a77fb16700faf3036d85b00f420f22924c8a225f95bd14f9", size = 13841 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c4/8b/1d359f38706b4097d9a943bf8bd22599f537de4cbaff1e622d3e3936e164/slowapi-0.1.10-py3-none-any.whl", hash = "sha256:3acb61561dc9d687e3d3669362ff6a439de9ba44e2fed3a9c165da26b4b83e28", size = 14921 },
 ]
 
 [[package]]

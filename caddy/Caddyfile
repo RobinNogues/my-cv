@@ -14,12 +14,12 @@ www.{$DOMAIN} {
 {$DOMAIN} {
     # Security headers
     header {
-        X-Frame-Options "SAMEORIGIN"
+        X-Frame-Options "DENY"
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
         Strict-Transport-Security "max-age=31536000; includeSubDomains"
         Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
-        Content-Security-Policy "default-src 'self'; connect-src 'self' wss: https://stats.{$DOMAIN}; script-src 'self' https://stats.{$DOMAIN}; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
+        Content-Security-Policy "default-src 'self'; connect-src 'self' https://stats.{$DOMAIN}; script-src 'self' https://stats.{$DOMAIN}; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
     }
 
     route {
@@ -33,6 +33,7 @@ www.{$DOMAIN} {
                 max_size 64KB
             }
             reverse_proxy backend:8000 {
+                header_up X-Real-IP {remote_host}
                 header_down -Server
             }
         }
@@ -58,6 +59,9 @@ www.{$DOMAIN} {
 # GoatCounter subdomain
 stats.{$DOMAIN} {
     header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
         Strict-Transport-Security "max-age=31536000; includeSubDomains"
         Access-Control-Allow-Origin "https://{$DOMAIN}"
         Access-Control-Allow-Methods "GET, POST, OPTIONS"

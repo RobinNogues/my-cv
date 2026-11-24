@@ -18,6 +18,8 @@ services:
     build:
       context: ./my-cv-backend
       dockerfile: Dockerfile
+    environment:
+      - ENVIRONMENT=development
     ports:
       - "8000:8000"
 

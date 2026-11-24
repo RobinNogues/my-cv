@@ -10,10 +10,23 @@ from starlette.responses import Response
 
 
 def get_real_ip(request: Request) -> str:
-    """Get real client IP from X-Forwarded-For header (behind Caddy proxy)."""
-    forwarded = request.headers.get("X-Forwarded-For")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
+    """
+    Extract the client IP address from trusted proxy headers.
+
+    Parameters
+    ----------
+    request : Request
+        Incoming FastAPI/Starlette request.
+
+    Returns
+    -------
+    str
+        Client IP address, or ``"unknown"`` if unavailable.
+    """
+    # Caddy overwrites X-Real-IP with {remote_host}; X-Forwarded-For is client-spoofable.
+    real_ip = request.headers.get("X-Real-IP")
+    if real_ip:
+        return real_ip.strip()
     return request.client.host if request.client else "unknown"
 
 

@@ -9,8 +9,8 @@ requires-python = ">=3.13"
 dependencies = [
     "aiosmtplib>=4.0.1",
     "fastapi>=0.115.13",
+    "limits>=5.0.0",
     "pydantic[email]>=2.11.7",
-    "slowapi>=0.1.9",
     "uvicorn>=0.34.3",
 ]
 

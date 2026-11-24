@@ -56,7 +56,7 @@ def test_submit_contact_form_success(client: TestClient) -> None:
         "my_cv_backend.main.EMAIL_SENDER.send", new_callable=AsyncMock
     ) as mock_send:
         response = client.post(
-            "/api/contact", json=payload, headers={"X-Forwarded-For": "198.51.100.1"}
+            "/api/contact", json=payload, headers={"X-Real-IP": "198.51.100.1"}
         )
 
         assert response.status_code == 200
@@ -66,7 +66,7 @@ def test_submit_contact_form_success(client: TestClient) -> None:
 
 def test_submit_contact_form_honeypot(client: TestClient) -> None:
     """
-    Test honeypot rejection returning HTTP 200 without sending an email.
+    Test honeypot rejection returning identical HTTP 200 without sending an email.
 
     Parameters
     ----------
@@ -89,11 +89,11 @@ def test_submit_contact_form_honeypot(client: TestClient) -> None:
         "my_cv_backend.main.EMAIL_SENDER.send", new_callable=AsyncMock
     ) as mock_send:
         response = client.post(
-            "/api/contact", json=payload, headers={"X-Forwarded-For": "198.51.100.2"}
+            "/api/contact", json=payload, headers={"X-Real-IP": "198.51.100.2"}
         )
 
         assert response.status_code == 200
-        assert response.json() == {"detail": "Invalid request."}
+        assert response.json() == {"message": "Message sent successfully."}
         mock_send.assert_not_awaited()
 
 
@@ -118,7 +118,7 @@ def test_submit_contact_form_validation_error(client: TestClient) -> None:
     }
 
     response = client.post(
-        "/api/contact", json=payload, headers={"X-Forwarded-For": "198.51.100.3"}
+        "/api/contact", json=payload, headers={"X-Real-IP": "198.51.100.3"}
     )
     assert response.status_code == 422
 
@@ -148,7 +148,7 @@ def test_submit_contact_form_smtp_failure(client: TestClient) -> None:
     ) as mock_send:
         mock_send.side_effect = ConnectionError("SMTP Connection Timeout")
         response = client.post(
-            "/api/contact", json=payload, headers={"X-Forwarded-For": "198.51.100.4"}
+            "/api/contact", json=payload, headers={"X-Real-IP": "198.51.100.4"}
         )
 
         assert response.status_code == 500
@@ -183,13 +183,13 @@ def test_submit_contact_form_rate_limiting(client: TestClient) -> None:
         # 10 allowed requests
         for _ in range(10):
             res = client.post(
-                "/api/contact", json=payload, headers={"X-Forwarded-For": test_ip}
+                "/api/contact", json=payload, headers={"X-Real-IP": test_ip}
             )
             assert res.status_code == 200
 
         # 11th request triggers rate limit
         res_blocked = client.post(
-            "/api/contact", json=payload, headers={"X-Forwarded-For": test_ip}
+            "/api/contact", json=payload, headers={"X-Real-IP": test_ip}
         )
         assert res_blocked.status_code == 429
         assert res_blocked.json() == {
@@ -197,16 +197,60 @@ def test_submit_contact_form_rate_limiting(client: TestClient) -> None:
         }
 
 
+def test_submit_contact_form_ignores_spoofed_x_forwarded_for(
+    client: TestClient,
+) -> None:
+    """
+    Test that rotating X-Forwarded-For headers cannot bypass rate limiting when X-Real-IP is set.
+
+    Parameters
+    ----------
+    client : TestClient
+        FastAPI test client fixture.
+
+    Returns
+    -------
+    None
+    """
+    payload = {
+        "name": "Jane Doe",
+        "email": "jane@example.com",
+        "subject": "Inquiry",
+        "message": "Testing X-Forwarded-For spoofing resistance.",
+    }
+
+    real_ip = "203.0.113.99"
+
+    with patch("my_cv_backend.main.EMAIL_SENDER.send", new_callable=AsyncMock):
+        for i in range(10):
+            res = client.post(
+                "/api/contact",
+                json=payload,
+                headers={
+                    "X-Real-IP": real_ip,
+                    "X-Forwarded-For": f"10.0.0.{i}",
+                },
+            )
+            assert res.status_code == 200
+
+        res_blocked = client.post(
+            "/api/contact",
+            json=payload,
+            headers={"X-Real-IP": real_ip, "X-Forwarded-For": "10.0.0.250"},
+        )
+        assert res_blocked.status_code == 429
+
+
 def test_get_real_ip_fallback() -> None:
     """
-    Test get_real_ip fallback behaviors when X-Forwarded-For header is missing.
+    Test get_real_ip fallback behaviors when X-Real-IP header is missing.
 
     Returns
     -------
     None
     """
     request_with_client = MagicMock()
-    request_with_client.headers = {}
+    request_with_client.headers = {"X-Forwarded-For": "1.2.3.4"}
     request_with_client.client.host = "192.168.1.1"
     assert get_real_ip(request_with_client) == "192.168.1.1"
 
@@ -220,7 +264,8 @@ def test_rate_limit_middleware_ignores_unmatched_routes_and_methods(
     client: TestClient,
 ) -> None:
     """
-    Test that the rate limit middleware bypasses non-POST requests and other paths.
+    Test that the rate limit middleware bypasses non-POST requests and other paths,
+    and that /api/health returns 200 while /docs is disabled in production.
 
     Parameters
     ----------
@@ -234,5 +279,9 @@ def test_rate_limit_middleware_ignores_unmatched_routes_and_methods(
     response_get_contact = client.get("/api/contact")
     assert response_get_contact.status_code == 405
 
+    response_health = client.get("/api/health")
+    assert response_health.status_code == 200
+    assert response_health.json() == {"status": "ok"}
+
     response_docs = client.get("/docs")
-    assert response_docs.status_code == 200
+    assert response_docs.status_code == 404
