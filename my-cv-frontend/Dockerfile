@@ -2,17 +2,19 @@
 FROM hugomods/hugo:exts AS dev
 
 ARG FA_VERSION=6.7.2
+ARG FA_SHA256=794284b4ac7f3e30825bbeea1a073f542c45dff83f8146625f600f1015c9d52b
 
 WORKDIR /src
 
 # Download official FontAwesome Free SVGs once in the builder/dev layer so
 # content.yaml can reference any FA 6 icon without committing 2,000+ SVGs
 # to git or shipping webfonts/unused assets in the final nginx image.
-RUN wget -qO- "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-${FA_VERSION}.tgz" \
-    | tar -xz -C /tmp \
+RUN wget -qO /tmp/fa.tgz "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-${FA_VERSION}.tgz" \
+    && echo "${FA_SHA256}  /tmp/fa.tgz" | sha256sum -c - \
+    && tar -xz -C /tmp -f /tmp/fa.tgz \
     && mkdir -p /src/assets/fontawesome-svgs \
     && mv /tmp/package/svgs/* /src/assets/fontawesome-svgs/ \
-    && rm -rf /tmp/package
+    && rm -rf /tmp/package /tmp/fa.tgz
 
 COPY my-cv-frontend/themes/ themes/
 

@@ -35,5 +35,5 @@
   {{- $extraClass = printf " %s" $class -}}
 {{- end -}}
 {{- $attrs := printf "<svg class=\"icon %s%s\" aria-hidden=\"true\" focusable=\"false\" width=\"1em\" height=\"1em\" fill=\"currentColor\" " $faClass $extraClass -}}
-{{- $content := $svg.Content | replaceRE "<!--.*?-->" "" | replaceRE "^<svg " $attrs -}}
+{{- $content := $svg.Content | replaceRE "(?s)<!--.*?-->" "" | replaceRE "^<svg " $attrs -}}
 {{- $content | safeHTML -}}
