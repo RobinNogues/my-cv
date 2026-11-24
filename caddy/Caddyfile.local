@@ -13,7 +13,7 @@ localhost {
 
     # Security headers
     header {
-        X-Frame-Options "SAMEORIGIN"
+        X-Frame-Options "DENY"
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
         Content-Security-Policy "default-src 'self'; connect-src 'self' wss: https://stats.localhost; script-src 'self' https://stats.localhost; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
@@ -26,7 +26,11 @@ localhost {
         # API requests
         @api path /api/*
         handle @api {
+            request_body {
+                max_size 64KB
+            }
             reverse_proxy backend:8000 {
+                header_up X-Real-IP {remote_host}
                 header_down -Server
             }
         }
@@ -54,6 +58,9 @@ stats.localhost {
     tls internal
 
     header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
         Access-Control-Allow-Origin "https://localhost"
         Access-Control-Allow-Methods "GET, POST, OPTIONS"
         Access-Control-Allow-Headers "Content-Type"

@@ -113,3 +113,37 @@ def test_honeypot_field_presence() -> None:
     assert form.address == "http://spam-link.com"
     dump = form.model_dump()
     assert "address" not in dump
+
+
+def test_whitespace_only_message_rejected() -> None:
+    """
+    Test that a message consisting only of whitespace is rejected after stripping.
+
+    Returns
+    -------
+    None
+    """
+    with pytest.raises(ValidationError):
+        ContactForm(
+            name="John Doe",
+            email="john.doe@example.com",
+            subject="Valid Subject",
+            message="          ",
+        )
+
+
+def test_post_strip_min_length_enforced() -> None:
+    """
+    Test that min_length is enforced after CRLF/whitespace sanitization.
+
+    Returns
+    -------
+    None
+    """
+    with pytest.raises(ValidationError):
+        ContactForm(
+            name="J\n   ",
+            email="john.doe@example.com",
+            subject="Valid Subject",
+            message="Valid long message content.",
+        )

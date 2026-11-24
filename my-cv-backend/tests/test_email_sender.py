@@ -1,6 +1,7 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
+from aiosmtplib import SMTPException
 
 from my_cv_backend.email_sender import EmailSender, format_content
 
@@ -57,9 +58,78 @@ async def test_email_sender_send_successful() -> None:
             hostname="smtp.example.com",
             port=465,
             use_tls=True,
+            start_tls=None,
             timeout=10.0,
         )
         mock_client.login.assert_awaited_once_with(
             "sender@example.com", "secretpassword"
         )
         mock_client.send_message.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_email_sender_starttls_port_587() -> None:
+    """
+    Test EmailSender.send uses start_tls=True and use_tls=False on port 587.
+
+    Returns
+    -------
+    None
+    """
+    sender = EmailSender(
+        email_address="sender@example.com",
+        app_password="secretpassword",
+        smtp_server="smtp.example.com",
+        smtp_port=587,
+    )
+
+    mock_client = AsyncMock()
+    mock_client.login = AsyncMock()
+    mock_client.send_message = AsyncMock()
+
+    with patch("my_cv_backend.email_sender.SMTP") as mock_smtp_class:
+        mock_smtp_class.return_value.__aenter__.return_value = mock_client
+
+        await sender.send(
+            to="recipient@example.com",
+            subject="STARTTLS Test",
+            text="Testing port 587.",
+        )
+
+        mock_smtp_class.assert_called_once_with(
+            hostname="smtp.example.com",
+            port=587,
+            use_tls=False,
+            start_tls=True,
+            timeout=10.0,
+        )
+
+
+@pytest.mark.asyncio
+async def test_email_sender_smtp_exception_propagates() -> None:
+    """
+    Test EmailSender.send propagates SMTP exceptions without swallowing them.
+
+    Returns
+    -------
+    None
+    """
+    sender = EmailSender(
+        email_address="sender@example.com",
+        app_password="secretpassword",
+        smtp_server="smtp.example.com",
+        smtp_port=465,
+    )
+
+    mock_client = AsyncMock()
+    mock_client.login = AsyncMock(side_effect=SMTPException("Authentication failed"))
+
+    with patch("my_cv_backend.email_sender.SMTP") as mock_smtp_class:
+        mock_smtp_class.return_value.__aenter__.return_value = mock_client
+
+        with pytest.raises(SMTPException, match="Authentication failed"):
+            await sender.send(
+                to="recipient@example.com",
+                subject="Fail Test",
+                text="Should fail on login.",
+            )

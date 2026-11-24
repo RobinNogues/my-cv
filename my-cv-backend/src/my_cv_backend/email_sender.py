@@ -50,7 +50,7 @@ class EmailSender:
             The subject line of the email.
         text : str
             The plain text body of the email message.
-        reply_to : str
+        reply_to : str | None, optional
             The email address to which replies should be directed.
 
         """
@@ -61,10 +61,14 @@ class EmailSender:
         msg["Subject"] = Header(subject, "utf-8").encode()
         msg["Reply-To"] = reply_to
 
+        use_tls = self.smtp_port == 465
+        start_tls = True if self.smtp_port == 587 else None
+
         async with SMTP(
             hostname=self.smtp_server,
             port=self.smtp_port,
-            use_tls=True,
+            use_tls=use_tls,
+            start_tls=start_tls,
             timeout=10.0,
         ) as client:
             _ = await client.login(self.email_address, self.app_password)
