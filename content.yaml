@@ -36,7 +36,7 @@ experience:
   - title: Financial Model Engineer
     company: BlackRock
     location: Budapest
-    logo: images/icons/blackrock.png
+    logo: images/icons/blackrock.webp
     start_date: Jun 2026
     end_date: Present
     highlights:
@@ -47,7 +47,7 @@ experience:
   - title: Data Engineer
     company: Sancare
     location: Paris
-    logo: images/icons/sancare.png
+    logo: images/icons/sancare.webp
     start_date: Jun 2023
     end_date: Jun 2026
     highlights:
@@ -63,7 +63,7 @@ experience:
   - title: Data Science Intern - Computer Vision
     company: Alten
     location: Toulouse
-    logo: images/icons/alten.png
+    logo: images/icons/alten.webp
     start_date: Sep 2022
     end_date: Feb 2023
     highlights:
@@ -229,13 +229,13 @@ education:
   - degree: M.S. in Computer Science
     school: UQAC
     location: Chicoutimi, CA
-    logo: images/icons/uqac.png
+    logo: images/icons/uqac.webp
     years: 2021 - 2023
 
   - degree: M.Eng in Computer Science
     school: ESME
     location: Bordeaux Paris, FR
-    logo: images/icons/esme.png
+    logo: images/icons/esme.webp
     years: 2017 - 2023
 
 # =============================================================================
@@ -252,7 +252,7 @@ certifications:
   - title: Functional Programming in Scala
     issuer: EPFL - Coursera
     date: Sep 2025
-    icon: images/icons/epfl.png
+    icon: images/icons/epfl.webp
     icon_type: image
     link: https://www.coursera.org/account/accomplishments/specialization/CV55ORLUBETE
     courses:
@@ -286,7 +286,7 @@ certifications:
   - title: "TOEIC Exam (Score: 890)"
     issuer: ETS Global
     date: May 2021
-    icon: images/icons/ets.png
+    icon: images/icons/ets.webp
     icon_type: image
     link: null
     courses: null

@@ -49,9 +49,10 @@ function initThemeToggle() {
 function initMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    const links = mobileMenu.querySelectorAll('a');
 
     if (!menuBtn || !mobileMenu) return;
+
+    const links = mobileMenu.querySelectorAll('a');
 
     const toggleMenu = () => {
         const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
@@ -78,12 +79,19 @@ function initMobileMenu() {
             toggleMenu();
         }
     });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+            toggleMenu();
+            menuBtn.focus();
+        }
+    });
 }
 
 
 /**
- * 3. Intersection Observers (Scroll Animations)
- * Adds 'visible' class to elements when they enter the viewport.
+ * 3. Intersection Observers (Scroll Animations & ScrollSpy)
+ * Adds 'visible' class to elements when they enter the viewport and tracks active nav link.
  */
 function initObservers() {
     const options = {
@@ -95,17 +103,35 @@ function initObservers() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: Stop observing once visible to save performance
-                // observer.unobserve(entry.target);
             }
         });
     }, options);
 
     const elementsToAnimate = document.querySelectorAll(
-        '.section-title, .about-card, .timeline-item, .project-card, .skill-category, .education-card, .certification-card'
+        '.section-title, .about-container, .timeline-item, .project-card, .skill-card, .edu-card, .cert-card'
     );
 
     elementsToAnimate.forEach(el => observer.observe(el));
+
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    const sections = document.querySelectorAll('section[id]');
+    if (navLinks.length && sections.length) {
+        const spyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-30% 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(section => spyObserver.observe(section));
+    }
 }
 
 
@@ -412,7 +438,7 @@ function initContactForm() {
 
         // UI Loading State
         const originalBtnContent = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i> Sending...';
+        submitBtn.innerHTML = '<svg class="icon icon-spin" aria-hidden="true" focusable="false" width="1em" height="1em" fill="currentColor" viewBox="0 0 512 512"><path d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z"/></svg> Sending...';
         submitBtn.disabled = true;
 
         const formData = new FormData(form);
@@ -431,7 +457,12 @@ function initContactForm() {
                 showToast('success', result.message || 'Message sent successfully!');
                 form.reset();
             } else {
-                const errorData = await response.json();
+                let errorData = null;
+                try {
+                    errorData = await response.json();
+                } catch {
+                    errorData = { detail: `Request failed (${response.status}). Please try again later.` };
+                }
                 handleFormError(errorData);
             }
         } catch (error) {
@@ -465,6 +496,8 @@ function handleFormError(errorData) {
     showToast('error', errorMessage);
 }
 
+let toastTimeoutId = null;
+
 /**
  * Helper: Show Toast Notification
  */
@@ -475,9 +508,15 @@ function showToast(type, message) {
 
     if (!toast || !toastMsg || !toastIcon) return;
 
+    if (toastTimeoutId) {
+        clearTimeout(toastTimeoutId);
+    }
+
     // Reset and Set Type
     toast.className = `toast ${type === 'success' ? 'toast-success' : 'toast-error'}`;
-    toastIcon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    toastIcon.innerHTML = type === 'success'
+        ? '<svg class="icon" aria-hidden="true" focusable="false" width="1em" height="1em" fill="currentColor" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>'
+        : '<svg class="icon" aria-hidden="true" focusable="false" width="1em" height="1em" fill="currentColor" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>';
     toastMsg.textContent = message;
 
     // Show
@@ -486,8 +525,9 @@ function showToast(type, message) {
     });
 
     // Auto Hide
-    setTimeout(() => {
+    toastTimeoutId = setTimeout(() => {
         toast.classList.remove('visible');
+        toastTimeoutId = null;
     }, 5000);
 }
 

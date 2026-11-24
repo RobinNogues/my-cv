@@ -126,6 +126,24 @@ textarea.form-input {
     }
 }
 
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+
+@keyframes icon-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.icon-spin {
+    animation: icon-spin 1s linear infinite;
+}
+
 // Toast Notification
 .toast {
     position: absolute;

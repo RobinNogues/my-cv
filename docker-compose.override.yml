@@ -9,7 +9,6 @@ services:
       - ./content.yaml:/src/data/content.yaml:ro
       - ./hugo.yaml:/src/hugo.yaml:ro
       - ./my-cv-frontend/themes:/src/themes:ro
-      - ./my-cv-frontend/static:/src/static:ro
     ports:
       - "8081:80"
 

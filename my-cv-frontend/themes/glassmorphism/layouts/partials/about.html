@@ -9,7 +9,7 @@
                 {{- range .Site.Data.content.about.sections }}
                 <div>
                     <h3 class="about-subtitle">
-                        <i class="fas {{ .icon }}"></i> {{ .title }}
+                        {{ partial "icon.html" (dict "name" .icon) }} {{ .title }}
                     </h3>
                     <p class="about-text">
                         {{ .text }}

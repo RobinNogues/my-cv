@@ -1,22 +1,23 @@
 <!-- Certifications -->
 <section id="certifications" class="scroll-mt">
     <h2 class="section-title">
-        <i class="fas fa-certificate"></i> Certifications and Courses
+        {{ partial "icon.html" (dict "name" "certificate") }} Certifications and Courses
     </h2>
     <div class="cert-grid">
         {{- range .Site.Data.content.certifications }}
         <article class="cert-card glass">
             <div class="cert-header">
                 {{- if eq .icon_type "image" }}
-                <img src="{{ .icon | relURL }}" alt="{{ .issuer }}" class="cert-icon" loading="lazy" width="40"
-                    height="40">
+                {{- $iconImg := resources.Get .icon | fingerprint -}}
+                <img src="{{ $iconImg.RelPermalink }}" alt="{{ .issuer }}" class="cert-icon" loading="lazy" width="{{ $iconImg.Width }}"
+                    height="{{ $iconImg.Height }}">
                 {{- else }}
-                <i class="{{ .icon }} cert-icon"></i>
+                {{ partial "icon.html" (dict "name" .icon "class" "cert-icon") }}
                 {{- end }}
                 {{- if .link }}
                 <a href="{{ .link }}" target="_blank" rel="noopener noreferrer" class="ext-link"
                     aria-label="Verify Certificate">
-                    <i class="fas fa-external-link-alt"></i>
+                    {{ partial "icon.html" (dict "name" "external-link-alt") }}
                 </a>
                 {{- end }}
             </div>
@@ -27,7 +28,7 @@
             <details>
                 <summary class="summary-content">
                     <span>Show Courses</span>
-                    <i class="fas fa-chevron-down summary-chevron"></i>
+                    {{ partial "icon.html" (dict "name" "chevron-down" "class" "summary-chevron") }}
                 </summary>
                 <div class="details-content">
                     <ul class="course-list">

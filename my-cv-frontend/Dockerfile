@@ -4,7 +4,6 @@ FROM hugomods/hugo:exts AS dev
 WORKDIR /src
 
 COPY my-cv-frontend/themes/ themes/
-COPY my-cv-frontend/static/ static/
 
 EXPOSE 80
 
