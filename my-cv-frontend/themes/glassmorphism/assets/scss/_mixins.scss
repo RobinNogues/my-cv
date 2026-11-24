@@ -1,0 +1,23 @@
+// =============================================================================
+// MIXINS & BREAKPOINTS
+// =============================================================================
+
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+@mixin card-base {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
+    // Fix for disappearing content on scroll/hover (rendering glitch)
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+
+    &:hover {
+        transform: translateY(-0.5rem);
+        border-color: var(--primary-500);
+        box-shadow: var(--shadow-card-hover);
+    }
+}

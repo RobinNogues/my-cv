@@ -75,7 +75,7 @@
   crossorigin>
 
 <!-- Styles -->
-{{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}
+{{- $style := resources.Get "scss/main.scss" | css.Sass (dict "transpiler" "dartsass") | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
 <!-- Theme Initialization (must run before render) -->

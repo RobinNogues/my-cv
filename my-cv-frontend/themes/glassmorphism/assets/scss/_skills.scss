@@ -2,6 +2,8 @@
 // SKILLS SECTION
 // =============================================================================
 
+@use 'mixins' as *;
+
 // Filter Controls
 .filter-container {
     display: flex;
@@ -48,20 +50,9 @@
     position: relative;
 
     .skill-card {
-        padding: 1.5rem;
-        border-radius: 1rem;
+        @include card-base;
         height: 100%; // Ensure cards have equal height in grid
         transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-
-        &:hover {
-            transform: translateY(-0.5rem);
-            border-color: var(--primary-500);
-            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
-        }
-
-        [data-theme="dark"] &:hover {
-            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
-        }
 
         &.hidden {
             display: none;

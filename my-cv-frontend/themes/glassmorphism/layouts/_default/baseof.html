@@ -6,8 +6,10 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Background Decoration -->
-    <div class="bg-decoration">
+    <div class="bg-decoration" aria-hidden="true">
         <div class="blob blob-1 animate-blob"></div>
         <div class="blob blob-2 animate-blob delay-2000"></div>
         <div class="blob blob-3 animate-blob delay-4000"></div>
@@ -15,7 +17,7 @@
 
     {{- partial "navbar.html" . -}}
 
-    <main class="container main-content">
+    <main id="main-content" class="container main-content" tabindex="-1">
         {{- block "main" . }}{{- end }}
     </main>
 
@@ -26,9 +28,11 @@
         {{ partial "icon.html" (dict "name" "arrow-up") }}
     </button>
 
+    {{- if not hugo.IsServer }}
     <!-- GoatCounter Analytics -->
-    {{ $domain := replace .Site.Data.content.site.url "https://" "" }}
-    <script data-goatcounter="https://stats.{{ $domain }}/count" async src="//stats.{{ $domain }}/count.js"></script>
+    {{- $domain := replaceRE "^https?://" "" .Site.Data.content.site.url }}
+    <script data-goatcounter="https://stats.{{ $domain }}/count" async src="https://stats.{{ $domain }}/count.js"></script>
+    {{- end }}
 </body>
 
 </html>

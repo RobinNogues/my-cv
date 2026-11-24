@@ -76,6 +76,13 @@
     --text-main: var(--slate-800);
     --text-muted: var(--slate-600);
     --text-inverted: #ffffff;
+    --accent-text: var(--primary-700);
+    --accent-icon: var(--primary-600);
+    --gradient-accent: linear-gradient(to right, var(--primary-700), #b45309);
+    --shadow-nav: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
+    --shadow-toast: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
     // Decoration Colors
     --blob-1: rgba(254, 215, 170, 0.3);
@@ -90,6 +97,10 @@
     --bg-glass-border: rgba(255, 255, 255, 0.05);
     --text-main: var(--slate-200);
     --text-muted: var(--slate-300);
+    --accent-text: var(--primary-400);
+    --accent-icon: var(--primary-400);
+    --gradient-accent: linear-gradient(to right, var(--primary-400), #fbbf24);
+    --shadow-card-hover: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
 
     // Decoration Colors
     --blob-1: rgba(124, 45, 18, 0.1);
