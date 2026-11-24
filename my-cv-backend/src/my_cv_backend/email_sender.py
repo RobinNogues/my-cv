@@ -62,7 +62,7 @@ class EmailSender:
         msg["Reply-To"] = reply_to
 
         use_tls = self.smtp_port == 465
-        start_tls = self.smtp_port == 587
+        start_tls = True if self.smtp_port == 587 else None
 
         async with SMTP(
             hostname=self.smtp_server,

@@ -254,6 +254,11 @@ def test_get_real_ip_fallback() -> None:
     request_with_client.client.host = "192.168.1.1"
     assert get_real_ip(request_with_client) == "192.168.1.1"
 
+    request_with_blank_header = MagicMock()
+    request_with_blank_header.headers = {"X-Real-IP": "   "}
+    request_with_blank_header.client.host = "192.168.1.2"
+    assert get_real_ip(request_with_blank_header) == "192.168.1.2"
+
     request_without_client = MagicMock()
     request_without_client.headers = {}
     request_without_client.client = None

@@ -24,9 +24,9 @@ def get_real_ip(request: Request) -> str:
         Client IP address, or ``"unknown"`` if unavailable.
     """
     # Caddy overwrites X-Real-IP with {remote_host}; X-Forwarded-For is client-spoofable.
-    real_ip = request.headers.get("X-Real-IP")
+    real_ip = (request.headers.get("X-Real-IP") or "").strip()
     if real_ip:
-        return real_ip.strip()
+        return real_ip
     return request.client.host if request.client else "unknown"
 
 

@@ -58,7 +58,7 @@ async def test_email_sender_send_successful() -> None:
             hostname="smtp.example.com",
             port=465,
             use_tls=True,
-            start_tls=False,
+            start_tls=None,
             timeout=10.0,
         )
         mock_client.login.assert_awaited_once_with(

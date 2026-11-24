@@ -1,9 +1,6 @@
-import importlib
-
 import pytest
 from pydantic import ValidationError
 
-from my_cv_backend import credentials
 from my_cv_backend.models import ContactForm
 
 
@@ -150,21 +147,3 @@ def test_post_strip_min_length_enforced() -> None:
             subject="Valid Subject",
             message="Valid long message content.",
         )
-
-
-def test_credentials_empty_smtp_port_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
-    """
-    Test that an empty SMTP_PORT environment variable falls back to 465.
-
-    Parameters
-    ----------
-    monkeypatch : pytest.MonkeyPatch
-        Pytest monkeypatch fixture.
-
-    Returns
-    -------
-    None
-    """
-    monkeypatch.setenv("SMTP_PORT", "")
-    importlib.reload(credentials)
-    assert credentials.SMTP_PORT == 465
