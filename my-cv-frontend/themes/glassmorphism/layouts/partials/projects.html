@@ -1,19 +1,19 @@
 <!-- Projects Grid -->
 <section id="projects" class="scroll-mt">
     <h2 class="section-title">
-        <i class="fas fa-code-branch"></i> Projects
+        {{ partial "icon.html" (dict "name" "code-branch") }} Projects
     </h2>
     <div class="grid-2">
         {{- range .Site.Data.content.projects }}
         <article class="project-card glass">
             <div class="project-header">
                 <div class="icon-box {{ .icon_color }}-icon">
-                    <i class="fas {{ .icon }}"></i>
+                    {{ partial "icon.html" (dict "name" .icon) }}
                 </div>
                 {{- if .github }}
                 <a href="{{ .github }}" target="_blank" rel="noopener noreferrer" class="github-link"
                     aria-label="View Project on GitHub">
-                    <i class="fab fa-github"></i>
+                    {{ partial "icon.html" (dict "name" "github") }}
                 </a>
                 {{- end }}
             </div>

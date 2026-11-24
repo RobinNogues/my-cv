@@ -1,0 +1,39 @@
+{{- $raw := .name | default "" -}}
+{{- $class := .class | default "" -}}
+{{- $parts := split (strings.TrimSpace $raw) " " -}}
+{{- $style := "solid" -}}
+{{- $explicitStyle := false -}}
+{{- if gt (len $parts) 1 -}}
+  {{- $prefix := index $parts 0 -}}
+  {{- if or (eq $prefix "fab") (eq $prefix "fa-brands") -}}
+    {{- $style = "brands" -}}
+    {{- $explicitStyle = true -}}
+  {{- else if or (eq $prefix "far") (eq $prefix "fa-regular") -}}
+    {{- $style = "regular" -}}
+    {{- $explicitStyle = true -}}
+  {{- else if or (eq $prefix "fas") (eq $prefix "fa-solid") -}}
+    {{- $style = "solid" -}}
+    {{- $explicitStyle = true -}}
+  {{- end -}}
+{{- end -}}
+{{- $icon := index $parts (sub (len $parts) 1) -}}
+{{- $key := strings.TrimPrefix "fa-" $icon -}}
+{{- $faClass := printf "fa-%s" $key -}}
+{{- $svg := resources.Get (printf "fontawesome-svgs/%s/%s.svg" $style $key) -}}
+{{- if and (not $svg) (not $explicitStyle) -}}
+  {{- range (slice "brands" "regular") -}}
+    {{- if not $svg -}}
+      {{- $svg = resources.Get (printf "fontawesome-svgs/%s/%s.svg" . $key) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $svg -}}
+  {{- errorf "Unknown FontAwesome icon %q (resolved to %s/%s.svg)" $raw $style $key -}}
+{{- end -}}
+{{- $extraClass := "" -}}
+{{- if $class -}}
+  {{- $extraClass = printf " %s" $class -}}
+{{- end -}}
+{{- $attrs := printf "<svg class=\"icon %s%s\" aria-hidden=\"true\" focusable=\"false\" width=\"1em\" height=\"1em\" fill=\"currentColor\" " $faClass $extraClass -}}
+{{- $content := $svg.Content | replaceRE "(?s)<!--.*?-->" "" | replaceRE "^<svg " $attrs -}}
+{{- $content | safeHTML -}}
