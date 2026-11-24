@@ -78,7 +78,7 @@ experience:
 # =============================================================================
 projects:
   - title: Gesture Recognition
-    icon: fa-hand-paper
+    icon: fa-hand
     icon_color: blue
     github: https://github.com/RobinNogues/rnn-gesture-recognition
     description: >
@@ -316,7 +316,7 @@ about:
         the cajon, a Peruvian instrument.
 
     - title: Sport
-      icon: fa-running
+      icon: fa-person-running
       text: >
         I played club football from the age of six to seventeen. It was also at the age of 17
         that I started going to the gym with my friends. Combining the two activities was hard

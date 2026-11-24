@@ -6,30 +6,12 @@ ARG FA_VERSION=6.7.2
 WORKDIR /src
 
 # Download official FontAwesome Free SVGs once in the builder/dev layer so
-# content.yaml can reference any FA icon without committing 2,000+ SVGs to git
-# or shipping webfonts/unused assets in the final nginx image.
+# content.yaml can reference any FA 6 icon without committing 2,000+ SVGs
+# to git or shipping webfonts/unused assets in the final nginx image.
 RUN wget -qO- "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-${FA_VERSION}.tgz" \
     | tar -xz -C /tmp \
     && mkdir -p /src/assets/fontawesome-svgs \
     && mv /tmp/package/svgs/* /src/assets/fontawesome-svgs/ \
-    && node -e ' \
-      const fs = require("fs"); \
-      const path = require("path"); \
-      const root = "/src/assets/fontawesome-svgs"; \
-      const families = JSON.parse(fs.readFileSync("/tmp/package/metadata/icon-families.json", "utf8")); \
-      for (const [name, meta] of Object.entries(families)) { \
-        const aliases = (meta.aliases && meta.aliases.names) || []; \
-        if (!aliases.length) continue; \
-        for (const style of ["solid", "brands", "regular"]) { \
-          const target = path.join(root, style, `${name}.svg`); \
-          if (!fs.existsSync(target)) continue; \
-          for (const alias of aliases) { \
-            const linkPath = path.join(root, style, `${alias}.svg`); \
-            if (!fs.existsSync(linkPath)) fs.symlinkSync(`${name}.svg`, linkPath); \
-          } \
-        } \
-      } \
-    ' \
     && rm -rf /tmp/package
 
 COPY my-cv-frontend/themes/ themes/
