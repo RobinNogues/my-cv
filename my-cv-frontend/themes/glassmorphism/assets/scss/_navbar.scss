@@ -2,6 +2,8 @@
 // NAVBAR STYLES
 // =============================================================================
 
+@use 'mixins' as *;
+
 .navbar {
     position: sticky;
     top: 1rem;
@@ -21,7 +23,7 @@
     justify-content: space-between;
     padding: 0.75rem 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-nav);
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -34,12 +36,16 @@
     cursor: pointer;
 
     span {
-        color: var(--primary-600);
+        color: var(--accent-text);
         font-weight: 700;
     }
 
     &:hover span {
-        color: var(--primary-700);
+        color: var(--primary-800);
+
+        [data-theme="dark"] & {
+            color: var(--primary-300);
+        }
     }
 }
 
@@ -49,7 +55,7 @@
     align-items: center;
     gap: 1.5rem;
 
-    @media (min-width: 1024px) {
+    @media (min-width: $bp-desktop) {
         display: flex;
     }
 }
@@ -62,11 +68,11 @@
     position: relative;
 
     &:hover {
-        color: var(--primary-600);
+        color: var(--accent-text);
     }
 
     &.active {
-        color: var(--primary-600);
+        color: var(--accent-text);
     }
 }
 
@@ -167,7 +173,7 @@
     align-items: center;
     gap: 0.5rem;
 
-    @media (min-width: 1024px) {
+    @media (min-width: $bp-desktop) {
         display: none;
     }
 }
@@ -175,7 +181,7 @@
 .mobile-theme-toggle {
     display: flex;
 
-    @media (min-width: 1024px) {
+    @media (min-width: $bp-desktop) {
         display: none;
     }
 }
@@ -255,20 +261,8 @@
         visibility: visible;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: $bp-desktop) {
         display: none !important;
-    }
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-0.5rem);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -279,15 +273,19 @@
     transition: color 0.2s ease;
 
     &:hover {
-        color: var(--primary-500);
+        color: var(--accent-text);
     }
 
     &.mobile-link-contact {
-        color: var(--primary-600);
+        color: var(--accent-text);
         font-weight: 700;
     }
 
     &.mobile-link-contact:hover {
-        color: var(--primary-700);
+        color: var(--primary-800);
+
+        [data-theme="dark"] & {
+            color: var(--primary-300);
+        }
     }
 }

@@ -2,6 +2,8 @@
 // BASE STYLES & RESET
 // =============================================================================
 
+@use 'mixins' as *;
+
 // Reset
 *,
 *::before,
@@ -47,6 +49,41 @@ img {
     display: block;
 }
 
+:where(a, button, input, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--primary-600);
+    outline-offset: 2px;
+
+    [data-theme="dark"] & {
+        outline-color: var(--primary-400);
+    }
+}
+
+.skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    background-color: var(--primary-700);
+    color: var(--text-inverted);
+    font-weight: 600;
+    font-size: 0.875rem;
+    box-shadow: var(--shadow-card);
+
+    &:not(:focus-visible):not(:focus) {
+        position: absolute;
+        clip-path: inset(50%);
+        overflow: hidden;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+        white-space: nowrap;
+    }
+}
+
 // Container
 .container {
     max-width: 1400px;
@@ -66,14 +103,14 @@ img {
 
 // Text utilities
 .text-gradient {
-    background: linear-gradient(to right, var(--primary-500), #f59e0b);
+    background: var(--gradient-accent);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
 .text-primary-500 {
-    color: var(--primary-500) !important;
+    color: var(--accent-text);
 }
 
 .text-muted {
@@ -81,24 +118,12 @@ img {
 }
 
 // Spacing utilities
-.mb-2 {
-    margin-bottom: 0.5rem;
-}
-
-.mb-4 {
-    margin-bottom: 1rem;
-}
-
 .mb-6 {
     margin-bottom: 1.5rem;
 }
 
 .mb-8 {
     margin-bottom: 2rem;
-}
-
-.mt-4 {
-    margin-top: 1rem;
 }
 
 .mt-auto {
@@ -122,11 +147,6 @@ img {
     justify-content: center;
 }
 
-.flex-col {
-    display: flex;
-    flex-direction: column;
-}
-
 // Section utilities
 .section-title {
     font-size: 1.875rem;
@@ -137,7 +157,7 @@ img {
     align-items: center;
 
     .icon {
-        color: var(--primary-500);
+        color: var(--accent-icon);
     }
 }
 
@@ -152,7 +172,7 @@ img {
     flex-direction: column;
     gap: 4rem;
 
-    @media (min-width: 1024px) {
+    @media (min-width: $bp-desktop) {
         padding-top: 6rem;
         gap: 6rem;
     }
@@ -228,23 +248,6 @@ img {
 
 .delay-4000 {
     animation-delay: 4s;
-}
-
-// Theme transition classes
-.theme-transition {
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
-}
-
-// Scroll reveal animation
-.reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-
-    &.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 // Honeypot field

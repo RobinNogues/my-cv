@@ -2,12 +2,14 @@
 // FORMS (Contact)
 // =============================================================================
 
+@use 'mixins' as *;
+
 .contact-container {
     width: 100%;
     max-width: 60rem;
     margin: 0 auto;
 
-    @media (min-width: 1024px) {
+    @media (min-width: $bp-desktop) {
         max-width: none;
         width: 50%;
     }
@@ -27,22 +29,12 @@
 }
 
 .form-card {
+    @include card-base;
     width: 100%;
     padding: 2rem;
     border-radius: 1.5rem;
     position: relative;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-
-    &:hover {
-        transform: translateY(-0.5rem);
-        border-color: var(--primary-500);
-        box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
-    }
-
-    [data-theme="dark"] &:hover {
-        box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
-    }
+    box-shadow: var(--shadow-card);
 }
 
 .form-grid {
@@ -50,7 +42,7 @@
     gap: 1.5rem;
     margin-bottom: 1.5rem;
 
-    @media (min-width: 1024px) {
+    @media (min-width: $bp-desktop) {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -84,10 +76,13 @@
         border-color: var(--slate-700);
     }
 
-    &:focus {
-        outline: none;
-        border-color: var(--primary-500);
-        box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+    &:focus-visible {
+        border-color: var(--primary-600);
+        box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2);
+
+        [data-theme="dark"] & {
+            border-color: var(--primary-400);
+        }
     }
 }
 
@@ -161,7 +156,7 @@ textarea.form-input {
     width: 90%;
     max-width: 450px;
     opacity: 0;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-toast);
     transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     pointer-events: none;
     z-index: 20;
@@ -205,7 +200,7 @@ textarea.form-input {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    background: linear-gradient(to right, var(--primary-500), #f59e0b);
+    background: var(--gradient-accent);
     color: #fff;
     display: flex;
     align-items: center;

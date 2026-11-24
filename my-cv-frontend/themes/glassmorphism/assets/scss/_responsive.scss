@@ -2,8 +2,10 @@
 // RESPONSIVE ADJUSTMENTS
 // =============================================================================
 
+@use 'mixins' as *;
+
 // Mobile devices (under 1024px)
-@media (max-width: 1023px) {
+@media (max-width: calc(#{$bp-desktop} - 1px)) {
     .container {
         padding-left: 1rem;
         padding-right: 1rem;
@@ -11,10 +13,6 @@
 
     .section-title {
         font-size: 1.5rem;
-    }
-
-    .grid-3 {
-        grid-template-columns: 1fr;
     }
 
     .about-grid {

@@ -8,7 +8,7 @@
     <!-- Filter Controls -->
     <div class="filter-container">
         {{- range $skills.filters }}
-        <button class="filter-btn{{ if eq .id "all" }} active{{ end }}" data-filter="{{ .id }}">{{ .label }}</button>
+        <button class="filter-btn{{ if eq .id "all" }} active{{ end }}" data-filter="{{ .id }}" aria-pressed="{{ if eq .id "all" }}true{{ else }}false{{ end }}">{{ .label }}</button>
         {{- end }}
     </div>
 
